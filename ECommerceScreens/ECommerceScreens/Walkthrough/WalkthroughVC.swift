@@ -38,6 +38,10 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        UICollectionViewCell()
+        let cell = WalkthroughCC()
+        cell.imageView.image = items[indexPath.item].image
+        cell.titleLabel.text = items[indexPath.item].title
+        cell.subtitleLabel.text = items[indexPath.item].subtitle
+        return cell
     }
 }

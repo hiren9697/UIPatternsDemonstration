@@ -5,6 +5,7 @@
 //  Created by Hirenkumar Fadadu on 29/03/25.
 //
 
+import UIKit
 @testable import ECommerceScreens
 
 extension WalkthroughVC {
@@ -16,8 +17,13 @@ extension WalkthroughVC {
         collectionView.numberOfItems(inSection: walkthroughItemSection)
     }
     
-    func renderedItem(at index: Int) -> WalkthroughCC? {
+    private func walkthgoughItem(at index: Int) -> UICollectionViewCell? {
         let indexPath = IndexPath(item: index, section: walkthroughItemSection)
-        return collectionView.cellForItem(at: indexPath) as? WalkthroughCC
+        let cell: WalkthroughCC? = collectionView.dataSource?.collectionView(collectionView, cellForItemAt: indexPath) as? WalkthroughCC
+        return cell
+    }
+    
+    func simulateWalkthroughItemVisible(at index: Int) -> WalkthroughCC? {
+        walkthgoughItem(at: index) as? WalkthroughCC
     }
 }

@@ -9,4 +9,6 @@ import UIKit
 
 public class WalkthroughCC: UICollectionViewCell {
     let imageView: UIImageView = UIImageView()
+    let titleLabel: UILabel = UILabel()
+    let subtitleLabel: UILabel = UILabel()
 }
