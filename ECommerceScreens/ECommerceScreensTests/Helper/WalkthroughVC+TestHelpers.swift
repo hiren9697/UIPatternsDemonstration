@@ -45,14 +45,33 @@ extension WalkthroughVC {
     
     /// Starts with index 1 up to last item ex. 3 (1, 2, 3)
     func scrollToNextItem(totalItemCount: Int) {
-        let pageCGFloat = collectionView.contentOffset.x / collectionView.bounds.width
-        let pageIndexInt: Int = Int(pageCGFloat.rounded(.toNearestOrAwayFromZero))
-        guard pageIndexInt < totalItemCount else {
+        func getCurrentIndex() -> Int {
+            guard collectionView.contentOffset.x > 0 else { return 0 }
+            let pageCGFloat = collectionView.contentOffset.x / collectionView.bounds.width
+            let pageIndexInt: Int = Int(pageCGFloat.rounded(.toNearestOrAwayFromZero))
+            return pageIndexInt
+        }
+        print("--- ScrollToNextItem, contentOffset before: \(collectionView.contentOffset.x) ---")
+        
+        let currentIndex = getCurrentIndex()
+        guard currentIndex < totalItemCount else {
             return
         }
         let currentOffset = collectionView.contentOffset
         let newOffset = currentOffset.x + collectionView.bounds.width
         collectionView.contentOffset = CGPoint(x: newOffset, y: collectionView.contentOffset.y)
         collectionView.delegate!.scrollViewDidScroll?(collectionView)
+        print("--- ScrollToNextItem, contentOffset after: \(collectionView.contentOffset.x) ---")
+    }
+    
+    func scrollToPreviousItem() {
+        print("--- ScrollToPreviousItem, contentOffset before: \(collectionView.contentOffset.x) ---")
+        guard collectionView.contentOffset.x > 0 else {
+            return
+        }
+        let newOffsetX = max(0, (collectionView.contentOffset.x - collectionView.bounds.width))
+        collectionView.contentOffset = CGPoint(x: newOffsetX, y: collectionView.contentOffset.y)
+        collectionView.delegate!.scrollViewDidScroll?(collectionView)
+        print("--- ScrollToPreviousItem, contentOffset after: \(collectionView.contentOffset.x) ---")
     }
 }

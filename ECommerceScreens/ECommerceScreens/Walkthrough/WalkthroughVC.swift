@@ -19,6 +19,7 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
     }()
     let pageControl: UIPageControl = UIPageControl()
     let currentItemTrackingLabel: UILabel = UILabel()
+    let previousButton: UIButton = UIButton()
     
     private let items: [WalkthroughItem]
     
@@ -43,7 +44,12 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        #if TEST
+        collectionView.layoutIfNeeded()
+        #endif
         collectionView.reloadData()
+        
+        updateCurrentItemTrackingUI()
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -71,22 +77,30 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        guard scrollView.contentOffset.x > 0 else {
-            return
-        }
-        let pageCGFloat = scrollView.contentOffset.x / scrollView.bounds.width
-        let pageIndexInt = pageCGFloat.rounded(.toNearestOrAwayFromZero)
-        pageControl.currentPage = Int(pageIndexInt)
         updateCurrentItemTrackingUI()
     }
     
     func updateCurrentItemTrackingUI() {
-        guard collectionView.contentOffset.x > 0 else { return }
+        guard collectionView.contentOffset.x > 0 else {
+            updateCurrentItemTracking(item: 0)
+            updatePreviousButton(item: 0)
+            return
+        }
         let pageCGFloat = collectionView.contentOffset.x / collectionView.bounds.width
         let pageIndexInt = pageCGFloat.rounded(.toNearestOrAwayFromZero)
         let currentItemIndex: Int = Int(pageIndexInt)
-        let totalItems: Int = items.count
-        currentItemTrackingLabel.text = "\(currentItemIndex)/\(totalItems)"
+        updateCurrentItemTracking(item: currentItemIndex)
+        updatePreviousButton(item: currentItemIndex)
+        pageControl.currentPage = currentItemIndex
+        print("CollectionView offset: \(collectionView.contentOffset.x), pageCGFloat: \(pageCGFloat), pageIndexInt: \(pageIndexInt)")
+    }
+    
+    private func updateCurrentItemTracking(item: Int) {
+        let displayItem: Int = item + 1
+        currentItemTrackingLabel.text = "\(displayItem)/\(items.count)"
+    }
+    
+    private func updatePreviousButton(item: Int) {
+        previousButton.isHidden = item == 0
     }
 }

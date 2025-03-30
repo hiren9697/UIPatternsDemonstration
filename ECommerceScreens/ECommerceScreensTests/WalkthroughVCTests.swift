@@ -92,8 +92,6 @@ final class WalkthroughVCTests: XCTestCase {
         let items = getDummyItems(3)
         let sut = makeSUT(items: items)
         sut.collectionView.layoutIfNeeded()
-        sut.setInitialContentOffset()
-        sut.updateCurrentItemTrackingUI()
         
         // Assert
         let trackingTextForFirstItem = getTrackingText(for: 0)
@@ -118,6 +116,35 @@ final class WalkthroughVCTests: XCTestCase {
         XCTAssertEqual(sut.currentItemTrackingText,
                        trackingTextForThridItem,
                        "Expected current item trakcing text to be '\(trackingTextForFirstItem)' after second scroll, but got \(sut.currentItemTrackingText) instead")
+    }
+    
+    func test_previousButton_onlyVisibleAfterFirstItem() {
+        // Arrange & Act
+        let items = getDummyItems(3)
+        let sut = makeSUT(items: items)
+        sut.collectionView.layoutIfNeeded()
+        
+        // Assert
+        XCTAssertTrue(sut.previousButton.isHidden)
+        
+        // Act
+        sut.scrollToNextItem(totalItemCount: items.count)
+        
+        // Assert
+        XCTAssertFalse(sut.previousButton.isHidden)
+        
+        // Act
+        sut.scrollToNextItem(totalItemCount: items.count)
+        
+        // Assert
+        XCTAssertFalse(sut.previousButton.isHidden)
+        
+        // Act
+        sut.scrollToPreviousItem()
+        sut.scrollToPreviousItem()
+        
+        // Assert
+        XCTAssertTrue(sut.previousButton.isHidden)
     }
     
     // MARK: - Helper
