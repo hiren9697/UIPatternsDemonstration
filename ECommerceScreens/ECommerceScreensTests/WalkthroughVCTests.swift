@@ -63,7 +63,19 @@ final class WalkthroughVCTests: XCTestCase {
     private func makeSUT(items: [WalkthroughItem]) -> WalkthroughVC {
         let vc = WalkthroughVC(items: items)
         vc.loadViewIfNeeded()
+        trackMemory(for: vc)
         return vc
+    }
+    
+    private func trackMemory(for object: AnyObject,
+                             file: StaticString = #filePath,
+                             line: UInt = #line) {
+        addTeardownBlock {[weak object] in
+            XCTAssertNil(object,
+                         "Instance should have been deallocated. Potential memory leak: \(String(describing: object))",
+                         file: file,
+                         line: line)
+        }
     }
 }
 
