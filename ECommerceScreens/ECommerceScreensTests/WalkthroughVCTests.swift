@@ -27,9 +27,18 @@ final class WalkthroughVCTests: XCTestCase {
         assert(sut: sut, isRendering: items)
     }
     
-    func test_pageIndicator_hasSameNumberOfPages_asItems() {
+    func test_pageIndicator_hasSameNumberOfPages_asItems_1() {
         // Arrange & Act
         let items = getDummyItems(3)
+        let sut = makeSUT(items: items)
+        
+        // Assert
+        XCTAssertEqual(sut.pageIndicatorTotalPages, items.count)
+    }
+    
+    func test_pageIndicator_hasSameNumberOfPages_asItems_2() {
+        // Arrange & Act
+        let items = getDummyItems(5)
         let sut = makeSUT(items: items)
         
         // Assert
