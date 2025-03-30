@@ -17,6 +17,10 @@ extension WalkthroughVC {
         collectionView.numberOfItems(inSection: walkthroughItemSection)
     }
     
+    var pageIndicatorTotalPages: Int {
+        pageControl.numberOfPages
+    }
+    
     private func walkthgoughItem(at index: Int) -> UICollectionViewCell? {
         let indexPath = IndexPath(item: index, section: walkthroughItemSection)
         let cell: WalkthroughCC? = collectionView.dataSource?.collectionView(collectionView, cellForItemAt: indexPath) as? WalkthroughCC

@@ -9,18 +9,22 @@ import XCTest
 @testable import ECommerceScreens
 
 final class WalkthroughVCTests: XCTestCase {
-
     func test_walkthroughItems_rendered() {
-        // Arrange
+        // Arrange & Act
         let items = getDummyItems()
-        let sut = WalkthroughVC(items: items)
-        
-        // Act
-        sut.loadViewIfNeeded()
-        sut.collectionView.reloadData()
+        let sut = makeSUT(items: items)
         
         // Assert
         assert(sut: sut, isRendering: items)
+    }
+    
+    func test_pageIndicator_hasSameNumberOfPages_asItems() {
+        // Arrange & Act
+        let items = getDummyItems()
+        let sut = makeSUT(items: items)
+        
+        // Assert
+        XCTAssertEqual(sut.pageIndicatorTotalPages, items.count)
     }
     
     // MARK: - Helper
@@ -42,6 +46,12 @@ final class WalkthroughVCTests: XCTestCase {
                          title: "Fifth title",
                          subtitle: "Fifth subtitle"),
         ]
+    }
+    
+    private func makeSUT(items: [WalkthroughItem]) -> WalkthroughVC {
+        let vc = WalkthroughVC(items: items)
+        vc.loadViewIfNeeded()
+        return vc
     }
 }
 

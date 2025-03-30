@@ -16,6 +16,7 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource {
         collectionView.dataSource = self
         return collectionView
     }()
+    let pageControl: UIPageControl = UIPageControl()
     
     private let items: [WalkthroughItem]
     
@@ -31,6 +32,7 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource {
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .green
+        pageControl.numberOfPages = items.count
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
