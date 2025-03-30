@@ -45,6 +45,45 @@ final class WalkthroughVCTests: XCTestCase {
         XCTAssertEqual(sut.pageIndicatorTotalPages, items.count)
     }
     
+    func test_pageIndicator_updatesCurrentPage_onScrollingItems() {
+        // Note: To have visible cells on collectionView, collectionView should be subView of view, and should have valid frame(It can be with constraint), and neet to call `layoutIfNeeded()` on collectionView
+        
+        // Arrange
+        let items = getDummyItems(3)
+        let sut = makeSUT(items: items)
+        // This is needed to have visible cells on collectionView
+        sut.collectionView.layoutIfNeeded()
+        
+        // Assert
+        XCTAssertEqual(sut.pageIndicatorCurrentPage,
+                       0,
+                       "Expected currentPage to be 0 initially, but got \(sut.pageIndicatorCurrentPage) instead")
+        
+        // Act
+        sut.scrollToNextItem(totalItemCount: items.count)
+        
+        // Assert
+        XCTAssertEqual(sut.pageIndicatorCurrentPage,
+                       1,
+                       "Expected currentPage to be 1 after scrolling to next item, but got \(sut.pageIndicatorCurrentPage) instead")
+        
+        // Act
+        sut.scrollToNextItem(totalItemCount: items.count)
+        
+        // Assert
+        XCTAssertEqual(sut.pageIndicatorCurrentPage,
+                       2,
+                       "Expected currentPage to be 2 after second scroll, but got \(sut.pageIndicatorCurrentPage) instead")
+        
+        // Act
+        sut.scrollToNextItem(totalItemCount: items.count)
+        
+        // Assert
+        XCTAssertEqual(sut.pageIndicatorCurrentPage,
+                       2,
+                       "Expected currentPage to be 2 after third scroll, because there is no next item, but got \(sut.pageIndicatorCurrentPage) instead")
+    }
+    
     // MARK: - Helper
     private func getDummyItems(_ itemCount: Int) -> [WalkthroughItem] {
         let colors: [UIColor] = [.red, .blue, .green, .yellow, .orange]
