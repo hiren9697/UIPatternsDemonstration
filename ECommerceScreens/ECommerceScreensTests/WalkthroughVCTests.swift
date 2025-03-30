@@ -46,7 +46,7 @@ final class WalkthroughVCTests: XCTestCase {
     }
     
     func test_pageIndicator_updatesCurrentPage_onScrollingItems() {
-        // Note: To have visible cells on collectionView, collectionView should be subView of view, and should have valid frame(It can be with constraint), and neet to call `layoutIfNeeded()` on collectionView
+        // Note: To have visible cells on collectionView, collectionView should be subView of view, and should have valid frame(It can be with constraint), and neet to call `layoutIfNeeded()` on collectionView, But now we are not showing collectionView cells on screen, we are just updating content offset of collectionview
         
         // Arrange
         let items = getDummyItems(3)
