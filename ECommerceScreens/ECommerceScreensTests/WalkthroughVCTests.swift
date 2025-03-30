@@ -9,9 +9,18 @@ import XCTest
 @testable import ECommerceScreens
 
 final class WalkthroughVCTests: XCTestCase {
-    func test_walkthroughItems_rendered() {
+    func test_walkthroughItems_rendered_1() {
         // Arrange & Act
-        let items = getDummyItems()
+        let items = getDummyItems(3)
+        let sut = makeSUT(items: items)
+        
+        // Assert
+        assert(sut: sut, isRendering: items)
+    }
+    
+    func test_walkthroughItems_rendered_2() {
+        // Arrange & Act
+        let items = getDummyItems(5)
         let sut = makeSUT(items: items)
         
         // Assert
@@ -20,7 +29,7 @@ final class WalkthroughVCTests: XCTestCase {
     
     func test_pageIndicator_hasSameNumberOfPages_asItems() {
         // Arrange & Act
-        let items = getDummyItems()
+        let items = getDummyItems(3)
         let sut = makeSUT(items: items)
         
         // Assert
@@ -28,24 +37,18 @@ final class WalkthroughVCTests: XCTestCase {
     }
     
     // MARK: - Helper
-    private func getDummyItems() -> [WalkthroughItem] {
-        [
-            WalkthroughItem(image: UIImage.make(withColor: .blue),
-                         title: "First title",
-                         subtitle: "First subtitle"),
-            WalkthroughItem(image: UIImage.make(withColor: .red),
-                         title: "Second title",
-                         subtitle: "Second subtitle"),
-            WalkthroughItem(image: UIImage.make(withColor: .yellow),
-                         title: "Third title",
-                         subtitle: "Third subtitle"),
-            WalkthroughItem(image: UIImage.make(withColor: .green),
-                         title: "Fourth title",
-                         subtitle: "Fourth subtitle"),
-            WalkthroughItem(image: UIImage.make(withColor: .gray),
-                         title: "Fifth title",
-                         subtitle: "Fifth subtitle"),
-        ]
+    private func getDummyItems(_ itemCount: Int) -> [WalkthroughItem] {
+        let colors: [UIColor] = [.red, .blue, .green, .yellow, .orange]
+        var items: [WalkthroughItem] = []
+        for i in 1 ... itemCount {
+            let imageColorIndex: Int = i % 5
+            let imageColor = colors[imageColorIndex]
+            let item = WalkthroughItem(image: UIImage.make(withColor: imageColor),
+                                       title: "Title no. \(i)",
+                                       subtitle: "Subtitle no. \(i)")
+            items.append(item)
+        }
+        return items
     }
     
     private func makeSUT(items: [WalkthroughItem]) -> WalkthroughVC {
