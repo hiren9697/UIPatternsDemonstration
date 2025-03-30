@@ -84,6 +84,42 @@ final class WalkthroughVCTests: XCTestCase {
                        "Expected currentPage to be 2 after third scroll, because there is no next item, but got \(sut.pageIndicatorCurrentPage) instead")
     }
     
+    func test_currentItemTrackingLabel_updates_onScrollingItems() {
+        func getTrackingText(for index: Int) -> String {
+            return "\(index + 1)/\(items.count)"
+        }
+        // Arrange
+        let items = getDummyItems(3)
+        let sut = makeSUT(items: items)
+        sut.collectionView.layoutIfNeeded()
+        sut.setInitialContentOffset()
+        sut.updateCurrentItemTrackingUI()
+        
+        // Assert
+        let trackingTextForFirstItem = getTrackingText(for: 0)
+        XCTAssertEqual(sut.currentItemTrackingText,
+                       trackingTextForFirstItem,
+                       "Expected current item trakcing text to be '\(trackingTextForFirstItem)' initially, but got \(sut.currentItemTrackingText) instead")
+        
+        // Act
+        sut.scrollToNextItem(totalItemCount: items.count)
+        
+        // Assert
+        let trackingTextforSecondItem = getTrackingText(for: 1)
+        XCTAssertEqual(sut.currentItemTrackingText,
+                       trackingTextforSecondItem,
+                       "Expected current item trakcing text to be '\(trackingTextforSecondItem)' after first scroll, but got \(sut.currentItemTrackingText) instead")
+        
+        // Act
+        sut.scrollToNextItem(totalItemCount: items.count)
+        
+        // Assert
+        let trackingTextForThridItem = getTrackingText(for: 2)
+        XCTAssertEqual(sut.currentItemTrackingText,
+                       trackingTextForThridItem,
+                       "Expected current item trakcing text to be '\(trackingTextForFirstItem)' after second scroll, but got \(sut.currentItemTrackingText) instead")
+    }
+    
     // MARK: - Helper
     private func getDummyItems(_ itemCount: Int) -> [WalkthroughItem] {
         let colors: [UIColor] = [.red, .blue, .green, .yellow, .orange]

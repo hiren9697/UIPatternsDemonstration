@@ -25,6 +25,10 @@ extension WalkthroughVC {
         pageControl.currentPage
     }
     
+    var currentItemTrackingText: String {
+        currentItemTrackingLabel.text ?? ""
+    }
+    
     private func walkthgoughItem(at index: Int) -> UICollectionViewCell? {
         let indexPath = IndexPath(item: index, section: walkthroughItemSection)
         let cell: WalkthroughCC? = collectionView.dataSource?.collectionView(collectionView, cellForItemAt: indexPath) as? WalkthroughCC
@@ -35,10 +39,15 @@ extension WalkthroughVC {
         walkthgoughItem(at: index) as? WalkthroughCC
     }
     
+    func setInitialContentOffset() {
+        collectionView.contentOffset = CGPoint(x: collectionView.bounds.width, y: collectionView.contentOffset.y)
+    }
+    
+    /// Starts with index 1 up to last item ex. 3 (1, 2, 3)
     func scrollToNextItem(totalItemCount: Int) {
         let pageCGFloat = collectionView.contentOffset.x / collectionView.bounds.width
         let pageIndexInt: Int = Int(pageCGFloat.rounded(.toNearestOrAwayFromZero))
-        guard pageIndexInt < (totalItemCount - 1) else {
+        guard pageIndexInt < totalItemCount else {
             return
         }
         let currentOffset = collectionView.contentOffset

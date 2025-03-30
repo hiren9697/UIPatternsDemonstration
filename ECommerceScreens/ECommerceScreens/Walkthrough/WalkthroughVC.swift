@@ -18,6 +18,7 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
         return collectionView
     }()
     let pageControl: UIPageControl = UIPageControl()
+    let currentItemTrackingLabel: UILabel = UILabel()
     
     private let items: [WalkthroughItem]
     
@@ -77,5 +78,15 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
         let pageCGFloat = scrollView.contentOffset.x / scrollView.bounds.width
         let pageIndexInt = pageCGFloat.rounded(.toNearestOrAwayFromZero)
         pageControl.currentPage = Int(pageIndexInt)
+        updateCurrentItemTrackingUI()
+    }
+    
+    func updateCurrentItemTrackingUI() {
+        guard collectionView.contentOffset.x > 0 else { return }
+        let pageCGFloat = collectionView.contentOffset.x / collectionView.bounds.width
+        let pageIndexInt = pageCGFloat.rounded(.toNearestOrAwayFromZero)
+        let currentItemIndex: Int = Int(pageIndexInt)
+        let totalItems: Int = items.count
+        currentItemTrackingLabel.text = "\(currentItemIndex)/\(totalItems)"
     }
 }
