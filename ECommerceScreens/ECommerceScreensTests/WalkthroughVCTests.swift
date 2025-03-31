@@ -175,6 +175,42 @@ final class WalkthroughVCTests: XCTestCase {
                        "Expected text of next button: 'Get Started' on third / last item, but got '\(sut.nextButtonText)'")
     }
     
+    func test_previousButton_scrollsToPreviousItem() {
+        // Arrange & Act
+        let items = getDummyItems(3)
+        let sut = makeSUT(items: items)
+        sut.collectionView.layoutIfNeeded()
+        sut.simulateNextItemScroll(totalItemCount: items.count)
+        sut.simulateNextItemScroll(totalItemCount: items.count)
+        
+        XCTAssertEqual(sut.visibleItemIndex,
+                       2,
+                       "Expected third item visible on screen, but got \(String(describing: sut.visibleItemIndex)) instead")
+        
+        sut.simulatePreviousButtonTap()
+        sut.collectionView.layoutIfNeeded()
+        
+        XCTAssertEqual(sut.visibleItemIndex,
+                       1,
+                       "Expected second item visible on screen, but got \(String(describing: sut.visibleItemIndex)) instead")
+        
+        sut.simulatePreviousButtonTap()
+        sut.collectionView.layoutIfNeeded()
+        
+        XCTAssertEqual(sut.visibleItemIndex,
+                       0,
+                       "Expected first item visible on screen, but got \(String(describing: sut.visibleItemIndex)) instead")
+        
+        sut.simulatePreviousButtonTap()
+        sut.collectionView.layoutIfNeeded()
+        
+        XCTAssertEqual(sut.visibleItemIndex,
+                       0,
+                       "Expected first item visible on screen, but got \(String(describing: sut.visibleItemIndex)) instead")
+        
+    }
+    
+    
     // MARK: - Helper
     private func getDummyItems(_ itemCount: Int) -> [WalkthroughItem] {
         let colors: [UIColor] = [.red, .blue, .green, .yellow, .orange]

@@ -33,6 +33,10 @@ extension WalkthroughVC {
         nextButton.title(for: .normal) ?? ""
     }
     
+    var visibleItemIndex: Int? {
+        collectionView.indexPathsForVisibleItems.first?.item
+    }
+    
     private func walkthgoughItem(at index: Int) -> UICollectionViewCell? {
         let indexPath = IndexPath(item: index, section: walkthroughItemSection)
         let cell: WalkthroughCC? = collectionView.dataSource?.collectionView(collectionView, cellForItemAt: indexPath) as? WalkthroughCC
@@ -68,6 +72,19 @@ extension WalkthroughVC {
         print("--- ScrollToNextItem, contentOffset after: \(collectionView.contentOffset.x) ---")
     }
     
+    func simulateNextItemScroll(totalItemCount: Int) {
+        func getCurrentIndex() -> Int? {
+            collectionView.indexPathsForVisibleItems.first?.item
+        }
+        guard let currentIndex = getCurrentIndex() else {
+            return
+        }
+        let nextItem = currentIndex + 1
+        let indexPath = IndexPath(item: nextItem, section: walkthroughItemSection)
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+        collectionView.layoutIfNeeded()
+    }
+    
     func scrollToPreviousItem() {
         print("--- ScrollToPreviousItem, contentOffset before: \(collectionView.contentOffset.x) ---")
         guard collectionView.contentOffset.x > 0 else {
@@ -77,5 +94,19 @@ extension WalkthroughVC {
         collectionView.contentOffset = CGPoint(x: newOffsetX, y: collectionView.contentOffset.y)
         collectionView.delegate!.scrollViewDidScroll?(collectionView)
         print("--- ScrollToPreviousItem, contentOffset after: \(collectionView.contentOffset.x) ---")
+    }
+    
+    func simulatePreviousButtonTap() {
+        previousButton.simulateTap()
+    }
+}
+
+extension UIButton {
+    func simulateTap() {
+        self.allTargets.forEach { target in
+            self.actions(forTarget: target, forControlEvent: .touchUpInside)?.forEach({ action in
+                (target as NSObject).perform(Selector(action))
+            })
+        }
     }
 }
