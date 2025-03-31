@@ -29,6 +29,10 @@ extension WalkthroughVC {
         currentItemTrackingLabel.text ?? ""
     }
     
+    var nextButtonText: String {
+        nextButton.title(for: .normal) ?? ""
+    }
+    
     private func walkthgoughItem(at index: Int) -> UICollectionViewCell? {
         let indexPath = IndexPath(item: index, section: walkthroughItemSection)
         let cell: WalkthroughCC? = collectionView.dataSource?.collectionView(collectionView, cellForItemAt: indexPath) as? WalkthroughCC

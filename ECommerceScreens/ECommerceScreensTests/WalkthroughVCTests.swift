@@ -147,6 +147,34 @@ final class WalkthroughVCTests: XCTestCase {
         XCTAssertTrue(sut.previousButton.isHidden)
     }
     
+    func test_nexButton_updatesText_onScrollToLastItem() {
+        // Arrange & Act
+        let items = getDummyItems(3)
+        let sut = makeSUT(items: items)
+        sut.collectionView.layoutIfNeeded()
+        
+        // Assert
+        XCTAssertEqual(sut.nextButtonText,
+                       "Next",
+                       "Expected text of next button: 'Next' on first item, but got '\(sut.nextButtonText)'")
+        
+        // Act
+        sut.scrollToNextItem(totalItemCount: items.count)
+        
+        // Assert
+        XCTAssertEqual(sut.nextButtonText,
+                       "Next",
+                       "Expected text of next button: 'Next' on second item, but got '\(sut.nextButtonText)'")
+        
+        // Act
+        sut.scrollToNextItem(totalItemCount: items.count)
+        
+        // Assert
+        XCTAssertEqual(sut.nextButtonText,
+                       "Get Started",
+                       "Expected text of next button: 'Get Started' on third / last item, but got '\(sut.nextButtonText)'")
+    }
+    
     // MARK: - Helper
     private func getDummyItems(_ itemCount: Int) -> [WalkthroughItem] {
         let colors: [UIColor] = [.red, .blue, .green, .yellow, .orange]

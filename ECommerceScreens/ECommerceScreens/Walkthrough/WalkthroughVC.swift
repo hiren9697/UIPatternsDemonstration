@@ -20,6 +20,7 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
     let pageControl: UIPageControl = UIPageControl()
     let currentItemTrackingLabel: UILabel = UILabel()
     let previousButton: UIButton = UIButton()
+    let nextButton: UIButton = UIButton()
     
     private let items: [WalkthroughItem]
     
@@ -48,6 +49,8 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
         collectionView.layoutIfNeeded()
         #endif
         collectionView.reloadData()
+        
+        nextButton.setTitle("Next", for: .normal)
         
         updateCurrentItemTrackingUI()
     }
@@ -91,6 +94,7 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
         let currentItemIndex: Int = Int(pageIndexInt)
         updateCurrentItemTracking(item: currentItemIndex)
         updatePreviousButton(item: currentItemIndex)
+        updateNextButtonTitle(item: currentItemIndex)
         pageControl.currentPage = currentItemIndex
         print("CollectionView offset: \(collectionView.contentOffset.x), pageCGFloat: \(pageCGFloat), pageIndexInt: \(pageIndexInt)")
     }
@@ -102,5 +106,10 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
     
     private func updatePreviousButton(item: Int) {
         previousButton.isHidden = item == 0
+    }
+    
+    private func updateNextButtonTitle(item: Int) {
+        let title = item >= (items.count - 1) ? "Get Started" : "Next"
+        nextButton.setTitle(title, for: .normal)
     }
 }
