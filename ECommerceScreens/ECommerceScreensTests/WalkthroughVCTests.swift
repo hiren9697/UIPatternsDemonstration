@@ -249,6 +249,21 @@ final class WalkthroughVCTests: XCTestCase {
                        "Expected third item visible on screen after tapping next button, but got \(String(describing: sut.visibleItemIndex)) instead")
     }
     
+    func test_nextButton_navigatesToNextScreen_onLastItem() {
+        // Arrange & Act
+        let items = getDummyItems(3)
+        var isFinishWalkthroughCalled = false
+        let sut = makeSUT(items: items, onFinishWalkthrough: { isFinishWalkthroughCalled = true })
+        sut.collectionView.layoutIfNeeded()
+        
+        // Act
+        sut.scrollToLastItem(totalItemCount: items.count)
+        sut.simulateNextButtonTap()
+        
+        // Assert
+        XCTAssertTrue(isFinishWalkthroughCalled)
+    }
+    
     
     // MARK: - Helper
     private func getDummyItems(_ itemCount: Int) -> [WalkthroughItem] {
@@ -265,8 +280,9 @@ final class WalkthroughVCTests: XCTestCase {
         return items
     }
     
-    private func makeSUT(items: [WalkthroughItem]) -> WalkthroughVC {
-        let vc = WalkthroughVC(items: items)
+    private func makeSUT(items: [WalkthroughItem],
+                         onFinishWalkthrough: @escaping () -> Void = {}) -> WalkthroughVC {
+        let vc = WalkthroughVC(items: items, onFinishWalkthrough: onFinishWalkthrough)
         vc.loadViewIfNeeded()
         trackMemory(for: vc)
         return vc

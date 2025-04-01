@@ -72,6 +72,12 @@ extension WalkthroughVC {
         print("--- ScrollToNextItem, contentOffset after: \(collectionView.contentOffset.x) ---")
     }
     
+    func scrollToLastItem(totalItemCount: Int) {
+        let lastIndexPath = IndexPath(item: totalItemCount - 1, section: walkthroughItemSection)
+        collectionView.scrollToItem(at: lastIndexPath, at: .centeredHorizontally, animated: false)
+        collectionView.layoutIfNeeded()
+    }
+    
     func simulateNextItemScroll(totalItemCount: Int) {
         func getCurrentIndex() -> Int? {
             collectionView.indexPathsForVisibleItems.first?.item

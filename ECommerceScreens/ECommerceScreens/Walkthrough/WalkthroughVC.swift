@@ -23,9 +23,11 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
     let nextButton: UIButton = UIButton()
     
     private let items: [WalkthroughItem]
+    private let onFinishWalkthrough: () -> Void
     
-    public init(items: [WalkthroughItem]) {
+    public init(items: [WalkthroughItem], onFinishWalkthrough: @escaping () -> Void) {
         self.items = items
+        self.onFinishWalkthrough = onFinishWalkthrough
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -69,7 +71,10 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
     @objc func nextButtonTap() {
         guard let indexPath = collectionView.indexPathsForVisibleItems.first else { return }
         let nextItem = indexPath.item + 1
-        guard nextItem < items.count else { return }
+        guard nextItem < items.count else {
+            onFinishWalkthrough()
+            return
+        }
         let nextIndexPath = IndexPath(item: nextItem, section: indexPath.section)
         collectionView.scrollToItem(at: nextIndexPath, at: .centeredHorizontally, animated: false)
     }
