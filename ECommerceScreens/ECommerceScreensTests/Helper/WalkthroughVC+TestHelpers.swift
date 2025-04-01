@@ -99,6 +99,10 @@ extension WalkthroughVC {
     func simulatePreviousButtonTap() {
         previousButton.simulateTap()
     }
+    
+    func simulateNextButtonTap() {
+        nextButton.simulateTap()
+    }
 }
 
 extension UIButton {

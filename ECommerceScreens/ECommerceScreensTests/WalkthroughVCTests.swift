@@ -210,6 +210,45 @@ final class WalkthroughVCTests: XCTestCase {
         
     }
     
+    func test_nextButton_scrollsToNextItem() {
+        // Arrange & Act
+        let items = getDummyItems(3)
+        let sut = makeSUT(items: items)
+        sut.collectionView.layoutIfNeeded()
+        
+        // Assert
+        XCTAssertEqual(sut.visibleItemIndex,
+                       0,
+                       "Expected first item visible on screen initially, but got \(String(describing: sut.visibleItemIndex)) instead")
+        
+        // Act
+        sut.simulateNextButtonTap()
+        sut.collectionView.layoutIfNeeded()
+        
+        // Assert
+        XCTAssertEqual(sut.visibleItemIndex,
+                       1,
+                       "Expected second item visible on screen after tapping next button, but got \(String(describing: sut.visibleItemIndex)) instead")
+        
+        // Act
+        sut.simulateNextButtonTap()
+        sut.collectionView.layoutIfNeeded()
+        
+        // Assert
+        XCTAssertEqual(sut.visibleItemIndex,
+                       2,
+                       "Expected third item visible on screen after tapping next button, but got \(String(describing: sut.visibleItemIndex)) instead")
+        
+        // Act
+        sut.simulateNextButtonTap()
+        sut.collectionView.layoutIfNeeded()
+        
+        // Assert
+        XCTAssertEqual(sut.visibleItemIndex,
+                       2,
+                       "Expected third item visible on screen after tapping next button, but got \(String(describing: sut.visibleItemIndex)) instead")
+    }
+    
     
     // MARK: - Helper
     private func getDummyItems(_ itemCount: Int) -> [WalkthroughItem] {

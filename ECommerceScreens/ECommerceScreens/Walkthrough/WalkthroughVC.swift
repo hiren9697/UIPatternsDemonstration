@@ -51,6 +51,7 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
         collectionView.reloadData()
         
         nextButton.setTitle("Next", for: .normal)
+        nextButton.addTarget(self, action: #selector(nextButtonTap), for: .touchUpInside)
         
         previousButton.addTarget(self, action: #selector(previousButtonTap), for: .touchUpInside)
         
@@ -63,6 +64,14 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
         guard previousItem >= 0 else { return }
         let previousIndexPath = IndexPath(item: previousItem, section: indexPath.section)
         collectionView.scrollToItem(at: previousIndexPath, at: .centeredHorizontally, animated: false)
+    }
+    
+    @objc func nextButtonTap() {
+        guard let indexPath = collectionView.indexPathsForVisibleItems.first else { return }
+        let nextItem = indexPath.item + 1
+        guard nextItem < items.count else { return }
+        let nextIndexPath = IndexPath(item: nextItem, section: indexPath.section)
+        collectionView.scrollToItem(at: nextIndexPath, at: .centeredHorizontally, animated: false)
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
