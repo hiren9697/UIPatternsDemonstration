@@ -72,13 +72,13 @@ extension WalkthroughVC {
         print("--- ScrollToNextItem, contentOffset after: \(collectionView.contentOffset.x) ---")
     }
     
-    func scrollToLastItem(totalItemCount: Int) {
+    func simulateScrollToLastItem(totalItemCount: Int) {
         let lastIndexPath = IndexPath(item: totalItemCount - 1, section: walkthroughItemSection)
         collectionView.scrollToItem(at: lastIndexPath, at: .centeredHorizontally, animated: false)
         collectionView.layoutIfNeeded()
     }
     
-    func simulateNextItemScroll(totalItemCount: Int) {
+    func simulateScrollToNextItem(totalItemCount: Int) {
         func getCurrentIndex() -> Int? {
             collectionView.indexPathsForVisibleItems.first?.item
         }
@@ -91,7 +91,7 @@ extension WalkthroughVC {
         collectionView.layoutIfNeeded()
     }
     
-    func scrollToPreviousItem() {
+    func simulateScrollToPreviousItem() {
         print("--- ScrollToPreviousItem, contentOffset before: \(collectionView.contentOffset.x) ---")
         guard collectionView.contentOffset.x > 0 else {
             return

@@ -146,8 +146,8 @@ final class WalkthroughVCTests: XCTestCase {
         XCTAssertFalse(sut.previousButton.isHidden)
         
         // Act
-        sut.scrollToPreviousItem()
-        sut.scrollToPreviousItem()
+        sut.simulateScrollToPreviousItem()
+        sut.simulateScrollToPreviousItem()
         
         // Assert
         XCTAssertTrue(sut.previousButton.isHidden)
@@ -189,8 +189,8 @@ final class WalkthroughVCTests: XCTestCase {
         let items = getDummyItems(3)
         let sut = makeSUT(items: items)
         sut.collectionView.layoutIfNeeded()
-        sut.simulateNextItemScroll(totalItemCount: items.count)
-        sut.simulateNextItemScroll(totalItemCount: items.count)
+        sut.simulateScrollToNextItem(totalItemCount: items.count)
+        sut.simulateScrollToNextItem(totalItemCount: items.count)
         
         XCTAssertEqual(sut.visibleItemIndex,
                        2,
@@ -266,7 +266,7 @@ final class WalkthroughVCTests: XCTestCase {
         sut.collectionView.layoutIfNeeded()
         
         // Act
-        sut.scrollToLastItem(totalItemCount: items.count)
+        sut.simulateScrollToLastItem(totalItemCount: items.count)
         sut.simulateNextButtonTap()
         
         // Assert
