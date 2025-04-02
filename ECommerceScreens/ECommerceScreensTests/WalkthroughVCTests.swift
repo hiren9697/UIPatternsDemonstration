@@ -46,12 +46,12 @@ final class WalkthroughVCTests: XCTestCase {
     }
     
     func test_pageIndicator_updatesCurrentPage_onScrollingItems() {
-        // Note: To have visible cells on collectionView, collectionView should be subView of view, and should have valid frame(It can be with constraint), and neet to call `layoutIfNeeded()` on collectionView, But now we are not showing collectionView cells on screen, we are just updating content offset of collectionview
-        
         // Arrange
         let items = getDummyItems(3)
         let sut = makeSUT(items: items)
-        // This is needed to have visible cells on collectionView
+        /// This is needed to perform layout related to collectionView,
+        /// Without calling this collectionView's width would be 0,
+        /// And without collectionView's actual width, `simulateScrollToNextItemByUpdatingOffset` doesn't work
         sut.collectionView.layoutIfNeeded()
         
         // Assert
@@ -60,7 +60,7 @@ final class WalkthroughVCTests: XCTestCase {
                        "Expected currentPage to be 0 initially, but got \(sut.pageIndicatorCurrentPage) instead")
         
         // Act
-        sut.scrollToNextItem(totalItemCount: items.count)
+        sut.simulateScrollToNextItemByUpdatingOffset(totalItemCount: items.count)
         
         // Assert
         XCTAssertEqual(sut.pageIndicatorCurrentPage,
@@ -68,7 +68,7 @@ final class WalkthroughVCTests: XCTestCase {
                        "Expected currentPage to be 1 after scrolling to next item, but got \(sut.pageIndicatorCurrentPage) instead")
         
         // Act
-        sut.scrollToNextItem(totalItemCount: items.count)
+        sut.simulateScrollToNextItemByUpdatingOffset(totalItemCount: items.count)
         
         // Assert
         XCTAssertEqual(sut.pageIndicatorCurrentPage,
@@ -76,7 +76,7 @@ final class WalkthroughVCTests: XCTestCase {
                        "Expected currentPage to be 2 after second scroll, but got \(sut.pageIndicatorCurrentPage) instead")
         
         // Act
-        sut.scrollToNextItem(totalItemCount: items.count)
+        sut.simulateScrollToNextItemByUpdatingOffset(totalItemCount: items.count)
         
         // Assert
         XCTAssertEqual(sut.pageIndicatorCurrentPage,
@@ -91,6 +91,9 @@ final class WalkthroughVCTests: XCTestCase {
         // Arrange
         let items = getDummyItems(3)
         let sut = makeSUT(items: items)
+        /// This is needed to perform layout related to collectionView,
+        /// Without calling this collectionView's width would be 0,
+        /// And without collectionView's actual width, `simulateScrollToNextItemByUpdatingOffset` doesn't work
         sut.collectionView.layoutIfNeeded()
         
         // Assert
@@ -100,7 +103,7 @@ final class WalkthroughVCTests: XCTestCase {
                        "Expected current item trakcing text to be '\(trackingTextForFirstItem)' initially, but got \(sut.currentItemTrackingText) instead")
         
         // Act
-        sut.scrollToNextItem(totalItemCount: items.count)
+        sut.simulateScrollToNextItemByUpdatingOffset(totalItemCount: items.count)
         
         // Assert
         let trackingTextforSecondItem = getTrackingText(for: 1)
@@ -109,7 +112,7 @@ final class WalkthroughVCTests: XCTestCase {
                        "Expected current item trakcing text to be '\(trackingTextforSecondItem)' after first scroll, but got \(sut.currentItemTrackingText) instead")
         
         // Act
-        sut.scrollToNextItem(totalItemCount: items.count)
+        sut.simulateScrollToNextItemByUpdatingOffset(totalItemCount: items.count)
         
         // Assert
         let trackingTextForThridItem = getTrackingText(for: 2)
@@ -122,19 +125,22 @@ final class WalkthroughVCTests: XCTestCase {
         // Arrange & Act
         let items = getDummyItems(3)
         let sut = makeSUT(items: items)
+        /// This is needed to perform layout related to collectionView,
+        /// Without calling this collectionView's width would be 0,
+        /// And without collectionView's actual width, `simulateScrollToNextItemByUpdatingOffset` doesn't work
         sut.collectionView.layoutIfNeeded()
         
         // Assert
         XCTAssertTrue(sut.previousButton.isHidden)
         
         // Act
-        sut.scrollToNextItem(totalItemCount: items.count)
+        sut.simulateScrollToNextItemByUpdatingOffset(totalItemCount: items.count)
         
         // Assert
         XCTAssertFalse(sut.previousButton.isHidden)
         
         // Act
-        sut.scrollToNextItem(totalItemCount: items.count)
+        sut.simulateScrollToNextItemByUpdatingOffset(totalItemCount: items.count)
         
         // Assert
         XCTAssertFalse(sut.previousButton.isHidden)
@@ -151,6 +157,9 @@ final class WalkthroughVCTests: XCTestCase {
         // Arrange & Act
         let items = getDummyItems(3)
         let sut = makeSUT(items: items)
+        /// This is needed to perform layout related to collectionView,
+        /// Without calling this collectionView's width would be 0,
+        /// And without collectionView's actual width, `simulateScrollToNextItemByUpdatingOffset` doesn't work
         sut.collectionView.layoutIfNeeded()
         
         // Assert
@@ -159,7 +168,7 @@ final class WalkthroughVCTests: XCTestCase {
                        "Expected text of next button: 'Next' on first item, but got '\(sut.nextButtonText)'")
         
         // Act
-        sut.scrollToNextItem(totalItemCount: items.count)
+        sut.simulateScrollToNextItemByUpdatingOffset(totalItemCount: items.count)
         
         // Assert
         XCTAssertEqual(sut.nextButtonText,
@@ -167,7 +176,7 @@ final class WalkthroughVCTests: XCTestCase {
                        "Expected text of next button: 'Next' on second item, but got '\(sut.nextButtonText)'")
         
         // Act
-        sut.scrollToNextItem(totalItemCount: items.count)
+        sut.simulateScrollToNextItemByUpdatingOffset(totalItemCount: items.count)
         
         // Assert
         XCTAssertEqual(sut.nextButtonText,

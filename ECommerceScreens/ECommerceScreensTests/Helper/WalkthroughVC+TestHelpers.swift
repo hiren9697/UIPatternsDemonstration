@@ -52,14 +52,14 @@ extension WalkthroughVC {
     }
     
     /// Starts with index 1 up to last item ex. 3 (1, 2, 3)
-    func scrollToNextItem(totalItemCount: Int) {
+    func simulateScrollToNextItemByUpdatingOffset(totalItemCount: Int) {
         func getCurrentIndex() -> Int {
             guard collectionView.contentOffset.x > 0 else { return 0 }
             let pageCGFloat = collectionView.contentOffset.x / collectionView.bounds.width
             let pageIndexInt: Int = Int(pageCGFloat.rounded(.toNearestOrAwayFromZero))
             return pageIndexInt
         }
-        print("--- ScrollToNextItem, contentOffset before: \(collectionView.contentOffset.x) ---")
+        print("--- ScrollToNextItem, contentOffset before: \(collectionView.contentOffset.x), collectionView width: \(collectionView.bounds.width) ---")
         
         let currentIndex = getCurrentIndex()
         guard currentIndex < totalItemCount else {
