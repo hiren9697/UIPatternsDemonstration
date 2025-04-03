@@ -49,9 +49,10 @@ final class WalkthroughVCTests: XCTestCase {
         // Arrange
         let items = getDummyItems(3)
         let sut = makeSUT(items: items)
-        /// This is needed to perform layout related to collectionView,
-        /// Without calling this collectionView's width would be 0,
-        /// And without collectionView's actual width, `simulateScrollToNextItemByUpdatingOffset` doesn't work
+        /// Why do we need `layoutIfNeeded` ?
+        /// Initially we used method: `simulateScrollToNextItemByUpdatingOffset` which was updating offset of collection instead of making collectionView to scrolll to an item, Without calling this collectionView's width would be 0, so it doesn't work if collectionView is not layed out properly
+        /// Now we are scrolling to actual item by calling helper method `simulateScrollToNextItem`, In this case there would be no visible items without calling this method, so helper method `simulateScrollToNextItem`, couldn't complete properly as it needs visible items
+        /// So in both the cases we need to call `layoutIfNeeded`
         sut.collectionView.layoutIfNeeded()
         
         // Assert
@@ -60,7 +61,7 @@ final class WalkthroughVCTests: XCTestCase {
                        "Expected currentPage to be 0 initially, but got \(sut.pageIndicatorCurrentPage) instead")
         
         // Act
-        sut.simulateScrollToNextItemByUpdatingOffset(totalItemCount: items.count)
+        sut.simulateScrollToNextItem(totalItemCount: items.count)
         
         // Assert
         XCTAssertEqual(sut.pageIndicatorCurrentPage,
@@ -68,16 +69,16 @@ final class WalkthroughVCTests: XCTestCase {
                        "Expected currentPage to be 1 after scrolling to next item, but got \(sut.pageIndicatorCurrentPage) instead")
         
         // Act
-        sut.simulateScrollToNextItemByUpdatingOffset(totalItemCount: items.count)
-        
+        sut.simulateScrollToNextItem(totalItemCount: items.count)
+
         // Assert
         XCTAssertEqual(sut.pageIndicatorCurrentPage,
                        2,
                        "Expected currentPage to be 2 after second scroll, but got \(sut.pageIndicatorCurrentPage) instead")
         
         // Act
-        sut.simulateScrollToNextItemByUpdatingOffset(totalItemCount: items.count)
-        
+        sut.simulateScrollToNextItem(totalItemCount: items.count)
+
         // Assert
         XCTAssertEqual(sut.pageIndicatorCurrentPage,
                        2,
@@ -91,9 +92,10 @@ final class WalkthroughVCTests: XCTestCase {
         // Arrange
         let items = getDummyItems(3)
         let sut = makeSUT(items: items)
-        /// This is needed to perform layout related to collectionView,
-        /// Without calling this collectionView's width would be 0,
-        /// And without collectionView's actual width, `simulateScrollToNextItemByUpdatingOffset` doesn't work
+        /// Why do we need `layoutIfNeeded` ?
+        /// Initially we used method: `simulateScrollToNextItemByUpdatingOffset` which was updating offset of collection instead of making collectionView to scrolll to an item, Without calling this collectionView's width would be 0, so it doesn't work if collectionView is not layed out properly
+        /// Now we are scrolling to actual item by calling helper method `simulateScrollToNextItem`, In this case there would be no visible items without calling this method, so helper method `simulateScrollToNextItem`, couldn't complete properly as it needs visible items
+        /// So in both the cases we need to call `layoutIfNeeded`
         sut.collectionView.layoutIfNeeded()
         
         // Assert
@@ -103,7 +105,7 @@ final class WalkthroughVCTests: XCTestCase {
                        "Expected current item trakcing text to be '\(trackingTextForFirstItem)' initially, but got \(sut.currentItemTrackingText) instead")
         
         // Act
-        sut.simulateScrollToNextItemByUpdatingOffset(totalItemCount: items.count)
+        sut.simulateScrollToNextItem(totalItemCount: items.count)
         
         // Assert
         let trackingTextforSecondItem = getTrackingText(for: 1)
@@ -112,7 +114,7 @@ final class WalkthroughVCTests: XCTestCase {
                        "Expected current item trakcing text to be '\(trackingTextforSecondItem)' after first scroll, but got \(sut.currentItemTrackingText) instead")
         
         // Act
-        sut.simulateScrollToNextItemByUpdatingOffset(totalItemCount: items.count)
+        sut.simulateScrollToNextItem(totalItemCount: items.count)
         
         // Assert
         let trackingTextForThridItem = getTrackingText(for: 2)
@@ -125,23 +127,24 @@ final class WalkthroughVCTests: XCTestCase {
         // Arrange & Act
         let items = getDummyItems(3)
         let sut = makeSUT(items: items)
-        /// This is needed to perform layout related to collectionView,
-        /// Without calling this collectionView's width would be 0,
-        /// And without collectionView's actual width, `simulateScrollToNextItemByUpdatingOffset` doesn't work
+        /// Why do we need `layoutIfNeeded` ?
+        /// Initially we used method: `simulateScrollToNextItemByUpdatingOffset` which was updating offset of collection instead of making collectionView to scrolll to an item, Without calling this collectionView's width would be 0, so it doesn't work if collectionView is not layed out properly
+        /// Now we are scrolling to actual item by calling helper method `simulateScrollToNextItem`, In this case there would be no visible items without calling this method, so helper method `simulateScrollToNextItem`, couldn't complete properly as it needs visible items
+        /// So in both the cases we need to call `layoutIfNeeded`
         sut.collectionView.layoutIfNeeded()
         
         // Assert
         XCTAssertTrue(sut.previousButton.isHidden)
         
         // Act
-        sut.simulateScrollToNextItemByUpdatingOffset(totalItemCount: items.count)
+        sut.simulateScrollToNextItem(totalItemCount: items.count)
         
         // Assert
         XCTAssertFalse(sut.previousButton.isHidden)
         
         // Act
-        sut.simulateScrollToNextItemByUpdatingOffset(totalItemCount: items.count)
-        
+        sut.simulateScrollToNextItem(totalItemCount: items.count)
+
         // Assert
         XCTAssertFalse(sut.previousButton.isHidden)
         
@@ -157,9 +160,10 @@ final class WalkthroughVCTests: XCTestCase {
         // Arrange & Act
         let items = getDummyItems(3)
         let sut = makeSUT(items: items)
-        /// This is needed to perform layout related to collectionView,
-        /// Without calling this collectionView's width would be 0,
-        /// And without collectionView's actual width, `simulateScrollToNextItemByUpdatingOffset` doesn't work
+        /// Why do we need `layoutIfNeeded` ?
+        /// Initially we used method: `simulateScrollToNextItemByUpdatingOffset` which was updating offset of collection instead of making collectionView to scrolll to an item, Without calling this collectionView's width would be 0, so it doesn't work if collectionView is not layed out properly
+        /// Now we are scrolling to actual item by calling helper method `simulateScrollToNextItem`, In this case there would be no visible items without calling this method, so helper method `simulateScrollToNextItem`, couldn't complete properly as it needs visible items
+        /// So in both the cases we need to call `layoutIfNeeded`
         sut.collectionView.layoutIfNeeded()
         
         // Assert
@@ -168,7 +172,7 @@ final class WalkthroughVCTests: XCTestCase {
                        "Expected text of next button: 'Next' on first item, but got '\(sut.nextButtonText)'")
         
         // Act
-        sut.simulateScrollToNextItemByUpdatingOffset(totalItemCount: items.count)
+        sut.simulateScrollToNextItem(totalItemCount: items.count)
         
         // Assert
         XCTAssertEqual(sut.nextButtonText,
@@ -176,8 +180,8 @@ final class WalkthroughVCTests: XCTestCase {
                        "Expected text of next button: 'Next' on second item, but got '\(sut.nextButtonText)'")
         
         // Act
-        sut.simulateScrollToNextItemByUpdatingOffset(totalItemCount: items.count)
-        
+        sut.simulateScrollToNextItem(totalItemCount: items.count)
+
         // Assert
         XCTAssertEqual(sut.nextButtonText,
                        "Get Started",
@@ -188,6 +192,10 @@ final class WalkthroughVCTests: XCTestCase {
         // Arrange & Act
         let items = getDummyItems(3)
         let sut = makeSUT(items: items)
+        /// Why do we need `layoutIfNeeded` ?
+        /// Initially we used method: `simulateScrollToNextItemByUpdatingOffset` which was updating offset of collection instead of making collectionView to scrolll to an item, Without calling this collectionView's width would be 0, so it doesn't work if collectionView is not layed out properly
+        /// Now we are scrolling to actual item by calling helper method `simulateScrollToNextItem`, In this case there would be no visible items without calling this method, so helper method `simulateScrollToNextItem`, couldn't complete properly as it needs visible items
+        /// So in both the cases we need to call `layoutIfNeeded`
         sut.collectionView.layoutIfNeeded()
         sut.simulateScrollToNextItem(totalItemCount: items.count)
         sut.simulateScrollToNextItem(totalItemCount: items.count)
@@ -223,6 +231,10 @@ final class WalkthroughVCTests: XCTestCase {
         // Arrange & Act
         let items = getDummyItems(3)
         let sut = makeSUT(items: items)
+        /// Why do we need `layoutIfNeeded` ?
+        /// Initially we used method: `simulateScrollToNextItemByUpdatingOffset` which was updating offset of collection instead of making collectionView to scrolll to an item, Without calling this collectionView's width would be 0, so it doesn't work if collectionView is not layed out properly
+        /// Now we are scrolling to actual item by calling helper method `simulateScrollToNextItem`, In this case there would be no visible items without calling this method, so helper method `simulateScrollToNextItem`, couldn't complete properly as it needs visible items
+        /// So in both the cases we need to call `layoutIfNeeded`
         sut.collectionView.layoutIfNeeded()
         
         // Assert
@@ -263,6 +275,10 @@ final class WalkthroughVCTests: XCTestCase {
         let items = getDummyItems(3)
         var isFinishWalkthroughCalled = false
         let sut = makeSUT(items: items, onFinishWalkthrough: { isFinishWalkthroughCalled = true })
+        /// Why do we need `layoutIfNeeded` ?
+        /// Initially we used method: `simulateScrollToNextItemByUpdatingOffset` which was updating offset of collection instead of making collectionView to scrolll to an item, Without calling this collectionView's width would be 0, so it doesn't work if collectionView is not layed out properly
+        /// Now we are scrolling to actual item by calling helper method `simulateScrollToNextItem`, In this case there would be no visible items without calling this method, so helper method `simulateScrollToNextItem`, couldn't complete properly as it needs visible items
+        /// So in both the cases we need to call `layoutIfNeeded`
         sut.collectionView.layoutIfNeeded()
         
         // Act

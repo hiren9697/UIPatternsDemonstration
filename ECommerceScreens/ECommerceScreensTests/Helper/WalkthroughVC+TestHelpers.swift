@@ -82,13 +82,15 @@ extension WalkthroughVC {
         func getCurrentIndex() -> Int? {
             collectionView.indexPathsForVisibleItems.first?.item
         }
-        guard let currentIndex = getCurrentIndex() else {
+        guard let currentIndex = getCurrentIndex(),
+        currentIndex < (totalItemCount - 1) else {
             return
         }
         let nextItem = currentIndex + 1
         let indexPath = IndexPath(item: nextItem, section: walkthroughItemSection)
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
         collectionView.layoutIfNeeded()
+        print("CollectionView width: \(collectionView.bounds.width), visibleIndexPaths: \(collectionView.indexPathsForVisibleItems)")
     }
     
     func simulateScrollToPreviousItem() {
