@@ -47,9 +47,6 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        #if TEST
-        collectionView.layoutIfNeeded()
-        #endif
         collectionView.reloadData()
         
         nextButton.setTitle("Next", for: .normal)
