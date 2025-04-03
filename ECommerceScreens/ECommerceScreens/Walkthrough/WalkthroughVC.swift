@@ -37,26 +37,14 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .green
-        pageControl.numberOfPages = items.count
-        collectionView.register(WalkthroughCC.self,
-                                forCellWithReuseIdentifier: "WalkthroughCC")
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(collectionView)
-        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        collectionView.reloadData()
-        
-        nextButton.setTitle("Next", for: .normal)
-        nextButton.addTarget(self, action: #selector(nextButtonTap), for: .touchUpInside)
-        
-        previousButton.addTarget(self, action: #selector(previousButtonTap), for: .touchUpInside)
-        
+        layoutComponents()
+        setupCollectionView()
+        setupButtons()
+        setupPageControl()
         updateCurrentItemTrackingUI()
     }
     
+    // MARK: - Button Actions
     @objc func previousButtonTap() {
         guard let indexPath = collectionView.indexPathsForVisibleItems.first else { return }
         let previousItem = indexPath.item - 1
@@ -76,35 +64,39 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
         collectionView.scrollToItem(at: nextIndexPath, at: .centeredHorizontally, animated: false)
     }
     
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        items.count
+    // MARK: - UI Layout
+    private func layoutComponents() {
+        func layoutCollectionView() {
+            collectionView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(collectionView)
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+            collectionView.reloadData()
+        }
+        
+        layoutCollectionView()
     }
     
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WalkthroughCC", for: indexPath) as! WalkthroughCC
-        cell.imageView.image = items[indexPath.item].image
-        cell.titleLabel.text = items[indexPath.item].title
-        cell.subtitleLabel.text = items[indexPath.item].subtitle
-        return cell
+    // MARK: - Helpers
+    private func setupCollectionView() {
+        collectionView.register(WalkthroughCC.self,
+                                forCellWithReuseIdentifier: "WalkthroughCC")
     }
     
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        .leastNonzeroMagnitude
+    private func setupButtons() {
+        nextButton.setTitle("Next", for: .normal)
+        nextButton.addTarget(self, action: #selector(nextButtonTap), for: .touchUpInside)
+        
+        previousButton.addTarget(self, action: #selector(previousButtonTap), for: .touchUpInside)
     }
     
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        .leastNonzeroMagnitude
+    private func setupPageControl() {
+        pageControl.numberOfPages = items.count
     }
     
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: view.bounds.width, height: view.bounds.height)
-    }
-    
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        updateCurrentItemTrackingUI()
-    }
-    
-    func updateCurrentItemTrackingUI() {
+    private func updateCurrentItemTrackingUI() {
         guard collectionView.contentOffset.x > 0 else {
             updateCurrentItemTracking(item: 0)
             updatePreviousButton(item: 0)
@@ -132,5 +124,36 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
     private func updateNextButtonTitle(item: Int) {
         let title = item >= (items.count - 1) ? "Get Started" : "Next"
         nextButton.setTitle(title, for: .normal)
+    }
+    
+    // MARK: - CollectionView DataSource
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        items.count
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WalkthroughCC", for: indexPath) as! WalkthroughCC
+        cell.imageView.image = items[indexPath.item].image
+        cell.titleLabel.text = items[indexPath.item].title
+        cell.subtitleLabel.text = items[indexPath.item].subtitle
+        return cell
+    }
+    
+    // MARK: - CollectionView Layout
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        .leastNonzeroMagnitude
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        .leastNonzeroMagnitude
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: view.bounds.width, height: view.bounds.height)
+    }
+    
+    // MARK: - ScrollView Method
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        updateCurrentItemTrackingUI()
     }
 }
