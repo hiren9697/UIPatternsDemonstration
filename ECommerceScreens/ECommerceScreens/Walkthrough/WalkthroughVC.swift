@@ -89,8 +89,15 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
             collectionView.reloadData()
         }
+        func layoutCurrentItemTrackingLabel() {
+            currentItemTrackingLabel.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(currentItemTrackingLabel)
+            currentItemTrackingLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 17).isActive = true
+            currentItemTrackingLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        }
         
         layoutCollectionView()
+        layoutCurrentItemTrackingLabel()
     }
     
     // MARK: - Helpers
