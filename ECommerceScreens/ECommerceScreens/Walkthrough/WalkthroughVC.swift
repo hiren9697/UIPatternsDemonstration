@@ -25,7 +25,19 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
     private let items: [WalkthroughItem]
     private let onFinishWalkthrough: () -> Void
     
-    public init(items: [WalkthroughItem], onFinishWalkthrough: @escaping () -> Void) {
+    public init(items: [WalkthroughItem] = [
+        WalkthroughItem(image: UIImage(namedWithInBundle: "ic_walkthrough_item_1")!,
+                        title: "Choose Products",
+                        subtitle: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit."),
+        WalkthroughItem(image: UIImage(namedWithInBundle: "ic_walkthrough_item_2")!,
+                        title: "Make Payment",
+                        subtitle: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit."),
+        WalkthroughItem(image: UIImage(namedWithInBundle: "ic_walkthrough_item_3")!,
+                        title: "Get Your Order",
+                        subtitle: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit."),
+        
+    ],
+                onFinishWalkthrough: @escaping () -> Void) {
         self.items = items
         self.onFinishWalkthrough = onFinishWalkthrough
         super.init(nibName: nil, bundle: nil)
