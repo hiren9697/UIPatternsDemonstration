@@ -9,6 +9,19 @@ import XCTest
 @testable import ECommerceScreens
 
 final class WalkthroughVCTests: XCTestCase {
+    func test_collectionView_configuredCorrectly() {
+        // Arrange & Act
+        let sut = makeSUT(items: getDummyItems(3))
+        
+        // Assert
+        XCTAssertEqual(sut.collectionView.isPagingEnabled,
+                       true,
+                       "Expected pagination enabled, but got: \(sut.collectionView.isPagingEnabled)")
+        XCTAssertEqual(sut.collectionView.showsVerticalScrollIndicator,
+                       false,
+                       "Expected vertical scroll indicator hidden, but got: \(sut.collectionView.showsVerticalScrollIndicator)")
+    }
+    
     func test_walkthroughItems_rendered_1() {
         // Arrange & Act
         let items = getDummyItems(3)

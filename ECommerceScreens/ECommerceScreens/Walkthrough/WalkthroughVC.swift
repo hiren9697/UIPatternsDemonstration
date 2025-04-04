@@ -15,6 +15,8 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
                                               collectionViewLayout: layout)
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.isPagingEnabled = true
+        collectionView.showsVerticalScrollIndicator = false
         return collectionView
     }()
     let pageControl: UIPageControl = UIPageControl()
