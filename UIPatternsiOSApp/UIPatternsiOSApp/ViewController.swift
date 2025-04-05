@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func btnTap() {
-        let vc = WalkthroughVC(onFinishWalkthrough: { print("Finished Walkthrough") })
+        let vc = WalkthroughMultipleMVCs(onFinish: { print("Finished Walkthrough") })
         navigationController?.pushViewController(vc, animated: true)
     }
 }

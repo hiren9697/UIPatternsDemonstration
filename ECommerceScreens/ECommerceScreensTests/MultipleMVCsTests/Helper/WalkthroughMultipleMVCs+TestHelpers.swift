@@ -8,7 +8,7 @@
 import UIKit
 @testable import ECommerceScreens
 
-extension WalkthroughBigMVC {
+extension WalkthroughMultipleMVCs {
     var walkthroughItemSection: Int {
         0
     }
@@ -112,4 +112,5 @@ extension WalkthroughBigMVC {
         nextButton.simulateTap()
     }
 }
+
 
