@@ -51,6 +51,7 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        configureUIComponents()
         layoutComponents()
         setupCollectionView()
         setupButtons()
@@ -79,6 +80,15 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     // MARK: - UI Layout
+    private func configureUIComponents() {
+        currentItemTrackingLabel.textColor = AppColors.c000000
+        previousButton.setTitle("Prev", for: .normal)
+        previousButton.setTitleColor(AppColors.cC4C4C4, for: .normal)
+        pageControl.pageIndicatorTintColor = AppColors.cC4C4C4
+        pageControl.currentPageIndicatorTintColor = AppColors.c000000
+        nextButton.setTitleColor(AppColors.cF83758, for: .normal)
+    }
+    
     private func layoutComponents() {
         func layoutCollectionView() {
             collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -95,9 +105,37 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
             currentItemTrackingLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 17).isActive = true
             currentItemTrackingLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         }
+        func layoutBottomComponents() {
+            let containerView = UIView()
+            containerView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(containerView)
+            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+            containerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+            containerView.heightAnchor.constraint(equalToConstant: 44).isActive = true
+
+            previousButton.translatesAutoresizingMaskIntoConstraints = false
+            containerView.addSubview(previousButton)
+            previousButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 17).isActive = true
+            previousButton.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+            previousButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
+            
+            pageControl.translatesAutoresizingMaskIntoConstraints = false
+            containerView.addSubview(pageControl)
+            pageControl.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
+            pageControl.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+            pageControl.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
+            
+            nextButton.translatesAutoresizingMaskIntoConstraints = false
+            containerView.addSubview(nextButton)
+            nextButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -17).isActive = true
+            nextButton.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+            nextButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
+        }
         
         layoutCollectionView()
         layoutCurrentItemTrackingLabel()
+        layoutBottomComponents()
     }
     
     // MARK: - Helpers

@@ -15,11 +15,17 @@ public class WalkthroughCC: UICollectionViewCell {
     public override init(frame: CGRect) {
         super.init(frame: frame)
         print("Init called")
+        configureUIComponents()
         layoutUIComponents()
     }
     
     required init?(coder: NSCoder) {
         fatalError("This class is designed programmatically, so shouldn't be initialized via storyboard")
+    }
+    
+    private func configureUIComponents() {
+        titleLabel.textColor = AppColors.c000000
+        subtitleLabel.textColor = AppColors.cA8A8A9
     }
     
     // MARK: - UI Helpers
