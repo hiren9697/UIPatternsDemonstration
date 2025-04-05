@@ -8,7 +8,7 @@
 import XCTest
 @testable import ECommerceScreens
 
-final class WalkthroughVCTests: XCTestCase {
+final class WalkthroughBigMVCTests: XCTestCase {
     func test_collectionView_configuredCorrectly() {
         // Arrange & Act
         let sut = makeSUT(items: getDummyItems(3))
@@ -319,8 +319,8 @@ final class WalkthroughVCTests: XCTestCase {
     }
     
     private func makeSUT(items: [WalkthroughItem],
-                         onFinishWalkthrough: @escaping WalkthroughVC.FinishCompletion = {}) -> WalkthroughVC {
-        let vc = WalkthroughVC(items: items,
+                         onFinishWalkthrough: @escaping WalkthroughBigMVC.FinishCompletion = {}) -> WalkthroughBigMVC {
+        let vc = WalkthroughBigMVC(items: items,
                                shouldAnimate: false,
                                onFinish: onFinishWalkthrough)
         vc.loadViewIfNeeded()

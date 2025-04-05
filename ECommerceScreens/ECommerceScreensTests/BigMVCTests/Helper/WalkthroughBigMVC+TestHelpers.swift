@@ -8,7 +8,7 @@
 import UIKit
 @testable import ECommerceScreens
 
-extension WalkthroughVC {
+extension WalkthroughBigMVC {
     var walkthroughItemSection: Int {
         0
     }
