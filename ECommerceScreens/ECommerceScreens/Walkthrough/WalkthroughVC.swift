@@ -65,7 +65,9 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
         let previousItem = indexPath.item - 1
         guard previousItem >= 0 else { return }
         let previousIndexPath = IndexPath(item: previousItem, section: indexPath.section)
+        collectionView.isPagingEnabled = false
         collectionView.scrollToItem(at: previousIndexPath, at: .centeredHorizontally, animated: false)
+        collectionView.isPagingEnabled = true
     }
     
     @objc func nextButtonTap() {
@@ -76,7 +78,9 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
             return
         }
         let nextIndexPath = IndexPath(item: nextItem, section: indexPath.section)
+        collectionView.isPagingEnabled = false
         collectionView.scrollToItem(at: nextIndexPath, at: .centeredHorizontally, animated: false)
+        collectionView.isPagingEnabled = true
     }
     
     // MARK: - UI Layout
