@@ -8,6 +8,8 @@
 import UIKit
 
 public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    public typealias FinishCompletion = () -> Void
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -26,7 +28,7 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
     
     private let items: [WalkthroughItem]
     private let shouldAnimate: Bool
-    private let onFinishWalkthrough: () -> Void
+    private let onFinish: FinishCompletion
     
     public init(items: [WalkthroughItem] = [
         WalkthroughItem(image: UIImage(namedWithInBundle: "ic_walkthrough_item_1")!,
@@ -41,10 +43,10 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
         
     ],
                 shouldAnimate: Bool = true,
-                onFinishWalkthrough: @escaping () -> Void) {
+                onFinish: @escaping FinishCompletion) {
         self.items = items
         self.shouldAnimate = shouldAnimate
-        self.onFinishWalkthrough = onFinishWalkthrough
+        self.onFinish = onFinish
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -77,7 +79,7 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
         guard let indexPath = collectionView.indexPathsForVisibleItems.first else { return }
         let nextItem = indexPath.item + 1
         guard nextItem < items.count else {
-            onFinishWalkthrough()
+            onFinish()
             return
         }
         let nextIndexPath = IndexPath(item: nextItem, section: indexPath.section)

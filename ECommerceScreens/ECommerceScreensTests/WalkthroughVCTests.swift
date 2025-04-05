@@ -319,10 +319,10 @@ final class WalkthroughVCTests: XCTestCase {
     }
     
     private func makeSUT(items: [WalkthroughItem],
-                         onFinishWalkthrough: @escaping () -> Void = {}) -> WalkthroughVC {
+                         onFinishWalkthrough: @escaping WalkthroughVC.FinishCompletion = {}) -> WalkthroughVC {
         let vc = WalkthroughVC(items: items,
                                shouldAnimate: false,
-                               onFinishWalkthrough: onFinishWalkthrough)
+                               onFinish: onFinishWalkthrough)
         vc.loadViewIfNeeded()
         trackMemory(for: vc)
         return vc
