@@ -26,7 +26,7 @@ public class WalkthroughMultipleMVCs: UIViewController, UICollectionViewDataSour
     let previousButton: UIButton = UIButton()
     let nextButton: UIButton = UIButton()
     
-    private let items: [WalkthroughItem]
+    private let cellControllers: [WalkthroughCCController]
     private let shouldAnimate: Bool
     private let onFinish: FinishCompletion
     
@@ -44,7 +44,7 @@ public class WalkthroughMultipleMVCs: UIViewController, UICollectionViewDataSour
     ],
                 shouldAnimate: Bool = true,
                 onFinish: @escaping FinishCompletion) {
-        self.items = items
+        self.cellControllers = items.map { WalkthroughCCController(model: $0) }
         self.shouldAnimate = shouldAnimate
         self.onFinish = onFinish
         super.init(nibName: nil, bundle: nil)
@@ -78,7 +78,7 @@ public class WalkthroughMultipleMVCs: UIViewController, UICollectionViewDataSour
     @objc func nextButtonTap() {
         guard let indexPath = collectionView.indexPathsForVisibleItems.first else { return }
         let nextItem = indexPath.item + 1
-        guard nextItem < items.count else {
+        guard nextItem < cellControllers.count else {
             onFinish()
             return
         }
@@ -161,7 +161,7 @@ public class WalkthroughMultipleMVCs: UIViewController, UICollectionViewDataSour
     }
     
     private func setupPageControl() {
-        pageControl.numberOfPages = items.count
+        pageControl.numberOfPages = cellControllers.count
     }
     
     private func updateCurrentItemTrackingUI() {
@@ -182,7 +182,7 @@ public class WalkthroughMultipleMVCs: UIViewController, UICollectionViewDataSour
     
     private func updateCurrentItemTracking(item: Int) {
         let displayItem: Int = item + 1
-        currentItemTrackingLabel.text = "\(displayItem)/\(items.count)"
+        currentItemTrackingLabel.text = "\(displayItem)/\(cellControllers.count)"
     }
     
     private func updatePreviousButton(item: Int) {
@@ -190,21 +190,18 @@ public class WalkthroughMultipleMVCs: UIViewController, UICollectionViewDataSour
     }
     
     private func updateNextButtonTitle(item: Int) {
-        let title = item >= (items.count - 1) ? "Get Started" : "Next"
+        let title = item >= (cellControllers.count - 1) ? "Get Started" : "Next"
         nextButton.setTitle(title, for: .normal)
     }
     
     // MARK: - CollectionView DataSource
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        items.count
+        cellControllers.count
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WalkthroughCC", for: indexPath) as! WalkthroughCC
-        cell.imageView.image = items[indexPath.item].image
-        cell.titleLabel.text = items[indexPath.item].title
-        cell.subtitleLabel.text = items[indexPath.item].subtitle
-        return cell
+        return cellControllers[indexPath.row].configuare(cell: cell)
     }
     
     // MARK: - CollectionView Layout
