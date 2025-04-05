@@ -25,6 +25,7 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
     let nextButton: UIButton = UIButton()
     
     private let items: [WalkthroughItem]
+    private let shouldAnimate: Bool
     private let onFinishWalkthrough: () -> Void
     
     public init(items: [WalkthroughItem] = [
@@ -39,8 +40,10 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
                         subtitle: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit."),
         
     ],
+                shouldAnimate: Bool = true,
                 onFinishWalkthrough: @escaping () -> Void) {
         self.items = items
+        self.shouldAnimate = shouldAnimate
         self.onFinishWalkthrough = onFinishWalkthrough
         super.init(nibName: nil, bundle: nil)
     }
@@ -66,7 +69,7 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
         guard previousItem >= 0 else { return }
         let previousIndexPath = IndexPath(item: previousItem, section: indexPath.section)
         collectionView.isPagingEnabled = false
-        collectionView.scrollToItem(at: previousIndexPath, at: .centeredHorizontally, animated: false)
+        collectionView.scrollToItem(at: previousIndexPath, at: .centeredHorizontally, animated: shouldAnimate)
         collectionView.isPagingEnabled = true
     }
     
@@ -79,7 +82,7 @@ public class WalkthroughVC: UIViewController, UICollectionViewDataSource, UIColl
         }
         let nextIndexPath = IndexPath(item: nextItem, section: indexPath.section)
         collectionView.isPagingEnabled = false
-        collectionView.scrollToItem(at: nextIndexPath, at: .centeredHorizontally, animated: false)
+        collectionView.scrollToItem(at: nextIndexPath, at: .centeredHorizontally, animated: shouldAnimate)
         collectionView.isPagingEnabled = true
     }
     
