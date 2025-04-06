@@ -320,11 +320,6 @@ final class WalkthroughMultipleMVCsTests: XCTestCase {
     
     private func makeSUT(items: [WalkthroughItem],
                          onFinishWalkthrough: @escaping WalkthroughMultipleMVCs.FinishCompletion = {}) -> WalkthroughMultipleMVCs {
-        /*
-        let vc = WalkthroughMultipleMVCs(items: items,
-                                         shouldAnimate: false,
-                                         onFinish: onFinishWalkthrough)
-         */
         let vc = WalkthroughMultipleMVCsComposer.compose(items: items,
                                                          onFinish: onFinishWalkthrough,
                                                          shouldAnimate: false)

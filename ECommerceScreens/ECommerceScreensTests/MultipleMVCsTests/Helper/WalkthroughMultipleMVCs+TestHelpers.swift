@@ -13,6 +13,19 @@ extension WalkthroughMultipleMVCs {
         0
     }
     
+    var pageControl: UIPageControl {
+        bottomViewController.view.pageControl
+    }
+    var currentItemTrackingLabel: UILabel {
+        currentItemTrackingLabelController.view
+    }
+    var previousButton: UIButton {
+        bottomViewController.view.previousButton
+    }
+    var nextButton: UIButton {
+        bottomViewController.view.nextButton
+    }
+    
     var numberOfRenderedItems: Int {
         collectionView.numberOfItems(inSection: walkthroughItemSection)
     }

@@ -22,24 +22,13 @@ public class WalkthroughMultipleMVCs: UIViewController, UICollectionViewDataSour
         return collectionView
     }()
     
-    private let currentItemTrackingLabelController: WalkthroughCurrentItemTrackingLabelController
-    private let bottomViewController: WalkthroughBottomViewController
+    // Didn't mark `private` because test helper needs to acces it's view
+    let currentItemTrackingLabelController: WalkthroughCurrentItemTrackingLabelController
+    // Didn't mark `private` because test helper needs to acces it's views
+    let bottomViewController: WalkthroughBottomViewController
     private let cellControllers: [WalkthroughCCController]
     private let shouldAnimate: Bool
     private let onFinish: FinishCompletion
-    
-    var pageControl: UIPageControl {
-        bottomViewController.view.pageControl
-    }
-    var currentItemTrackingLabel: UILabel {
-        currentItemTrackingLabelController.view
-    }
-    var previousButton: UIButton {
-        bottomViewController.view.previousButton
-    }
-    var nextButton: UIButton {
-        bottomViewController.view.nextButton
-    }
     
     public init(cellControllers: [WalkthroughCCController],
                 currentItemTrackingLabelController: WalkthroughCurrentItemTrackingLabelController,
