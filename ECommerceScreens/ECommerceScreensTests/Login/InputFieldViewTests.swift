@@ -36,14 +36,36 @@ final class InputFieldViewTests: XCTestCase {
         XCTAssertEqual(sut.keyboardType, keyboardType)
     }
     
+    func test_returnkeyType_isConfiguredCorrectly() {
+        // Arrange & Act
+        let returnKeyType: UIReturnKeyType = .done
+        let sut = makeSUT(returnKeyType: returnKeyType)
+        
+        // Assert
+        XCTAssertEqual(sut.returnKeyType, returnKeyType)
+    }
+    
+    func test_isSecure() {
+        // Arrange & Act
+        let isSecure: Bool = true
+        let sut = makeSUT(isSecure: isSecure)
+        
+        // Assert
+        XCTAssertEqual(sut.isSecure, isSecure)
+    }
+    
     private func makeSUT(iconImage: UIImage = UIImage.make(withColor: .blue),
                          placeholder: String = "Test",
                          keyboardType: UIKeyboardType = .asciiCapable,
+                         returnKeyType: UIReturnKeyType = .next,
+                         isSecure: Bool = false,
                          file: StaticString = #filePath,
                          line: UInt = #line) -> InputFieldView {
         let view = InputFieldView(iconImage: iconImage,
                                   placeholder: placeholder,
-                                  keyboardType: keyboardType)
+                                  keyboardType: keyboardType,
+                                  returnKeyType: returnKeyType,
+                                  isSecure: isSecure)
         trackMemory(for: view,
                     file: file,
                     line: line)
@@ -62,5 +84,13 @@ extension InputFieldView {
     
     var keyboardType: UIKeyboardType {
         textField.keyboardType
+    }
+    
+    var returnKeyType: UIReturnKeyType {
+        textField.returnKeyType
+    }
+    
+    var isSecure: Bool {
+        textField.isSecureTextEntry
     }
 }
