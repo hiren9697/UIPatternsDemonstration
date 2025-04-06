@@ -41,12 +41,6 @@ public class WalkthroughMultipleMVCs: UIViewController, UICollectionViewDataSour
         self.currentItemTrackingLabelController = currentItemTrackingLabelController
         self.bottomViewController = bottomViewController
         super.init(nibName: nil, bundle: nil)
-        self.bottomViewController.onPreviousTap = { [weak self] in
-            self?.scrollToPreviousItem()
-        }
-        self.bottomViewController.onNextTap = { [weak self] in
-            self?.scrollToNextItem()
-        }
     }
     
     required public init?(coder: NSCoder) {
