@@ -10,12 +10,18 @@ import XCTest
 
 final class LoginVCTests: XCTestCase {
     func test_welcomeText_isCorrect() {
+        // Arrange & Act
         let sut = makeSUT()
+        
+        // Assert
         XCTAssertEqual(sut.welcomeLabel.text, "Welcome\nBack!")
     }
     
     func test_welcomeText_hasCorrectAttributes() {
+        // Arrange & Act
         let sut = makeSUT()
+        
+        // Assert
         XCTAssertEqual(sut.welcomeLabel.font,
                        .boldSystemFont(ofSize: 36),
                        "Expected font to be boldSystemFont(ofSize: 36)")
