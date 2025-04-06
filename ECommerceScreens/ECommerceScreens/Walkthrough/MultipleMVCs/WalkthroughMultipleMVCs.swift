@@ -79,29 +79,6 @@ public class WalkthroughMultipleMVCs: UIViewController, UICollectionViewDataSour
         updateCurrentItemTrackingUI()
     }
     
-    func scrollToPreviousItem() {
-        guard let indexPath = collectionView.indexPathsForVisibleItems.first else { return }
-        let previousItem = indexPath.item - 1
-        guard previousItem >= 0 else { return }
-        let previousIndexPath = IndexPath(item: previousItem, section: indexPath.section)
-        collectionView.isPagingEnabled = false
-        collectionView.scrollToItem(at: previousIndexPath, at: .centeredHorizontally, animated: shouldAnimate)
-        collectionView.isPagingEnabled = true
-    }
-    
-    func scrollToNextItem() {
-        guard let indexPath = collectionView.indexPathsForVisibleItems.first else { return }
-        let nextItem = indexPath.item + 1
-        guard nextItem < cellControllers.count else {
-            onFinish()
-            return
-        }
-        let nextIndexPath = IndexPath(item: nextItem, section: indexPath.section)
-        collectionView.isPagingEnabled = false
-        collectionView.scrollToItem(at: nextIndexPath, at: .centeredHorizontally, animated: shouldAnimate)
-        collectionView.isPagingEnabled = true
-    }
-    
     // MARK: - UI Layout
     private func layoutComponents() {
         func layoutCollectionView() {
@@ -148,8 +125,30 @@ public class WalkthroughMultipleMVCs: UIViewController, UICollectionViewDataSour
         let currentItemIndex: Int = Int(pageIndexInt)
         currentItemTrackingLabelController.updateVisibleItem(currentItemIndex)
         bottomViewController.updateVisibleItem(currentItemIndex)
-        pageControl.currentPage = currentItemIndex
         print("CollectionView offset: \(collectionView.contentOffset.x), pageCGFloat: \(pageCGFloat), pageIndexInt: \(pageIndexInt)")
+    }
+    
+    func scrollToPreviousItem() {
+        guard let indexPath = collectionView.indexPathsForVisibleItems.first else { return }
+        let previousItem = indexPath.item - 1
+        guard previousItem >= 0 else { return }
+        let previousIndexPath = IndexPath(item: previousItem, section: indexPath.section)
+        collectionView.isPagingEnabled = false
+        collectionView.scrollToItem(at: previousIndexPath, at: .centeredHorizontally, animated: shouldAnimate)
+        collectionView.isPagingEnabled = true
+    }
+    
+    func scrollToNextItem() {
+        guard let indexPath = collectionView.indexPathsForVisibleItems.first else { return }
+        let nextItem = indexPath.item + 1
+        guard nextItem < cellControllers.count else {
+            onFinish()
+            return
+        }
+        let nextIndexPath = IndexPath(item: nextItem, section: indexPath.section)
+        collectionView.isPagingEnabled = false
+        collectionView.scrollToItem(at: nextIndexPath, at: .centeredHorizontally, animated: shouldAnimate)
+        collectionView.isPagingEnabled = true
     }
     
     // MARK: - CollectionView DataSource
