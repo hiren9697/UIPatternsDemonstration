@@ -13,10 +13,12 @@ public class InputFieldView: UIView {
     
     let iconImage: UIImage
     let placeholder: String
+    let keyboardType: UIKeyboardType
     
-    public init(iconImage: UIImage, placeholder: String) {
+    public init(iconImage: UIImage, placeholder: String, keyboardType: UIKeyboardType) {
         self.iconImage = iconImage
         self.placeholder = placeholder
+        self.keyboardType = keyboardType
         super.init(frame: .zero)
         configureUI()
     }
@@ -28,5 +30,6 @@ public class InputFieldView: UIView {
     private func configureUI() {
         iconImageView.image = iconImage
         textField.placeholder = placeholder
+        textField.keyboardType = keyboardType
     }
 }

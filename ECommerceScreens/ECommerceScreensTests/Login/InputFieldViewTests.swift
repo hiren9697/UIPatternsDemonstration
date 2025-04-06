@@ -27,12 +27,23 @@ final class InputFieldViewTests: XCTestCase {
         XCTAssertEqual(sut.placeholderText, placeholder)
     }
     
+    func test_keyboardType_isConfiguredCorrectly() {
+        // Arrange & Act
+        let keyboardType: UIKeyboardType = .URL
+        let sut = makeSUT(keyboardType: keyboardType)
+        
+        // Assert
+        XCTAssertEqual(sut.keyboardType, keyboardType)
+    }
+    
     private func makeSUT(iconImage: UIImage = UIImage.make(withColor: .blue),
                          placeholder: String = "Test",
+                         keyboardType: UIKeyboardType = .asciiCapable,
                          file: StaticString = #filePath,
                          line: UInt = #line) -> InputFieldView {
         let view = InputFieldView(iconImage: iconImage,
-                                  placeholder: placeholder)
+                                  placeholder: placeholder,
+                                  keyboardType: keyboardType)
         trackMemory(for: view,
                     file: file,
                     line: line)
@@ -47,5 +58,9 @@ extension InputFieldView {
     
     var placeholderText: String? {
         textField.placeholder
+    }
+    
+    var keyboardType: UIKeyboardType {
+        textField.keyboardType
     }
 }
