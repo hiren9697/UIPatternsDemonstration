@@ -9,7 +9,7 @@ import XCTest
 @testable import ECommerceScreens
 
 final class InputFieldViewTests: XCTestCase {
-    func test_iconImage_isConfiuredCorrectly() {
+    func test_iconImage() {
         // Arrange & Act
         let iconImage = UIImage.make(withColor: .blue)
         let sut = makeSUT(iconImage: iconImage)
@@ -18,7 +18,7 @@ final class InputFieldViewTests: XCTestCase {
         XCTAssertEqual(sut.iconImage, iconImage)
     }
     
-    func test_placeholderText_isConfiuredCorrectly() {
+    func test_placeholderText() {
         // Arrange & Act
         let placeholder = "Test placeholder"
         let sut = makeSUT(placeholder: placeholder)
@@ -27,7 +27,7 @@ final class InputFieldViewTests: XCTestCase {
         XCTAssertEqual(sut.placeholderText, placeholder)
     }
     
-    func test_keyboardType_isConfiguredCorrectly() {
+    func test_keyboardType() {
         // Arrange & Act
         let keyboardType: UIKeyboardType = .URL
         let sut = makeSUT(keyboardType: keyboardType)
@@ -36,7 +36,7 @@ final class InputFieldViewTests: XCTestCase {
         XCTAssertEqual(sut.keyboardType, keyboardType)
     }
     
-    func test_returnkeyType_isConfiguredCorrectly() {
+    func test_returnkeyType() {
         // Arrange & Act
         let returnKeyType: UIReturnKeyType = .done
         let sut = makeSUT(returnKeyType: returnKeyType)
