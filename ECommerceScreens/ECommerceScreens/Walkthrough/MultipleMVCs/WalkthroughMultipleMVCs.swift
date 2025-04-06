@@ -24,7 +24,10 @@ public class WalkthroughMultipleMVCs: UIViewController, UICollectionViewDataSour
     var pageControl: UIPageControl {
         bottomViewController.view.pageControl
     }
-    let currentItemTrackingLabel: UILabel = UILabel()
+    var currentItemTrackingLabel: UILabel {
+        currentItemTrackingLabelController.view
+    }
+    let currentItemTrackingLabelController: WalkthroughCurrentItemTrackingLabelController
     var previousButton: UIButton {
         bottomViewController.view.previousButton
     }
@@ -54,6 +57,7 @@ public class WalkthroughMultipleMVCs: UIViewController, UICollectionViewDataSour
         self.cellControllers = items.map { WalkthroughCCController(model: $0) }
         self.shouldAnimate = shouldAnimate
         self.onFinish = onFinish
+        self.currentItemTrackingLabelController = WalkthroughCurrentItemTrackingLabelController(totalItems: items.count)
         self.bottomViewController = WalkthroughBottomViewController(totalItems: items.count)
         super.init(nibName: nil, bundle: nil)
         self.bottomViewController.onPreviousTap = { [weak self] in
@@ -70,7 +74,6 @@ public class WalkthroughMultipleMVCs: UIViewController, UICollectionViewDataSour
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        configureUIComponents()
         layoutComponents()
         setupCollectionView()
         updateCurrentItemTrackingUI()
@@ -100,15 +103,6 @@ public class WalkthroughMultipleMVCs: UIViewController, UICollectionViewDataSour
     }
     
     // MARK: - UI Layout
-    private func configureUIComponents() {
-        currentItemTrackingLabel.textColor = AppColors.c000000
-        previousButton.setTitle("Prev", for: .normal)
-        previousButton.setTitleColor(AppColors.cC4C4C4, for: .normal)
-        pageControl.pageIndicatorTintColor = AppColors.cC4C4C4
-        pageControl.currentPageIndicatorTintColor = AppColors.c000000
-        nextButton.setTitleColor(AppColors.cF83758, for: .normal)
-    }
-    
     private func layoutComponents() {
         func layoutCollectionView() {
             collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -120,10 +114,10 @@ public class WalkthroughMultipleMVCs: UIViewController, UICollectionViewDataSour
             collectionView.reloadData()
         }
         func layoutCurrentItemTrackingLabel() {
-            currentItemTrackingLabel.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(currentItemTrackingLabel)
-            currentItemTrackingLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 17).isActive = true
-            currentItemTrackingLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+            currentItemTrackingLabelController.view.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(currentItemTrackingLabelController.view)
+            currentItemTrackingLabelController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 17).isActive = true
+            currentItemTrackingLabelController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         }
         func layoutBottomView() {
             view.addSubview(bottomViewController.view)
@@ -145,22 +139,17 @@ public class WalkthroughMultipleMVCs: UIViewController, UICollectionViewDataSour
     
     private func updateCurrentItemTrackingUI() {
         guard collectionView.contentOffset.x > 0 else {
-            updateCurrentItemTracking(item: 0)
+            currentItemTrackingLabelController.updateVisibleItem(0)
             bottomViewController.updateVisibleItem(0)
             return
         }
         let pageCGFloat = collectionView.contentOffset.x / collectionView.bounds.width
         let pageIndexInt = pageCGFloat.rounded(.toNearestOrAwayFromZero)
         let currentItemIndex: Int = Int(pageIndexInt)
-        updateCurrentItemTracking(item: currentItemIndex)
+        currentItemTrackingLabelController.updateVisibleItem(currentItemIndex)
         bottomViewController.updateVisibleItem(currentItemIndex)
         pageControl.currentPage = currentItemIndex
         print("CollectionView offset: \(collectionView.contentOffset.x), pageCGFloat: \(pageCGFloat), pageIndexInt: \(pageIndexInt)")
-    }
-    
-    private func updateCurrentItemTracking(item: Int) {
-        let displayItem: Int = item + 1
-        currentItemTrackingLabel.text = "\(displayItem)/\(cellControllers.count)"
     }
     
     // MARK: - CollectionView DataSource
