@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WalkthroughCurrentItemTrackingLabelController {
+public class WalkthroughCurrentItemTrackingLabelController {
     let view = UILabel()
     let totalItems: Int
     

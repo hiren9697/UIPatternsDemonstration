@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WalkthroughBottomViewController: NSObject {
+public class WalkthroughBottomViewController: NSObject {
     let totalItems: Int
     let view = WalkthroughBottomView()
     var onPreviousTap: (() -> Void)?

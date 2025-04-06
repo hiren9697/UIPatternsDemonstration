@@ -40,25 +40,16 @@ public class WalkthroughMultipleMVCs: UIViewController, UICollectionViewDataSour
     private let shouldAnimate: Bool
     private let onFinish: FinishCompletion
     
-    public init(items: [WalkthroughItem] = [
-        WalkthroughItem(image: UIImage(namedWithInBundle: "ic_walkthrough_item_1")!,
-                        title: "Choose Products",
-                        subtitle: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit."),
-        WalkthroughItem(image: UIImage(namedWithInBundle: "ic_walkthrough_item_2")!,
-                        title: "Make Payment",
-                        subtitle: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit."),
-        WalkthroughItem(image: UIImage(namedWithInBundle: "ic_walkthrough_item_3")!,
-                        title: "Get Your Order",
-                        subtitle: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit."),
-        
-    ],
+    public init(cellControllers: [WalkthroughCCController],
+                currentItemTrackingLabelController: WalkthroughCurrentItemTrackingLabelController,
+                bottomViewController: WalkthroughBottomViewController,
                 shouldAnimate: Bool = true,
                 onFinish: @escaping FinishCompletion) {
-        self.cellControllers = items.map { WalkthroughCCController(model: $0) }
+        self.cellControllers = cellControllers
         self.shouldAnimate = shouldAnimate
         self.onFinish = onFinish
-        self.currentItemTrackingLabelController = WalkthroughCurrentItemTrackingLabelController(totalItems: items.count)
-        self.bottomViewController = WalkthroughBottomViewController(totalItems: items.count)
+        self.currentItemTrackingLabelController = currentItemTrackingLabelController
+        self.bottomViewController = bottomViewController
         super.init(nibName: nil, bundle: nil)
         self.bottomViewController.onPreviousTap = { [weak self] in
             self?.scrollToPreviousItem()
