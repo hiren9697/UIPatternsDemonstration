@@ -9,7 +9,7 @@ import XCTest
 @testable import ECommerceScreens
 
 final class InputFieldViewTests: XCTestCase {
-    func test_iconImage() {
+    func test_iconImage_1() {
         // Arrange & Act
         let iconImage = UIImage.make(withColor: .blue)
         let sut = makeSUT(iconImage: iconImage)
@@ -18,16 +18,34 @@ final class InputFieldViewTests: XCTestCase {
         XCTAssertEqual(sut.iconImage, iconImage)
     }
     
-    func test_placeholderText() {
+    func test_iconImage_2() {
         // Arrange & Act
-        let placeholder = "Test placeholder"
+        let iconImage = UIImage.make(withColor: .orange)
+        let sut = makeSUT(iconImage: iconImage)
+        
+        // Assert
+        XCTAssertEqual(sut.iconImage, iconImage)
+    }
+    
+    func test_placeholderText_1() {
+        // Arrange & Act
+        let placeholder = "First test placeholder"
         let sut = makeSUT(placeholder: placeholder)
         
         // Assert
         XCTAssertEqual(sut.placeholderText, placeholder)
     }
     
-    func test_keyboardType() {
+    func test_placeholderText_2() {
+        // Arrange & Act
+        let placeholder = "Second test placeholder"
+        let sut = makeSUT(placeholder: placeholder)
+        
+        // Assert
+        XCTAssertEqual(sut.placeholderText, placeholder)
+    }
+    
+    func test_keyboardType_1() {
         // Arrange & Act
         let keyboardType: UIKeyboardType = .URL
         let sut = makeSUT(keyboardType: keyboardType)
@@ -36,7 +54,16 @@ final class InputFieldViewTests: XCTestCase {
         XCTAssertEqual(sut.keyboardType, keyboardType)
     }
     
-    func test_returnkeyType() {
+    func test_keyboardType_2() {
+        // Arrange & Act
+        let keyboardType: UIKeyboardType = .emailAddress
+        let sut = makeSUT(keyboardType: keyboardType)
+        
+        // Assert
+        XCTAssertEqual(sut.keyboardType, keyboardType)
+    }
+    
+    func test_returnkeyType_1() {
         // Arrange & Act
         let returnKeyType: UIReturnKeyType = .done
         let sut = makeSUT(returnKeyType: returnKeyType)
@@ -45,9 +72,27 @@ final class InputFieldViewTests: XCTestCase {
         XCTAssertEqual(sut.returnKeyType, returnKeyType)
     }
     
-    func test_isSecure() {
+    func test_returnkeyType_2() {
+        // Arrange & Act
+        let returnKeyType: UIReturnKeyType = .next
+        let sut = makeSUT(returnKeyType: returnKeyType)
+        
+        // Assert
+        XCTAssertEqual(sut.returnKeyType, returnKeyType)
+    }
+    
+    func test_isSecure_1() {
         // Arrange & Act
         let isSecure: Bool = true
+        let sut = makeSUT(isSecure: isSecure)
+        
+        // Assert
+        XCTAssertEqual(sut.isSecure, isSecure)
+    }
+    
+    func test_isSecure_2() {
+        // Arrange & Act
+        let isSecure: Bool = false
         let sut = makeSUT(isSecure: isSecure)
         
         // Assert
