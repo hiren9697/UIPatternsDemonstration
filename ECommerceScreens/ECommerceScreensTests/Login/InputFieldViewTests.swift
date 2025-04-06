@@ -115,6 +115,19 @@ final class InputFieldViewTests: XCTestCase {
         XCTAssertFalse(sut.isPasswordVisibilityUIVisible)
     }
     
+    func test_becomeFirstResponder() {
+        // Arrange
+        let sut = makeSUT()
+        let window = UIWindow()
+        window.addSubview(sut)
+        
+        // Act
+        sut.makeInputFirstResponder()
+        
+        // Assert
+        XCTAssertTrue(sut.isInputFirstResponder)
+    }
+    
     private func makeSUT(iconImage: UIImage = UIImage.make(withColor: .blue),
                          placeholder: String = "Test",
                          keyboardType: UIKeyboardType = .asciiCapable,
@@ -157,5 +170,9 @@ extension InputFieldView {
     
     var isPasswordVisibilityUIVisible: Bool {
         !passwordVisibility.isHidden
+    }
+    
+    var isInputFirstResponder: Bool {
+        textField.isFirstResponder
     }
 }

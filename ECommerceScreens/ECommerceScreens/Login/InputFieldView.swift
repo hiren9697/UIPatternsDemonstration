@@ -43,5 +43,11 @@ public class InputFieldView: UIView {
         textField.returnKeyType = returnKeyType
         textField.isSecureTextEntry = isSecure
         passwordVisibility.isHidden = !isSecure
+        
+        addSubview(textField)
+    }
+    
+    func makeInputFirstResponder() {
+        textField.becomeFirstResponder()
     }
 }
