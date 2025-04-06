@@ -99,6 +99,22 @@ final class InputFieldViewTests: XCTestCase {
         XCTAssertEqual(sut.isSecure, isSecure)
     }
     
+    func test_passwordVisibilityUI_isVisible_withSecureTextEntry() {
+        // Arrange & Act
+        let sut = makeSUT(isSecure: true)
+        
+        // Assert
+        XCTAssertTrue(sut.isPasswordVisibilityUIVisible)
+    }
+    
+    func test_passwordVisibilityUI_isNotVisible_withNormalTextEntry() {
+        // Arrange & Act
+        let sut = makeSUT(isSecure: false)
+        
+        // Assert
+        XCTAssertFalse(sut.isPasswordVisibilityUIVisible)
+    }
+    
     private func makeSUT(iconImage: UIImage = UIImage.make(withColor: .blue),
                          placeholder: String = "Test",
                          keyboardType: UIKeyboardType = .asciiCapable,
@@ -137,5 +153,9 @@ extension InputFieldView {
     
     var isSecure: Bool {
         textField.isSecureTextEntry
+    }
+    
+    var isPasswordVisibilityUIVisible: Bool {
+        !passwordVisibility.isHidden
     }
 }

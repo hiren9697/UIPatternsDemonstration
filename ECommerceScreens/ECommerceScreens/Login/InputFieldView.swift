@@ -10,6 +10,7 @@ import UIKit
 public class InputFieldView: UIView {
     let iconImageView: UIImageView = UIImageView()
     let textField: UITextField = UITextField()
+    let passwordVisibility: UIButton = UIButton()
     
     let iconImage: UIImage
     let placeholder: String
@@ -41,5 +42,6 @@ public class InputFieldView: UIView {
         textField.keyboardType = keyboardType
         textField.returnKeyType = returnKeyType
         textField.isSecureTextEntry = isSecure
+        passwordVisibility.isHidden = !isSecure
     }
 }
