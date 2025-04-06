@@ -9,11 +9,14 @@ import UIKit
 
 public class InputFieldView: UIView {
     let iconImageView: UIImageView = UIImageView()
+    let textField: UITextField = UITextField()
     
     let iconImage: UIImage
+    let placeholder: String
     
-    public init(iconImage: UIImage) {
+    public init(iconImage: UIImage, placeholder: String) {
         self.iconImage = iconImage
+        self.placeholder = placeholder
         super.init(frame: .zero)
         configureUI()
     }
@@ -24,5 +27,6 @@ public class InputFieldView: UIView {
     
     private func configureUI() {
         iconImageView.image = iconImage
+        textField.placeholder = placeholder
     }
 }
