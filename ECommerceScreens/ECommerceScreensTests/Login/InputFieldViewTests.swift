@@ -12,7 +12,7 @@ final class InputFieldViewTests: XCTestCase {
     func test_iconImage_isConfiuredCorrectly() {
         // Arrange & Act
         let iconImage = UIImage.make(withColor: .blue)
-        let sut = InputFieldView(iconImage: iconImage, placeholder: "")
+        let sut = makeSUT(iconImage: iconImage)
         
         // Assert
         XCTAssertEqual(sut.iconImage, iconImage)
@@ -21,10 +21,22 @@ final class InputFieldViewTests: XCTestCase {
     func test_placeholderText_isConfiuredCorrectly() {
         // Arrange & Act
         let placeholder = "Test placeholder"
-        let sut = InputFieldView(iconImage: UIImage.make(withColor: .blue), placeholder: placeholder)
+        let sut = makeSUT(placeholder: placeholder)
         
         // Assert
         XCTAssertEqual(sut.placeholderText, placeholder)
+    }
+    
+    private func makeSUT(iconImage: UIImage = UIImage.make(withColor: .blue),
+                         placeholder: String = "Test",
+                         file: StaticString = #filePath,
+                         line: UInt = #line) -> InputFieldView {
+        let view = InputFieldView(iconImage: iconImage,
+                                  placeholder: placeholder)
+        trackMemory(for: view,
+                    file: file,
+                    line: line)
+        return view
     }
 }
 
