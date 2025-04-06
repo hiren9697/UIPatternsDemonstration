@@ -26,5 +26,7 @@ public class LoginVC: UIViewController {
     // MARK: - UI Helper
     private func configureInitialUI() {
         welcomeLabel.text = "Welcome\nBack!"
+        welcomeLabel.font = UIFont.boldSystemFont(ofSize: 36)
+        welcomeLabel.textColor = AppColors.c000000
     }
 }
