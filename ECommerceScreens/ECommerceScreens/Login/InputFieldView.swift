@@ -50,4 +50,8 @@ public class InputFieldView: UIView {
     func makeInputFirstResponder() {
         textField.becomeFirstResponder()
     }
+    
+    func makeInputRsignResponder() {
+        textField.resignFirstResponder()
+    }
 }

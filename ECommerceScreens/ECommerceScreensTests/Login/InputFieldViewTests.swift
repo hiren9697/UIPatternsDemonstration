@@ -128,6 +128,20 @@ final class InputFieldViewTests: XCTestCase {
         XCTAssertTrue(sut.isInputFirstResponder)
     }
     
+    func test_resignsFirstResponder() {
+        // Arrange
+        let sut = makeSUT()
+        let window = UIWindow()
+        window.addSubview(sut)
+        sut.makeInputFirstResponder()
+
+        // Act
+        sut.makeInputRsignResponder()
+        
+        // Assert
+        XCTAssertFalse(sut.isInputFirstResponder)
+    }
+    
     private func makeSUT(iconImage: UIImage = UIImage.make(withColor: .blue),
                          placeholder: String = "Test",
                          keyboardType: UIKeyboardType = .asciiCapable,
