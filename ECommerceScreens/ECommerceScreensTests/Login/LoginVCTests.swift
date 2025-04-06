@@ -6,12 +6,14 @@
 //
 
 import XCTest
-import ECommerceScreens
+@testable import ECommerceScreens
 
 final class LoginVCTests: XCTestCase {
 
-    func test_welcomeText_isConfigured() {
+    func test_welcomeText_isCorrect() {
         let sut = LoginVC()
+        sut.loadViewIfNeeded()
+        XCTAssertEqual(sut.welcomeLabel.text, "Welcome\nBack!")
     }
 
 }
