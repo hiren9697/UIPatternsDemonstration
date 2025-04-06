@@ -21,24 +21,25 @@ public class WalkthroughMultipleMVCs: UIViewController, UICollectionViewDataSour
         collectionView.showsVerticalScrollIndicator = false
         return collectionView
     }()
+    
+    private let currentItemTrackingLabelController: WalkthroughCurrentItemTrackingLabelController
+    private let bottomViewController: WalkthroughBottomViewController
+    private let cellControllers: [WalkthroughCCController]
+    private let shouldAnimate: Bool
+    private let onFinish: FinishCompletion
+    
     var pageControl: UIPageControl {
         bottomViewController.view.pageControl
     }
     var currentItemTrackingLabel: UILabel {
         currentItemTrackingLabelController.view
     }
-    let currentItemTrackingLabelController: WalkthroughCurrentItemTrackingLabelController
     var previousButton: UIButton {
         bottomViewController.view.previousButton
     }
     var nextButton: UIButton {
         bottomViewController.view.nextButton
     }
-    let bottomViewController: WalkthroughBottomViewController
-    
-    private let cellControllers: [WalkthroughCCController]
-    private let shouldAnimate: Bool
-    private let onFinish: FinishCompletion
     
     public init(cellControllers: [WalkthroughCCController],
                 currentItemTrackingLabelController: WalkthroughCurrentItemTrackingLabelController,
