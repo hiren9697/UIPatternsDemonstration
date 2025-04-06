@@ -10,19 +10,28 @@ import XCTest
 
 final class LoginVCTests: XCTestCase {
     func test_welcomeText_isCorrect() {
-        let sut = LoginVC()
-        sut.loadViewIfNeeded()
+        let sut = makeSUT()
         XCTAssertEqual(sut.welcomeLabel.text, "Welcome\nBack!")
     }
     
     func test_welcomeText_hasCorrectAttributes() {
-        let sut = LoginVC()
-        sut.loadViewIfNeeded()
+        let sut = makeSUT()
         XCTAssertEqual(sut.welcomeLabel.font,
                        .boldSystemFont(ofSize: 36),
                        "Expected font to be boldSystemFont(ofSize: 36)")
         XCTAssertEqual(sut.welcomeLabel.textColor,
                        AppColors.c000000,
                        "Expected textColor to be AppColors.c000000")
+    }
+    
+    // MARK: - Helper
+    private func makeSUT(file: StaticString = #filePath,
+                         line: UInt = #line) -> LoginVC {
+        let sut = LoginVC()
+        sut.loadViewIfNeeded()
+        trackMemory(for: sut,
+                    file: file,
+                    line: line)
+        return sut
     }
 }
