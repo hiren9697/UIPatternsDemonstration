@@ -171,18 +171,35 @@ final class InputFieldViewTests: XCTestCase {
         XCTAssertFalse(sut.isInputFirstResponder)
     }
     
+    func test_onReturn() {
+        // Arrange
+        var onReturnCalls: [Bool] = []
+        let sut = makeSUT(onReturn: {
+            onReturnCalls.append(true)
+            return true
+        })
+        
+        // Act
+        sut.simulateShouldReturnOnInputField()
+        
+        // Assert
+        XCTAssertEqual(onReturnCalls, [true])
+    }
+    
     private func makeSUT(iconImage: UIImage = UIImage.make(withColor: .blue),
                          placeholder: String = "Test",
                          keyboardType: UIKeyboardType = .asciiCapable,
                          returnKeyType: UIReturnKeyType = .next,
                          isSecure: Bool = false,
+                         onReturn: @escaping InputFieldView.OnReturn = { true },
                          file: StaticString = #filePath,
                          line: UInt = #line) -> InputFieldView {
         let view = InputFieldView(iconImage: iconImage,
                                   placeholder: placeholder,
                                   keyboardType: keyboardType,
                                   returnKeyType: returnKeyType,
-                                  isSecure: isSecure)
+                                  isSecure: isSecure,
+                                  onReturn: onReturn)
         trackMemory(for: view,
                     file: file,
                     line: line)
@@ -233,5 +250,9 @@ extension InputFieldView {
     
     func simulatePasswordVisibilityTap() {
         passwordVisibility.simulateTap()
+    }
+    
+    func simulateShouldReturnOnInputField() {
+        _ = textField.delegate?.textFieldShouldReturn?(textField)
     }
 }

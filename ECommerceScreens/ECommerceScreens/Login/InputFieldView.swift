@@ -7,7 +7,8 @@
 
 import UIKit
 
-public class InputFieldView: UIView {
+public class InputFieldView: UIView, UITextFieldDelegate {
+    public typealias OnReturn = () -> Bool
     let iconImageView: UIImageView = UIImageView()
     let textField: UITextField = UITextField()
     let passwordVisibility: UIButton = UIButton()
@@ -17,17 +18,20 @@ public class InputFieldView: UIView {
     let keyboardType: UIKeyboardType
     let returnKeyType: UIReturnKeyType
     let isSecure: Bool
+    let onReturn: OnReturn
     
     public init(iconImage: UIImage,
                 placeholder: String,
                 keyboardType: UIKeyboardType,
                 returnKeyType: UIReturnKeyType,
-                isSecure: Bool) {
+                isSecure: Bool,
+                onReturn: @escaping OnReturn) {
         self.iconImage = iconImage
         self.placeholder = placeholder
         self.keyboardType = keyboardType
         self.returnKeyType = returnKeyType
         self.isSecure = isSecure
+        self.onReturn = onReturn
         super.init(frame: .zero)
         configureUI()
     }
@@ -48,7 +52,7 @@ public class InputFieldView: UIView {
                                             with: nil),
                                     for: .normal)
         passwordVisibility.addTarget(self, action: #selector(passwordVisibilityTap), for: .touchUpInside)
-        
+        textField.delegate = self
         addSubview(textField)
     }
     
@@ -74,5 +78,9 @@ public class InputFieldView: UIView {
         }
         let image = textField.isSecureTextEntry ? showPasswordImage : hidePasswordImage
         passwordVisibility.setImage(image, for: .normal)
+    }
+    
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        onReturn()
     }
 }
