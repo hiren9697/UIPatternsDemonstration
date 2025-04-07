@@ -115,6 +115,35 @@ final class InputFieldViewTests: XCTestCase {
         XCTAssertFalse(sut.isPasswordVisibilityUIVisible)
     }
     
+    func test_passwordVisibilityUITap_togglePasswordVisibility() {
+        // Arrange & Act
+        let sut = makeSUT(isSecure: true)
+        
+        // Assert
+        XCTAssertTrue(sut.isSecure,
+                      "Expected password not visible initially")
+        XCTAssertTrue(sut.isPasswordVisibilityUIShowingShowPasswordOption,
+                      "Expected password visibility UI to show 'Show password' option initially")
+        
+        // Act
+        sut.simulatePasswordVisibilityTap()
+        
+        // Assert
+        XCTAssertFalse(sut.isSecure,
+                      "Expected password visible after first tap")
+        XCTAssertTrue(sut.isPasswordVisibilityUIShowingHidePasswordOption,
+                      "Expected password visibility UI to show 'Hide password' option after first tap")
+        
+        // Act
+        sut.simulatePasswordVisibilityTap()
+        
+        // Assert
+        XCTAssertTrue(sut.isSecure,
+                      "Expected password not visible after second tap")
+        XCTAssertTrue(sut.isPasswordVisibilityUIShowingShowPasswordOption,
+                      "Expected password visibility UI to show 'Show password' option after second tap")
+    }
+    
     func test_becomeFirstResponder() {
         // Arrange
         let sut = makeSUT()
@@ -188,5 +217,21 @@ extension InputFieldView {
     
     var isInputFirstResponder: Bool {
         textField.isFirstResponder
+    }
+    
+    var isPasswordVisibilityUIShowingShowPasswordOption: Bool {
+        let currentImage = passwordVisibility.image(for: .normal)
+        let showPasswordImage = UIImage(named: "ic_show_password", in: Bundle(identifier: "hiren.ECommerceScreens"), with: nil)!
+        return currentImage == showPasswordImage
+    }
+    
+    var isPasswordVisibilityUIShowingHidePasswordOption: Bool {
+        let currentImage = passwordVisibility.image(for: .normal)
+        let showPasswordImage = UIImage(named: "ic_hide_password", in: Bundle(identifier: "hiren.ECommerceScreens"), with: nil)!
+        return currentImage == showPasswordImage
+    }
+    
+    func simulatePasswordVisibilityTap() {
+        passwordVisibility.simulateTap()
     }
 }

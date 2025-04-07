@@ -43,6 +43,11 @@ public class InputFieldView: UIView {
         textField.returnKeyType = returnKeyType
         textField.isSecureTextEntry = isSecure
         passwordVisibility.isHidden = !isSecure
+        passwordVisibility.setImage(UIImage(named: "ic_show_password",
+                                            in: Bundle(identifier: "hiren.ECommerceScreens"),
+                                            with: nil),
+                                    for: .normal)
+        passwordVisibility.addTarget(self, action: #selector(passwordVisibilityTap), for: .touchUpInside)
         
         addSubview(textField)
     }
@@ -53,5 +58,21 @@ public class InputFieldView: UIView {
     
     func makeInputRsignResponder() {
         textField.resignFirstResponder()
+    }
+    
+    @objc func passwordVisibilityTap() {
+        textField.isSecureTextEntry.toggle()
+        guard let showPasswordImage = UIImage(named: "ic_show_password",
+                                              in: Bundle(identifier: "hiren.ECommerceScreens"),
+                                              with: nil) else {
+            return
+        }
+        guard let hidePasswordImage = UIImage(named: "ic_hide_password",
+                                              in: Bundle(identifier: "hiren.ECommerceScreens"),
+                                              with: nil) else {
+            return
+        }
+        let image = textField.isSecureTextEntry ? showPasswordImage : hidePasswordImage
+        passwordVisibility.setImage(image, for: .normal)
     }
 }
