@@ -12,14 +12,7 @@ public class InputFieldView: UIView, UITextFieldDelegate {
     let iconImageView: UIImageView = UIImageView()
     let textField: UITextField = UITextField()
     let passwordVisibility: UIButton = UIButton()
-    
-    let iconImage: UIImage
-    let placeholder: String
-    let keyboardType: UIKeyboardType
-    let returnKeyType: UIReturnKeyType
-    let isSecure: Bool
     let onReturn: OnReturn
-    
     var onLayoutSubViews: (() -> Void)?
     
     public init(iconImage: UIImage,
@@ -28,14 +21,13 @@ public class InputFieldView: UIView, UITextFieldDelegate {
                 returnKeyType: UIReturnKeyType,
                 isSecure: Bool,
                 onReturn: @escaping OnReturn) {
-        self.iconImage = iconImage
-        self.placeholder = placeholder
-        self.keyboardType = keyboardType
-        self.returnKeyType = returnKeyType
-        self.isSecure = isSecure
         self.onReturn = onReturn
         super.init(frame: .zero)
-        configureUI()
+        configureUI(iconImage: iconImage,
+                    placeholder: placeholder,
+                    keyboardType: keyboardType,
+                    returnKeyType: returnKeyType,
+                    isSecure: isSecure)
         onLayoutSubViews = {[weak self] in
             self?.layoutUIcomponents()
             self?.onLayoutSubViews = nil
@@ -51,7 +43,12 @@ public class InputFieldView: UIView, UITextFieldDelegate {
         onLayoutSubViews?()
     }
     
-    private func configureUI() {
+    // MARK: - Helper
+    private func configureUI(iconImage: UIImage,
+                             placeholder: String,
+                             keyboardType: UIKeyboardType,
+                             returnKeyType: UIReturnKeyType,
+                             isSecure: Bool) {
         iconImageView.image = iconImage
         textField.placeholder = placeholder
         textField.keyboardType = keyboardType
@@ -97,14 +94,6 @@ public class InputFieldView: UIView, UITextFieldDelegate {
         stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
     }
     
-    func makeInputFirstResponder() {
-        textField.becomeFirstResponder()
-    }
-    
-    func makeInputRsignResponder() {
-        textField.resignFirstResponder()
-    }
-    
     @objc func passwordVisibilityTap() {
         textField.isSecureTextEntry.toggle()
         guard let showPasswordImage = UIImage(named: "ic_show_password",
@@ -121,6 +110,16 @@ public class InputFieldView: UIView, UITextFieldDelegate {
         passwordVisibility.setImage(image, for: .normal)
     }
     
+    // MARK: - Public Interface
+    func makeInputFirstResponder() {
+        textField.becomeFirstResponder()
+    }
+    
+    func makeInputRsignResponder() {
+        textField.resignFirstResponder()
+    }
+    
+    // MARK: - TextField Delegate
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         onReturn()
     }
