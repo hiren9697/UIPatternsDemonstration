@@ -200,6 +200,7 @@ final class InputFieldViewTests: XCTestCase {
                                   returnKeyType: returnKeyType,
                                   isSecure: isSecure,
                                   onReturn: onReturn)
+        view.layoutSubviews()
         trackMemory(for: view,
                     file: file,
                     line: line)

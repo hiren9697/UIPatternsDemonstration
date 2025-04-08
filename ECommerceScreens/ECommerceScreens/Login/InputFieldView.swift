@@ -20,6 +20,8 @@ public class InputFieldView: UIView, UITextFieldDelegate {
     let isSecure: Bool
     let onReturn: OnReturn
     
+    var onLayoutSubViews: (() -> Void)?
+    
     public init(iconImage: UIImage,
                 placeholder: String,
                 keyboardType: UIKeyboardType,
@@ -34,10 +36,19 @@ public class InputFieldView: UIView, UITextFieldDelegate {
         self.onReturn = onReturn
         super.init(frame: .zero)
         configureUI()
+        onLayoutSubViews = {[weak self] in
+            self?.layoutUIcomponents()
+            self?.onLayoutSubViews = nil
+        }
     }
     
     required init?(coder: NSCoder) {
         fatalError("LoginVC is designed programmatically, it shouldn't be initialized from storyboard")
+    }
+    
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        onLayoutSubViews?()
     }
     
     private func configureUI() {
@@ -53,7 +64,37 @@ public class InputFieldView: UIView, UITextFieldDelegate {
                                     for: .normal)
         passwordVisibility.addTarget(self, action: #selector(passwordVisibilityTap), for: .touchUpInside)
         textField.delegate = self
-        addSubview(textField)
+    }
+    
+    private func layoutUIcomponents() {
+        let containerView = UIView()
+        containerView.backgroundColor = AppColors.cF3F3F3
+        containerView.layer.borderColor = AppColors.cA8A8A9.cgColor
+        containerView.layer.borderWidth = 1
+        containerView.layer.cornerRadius = 10
+        containerView.layer.masksToBounds = true
+        addSubview(containerView)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        containerView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        
+        iconImageView.setContentHuggingPriority(UILayoutPriority(251), for: .horizontal)
+        textField.setContentHuggingPriority(UILayoutPriority(250), for: .horizontal)
+        passwordVisibility.setContentHuggingPriority(UILayoutPriority(251), for: .horizontal)
+
+        let stackView = UIStackView(arrangedSubviews: [iconImageView, textField, passwordVisibility])
+        stackView.axis = .horizontal
+        stackView.spacing = 5
+        stackView.alignment = .center
+        stackView.distribution = .fill
+        containerView.addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 11).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -11).isActive = true
+        stackView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
     }
     
     func makeInputFirstResponder() {
