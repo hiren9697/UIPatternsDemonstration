@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func btnTap() {
+        /*
         let vc = WalkthroughMultipleMVCsComposer.compose(items: [WalkthroughItem(image: UIImage(namedWithInBundle: "ic_walkthrough_item_1")!,
                                                                                  title: "Choose Products",
                                                                                  subtitle: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit."),
@@ -25,6 +26,9 @@ class ViewController: UIViewController {
                                                                                  title: "Get Your Order",
                                                                                  subtitle: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.")],
                                                          onFinish: { print("Finished walkthrough")})
+        navigationController?.pushViewController(vc, animated: true)
+         */
+        let vc = LoginVC()
         navigationController?.pushViewController(vc, animated: true)
     }
 }
