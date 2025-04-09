@@ -13,8 +13,16 @@ public class LoginVC: UIViewController {
                                                     placeholder: "Email",
                                                     keyboardType: .emailAddress,
                                                     returnKeyType: .next,
-                                                    isSecureTextEntry: true,
+                                                    isSecureTextEntry: false,
                                                     onReturn: {
+        return true
+    })
+    let passwordField: InputFieldView = InputFieldView(iconImage: UIImage(namedWithInBundle: "ic_password")!,
+                                                       placeholder: "Password",
+                                                       keyboardType: .asciiCapable,
+                                                       returnKeyType: .done,
+                                                       isSecureTextEntry: true,
+                                                       onReturn: {
         return true
     })
     

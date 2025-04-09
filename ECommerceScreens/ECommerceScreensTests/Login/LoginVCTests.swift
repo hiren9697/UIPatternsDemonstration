@@ -35,13 +35,38 @@ final class LoginVCTests: XCTestCase {
                        "Expected mail icon but got \(String(describing: sut.emailField.iconImage)) instead")
         XCTAssertEqual(sut.emailField.placeholderText,
                        "Email",
-                       "Expected 'Email' placeholder but got \(String(describing: sut.emailField.iconImage)) instead")
+                       "Expected 'Email' placeholder but got \(String(describing: sut.emailField.placeholderText)) instead")
         XCTAssertEqual(sut.emailField.keyboardType,
                        .emailAddress,
-                       "Expected 'emailAddress' keyboard type but got \(String(describing: sut.emailField.iconImage)) instead")
+                       "Expected 'emailAddress' keyboard type but got \(String(describing: sut.emailField.keyboardType)) instead")
         XCTAssertEqual(sut.emailField.returnKeyType,
                        .next,
-                       "Expected 'next' return key but got \(String(describing: sut.emailField.iconImage)) instead")
+                       "Expected 'next' return key but got \(String(describing: sut.emailField.returnKeyType)) instead")
+        XCTAssertEqual(sut.emailField.isSecureTextEntry,
+                       false,
+                       "Expected normal text entry but got \(String(describing: sut.emailField.isSecureTextEntry)) instead")
+    }
+    
+    func test_passwordField_isConfiguredWithCorrectAttributes() {
+        // Arrange && Act
+        let sut = makeSUT()
+        
+        // Assert
+        XCTAssertEqual(sut.passwordField.iconImage,
+                       UIImage(namedWithInBundle: "ic_password")!,
+                       "Expected password icon but got \(String(describing: sut.passwordField.iconImage)) instead")
+        XCTAssertEqual(sut.passwordField.placeholderText,
+                       "Password",
+                       "Expected 'Password' placeholder but got \(String(describing: sut.passwordField.placeholderText)) instead")
+        XCTAssertEqual(sut.passwordField.keyboardType,
+                       .asciiCapable,
+                       "Expected 'asciiCapable' keyboard type but got \(String(describing: sut.passwordField.keyboardType)) instead")
+        XCTAssertEqual(sut.passwordField.returnKeyType,
+                       .done,
+                       "Expected 'done' return key but got \(String(describing: sut.passwordField.returnKeyType)) instead")
+        XCTAssertEqual(sut.passwordField.isSecureTextEntry,
+                       true,
+                       "Expected secure text entry but got \(String(describing: sut.passwordField.isSecureTextEntry)) instead")
     }
     
     // MARK: - Helper
