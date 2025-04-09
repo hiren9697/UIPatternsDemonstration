@@ -11,7 +11,7 @@ public class InputFieldView: UIView, UITextFieldDelegate {
     public typealias OnReturn = () -> Bool
     let iconImageView: UIImageView = UIImageView()
     let textField: UITextField = UITextField()
-    let passwordVisibility: UIButton = UIButton()
+    let passwordVisibilityToggleButton: UIButton = UIButton()
     let onReturn: OnReturn
     var onLayoutSubViews: (() -> Void)?
     
@@ -19,7 +19,7 @@ public class InputFieldView: UIView, UITextFieldDelegate {
                 placeholder: String,
                 keyboardType: UIKeyboardType,
                 returnKeyType: UIReturnKeyType,
-                isSecure: Bool,
+                isSecureTextEntry: Bool,
                 onReturn: @escaping OnReturn) {
         self.onReturn = onReturn
         super.init(frame: .zero)
@@ -27,7 +27,7 @@ public class InputFieldView: UIView, UITextFieldDelegate {
                     placeholder: placeholder,
                     keyboardType: keyboardType,
                     returnKeyType: returnKeyType,
-                    isSecure: isSecure)
+                    isSecureTextEntry: isSecureTextEntry)
         onLayoutSubViews = {[weak self] in
             self?.layoutUIcomponents()
             self?.onLayoutSubViews = nil
@@ -48,18 +48,16 @@ public class InputFieldView: UIView, UITextFieldDelegate {
                              placeholder: String,
                              keyboardType: UIKeyboardType,
                              returnKeyType: UIReturnKeyType,
-                             isSecure: Bool) {
+                             isSecureTextEntry: Bool) {
         iconImageView.image = iconImage
         textField.placeholder = placeholder
         textField.keyboardType = keyboardType
         textField.returnKeyType = returnKeyType
-        textField.isSecureTextEntry = isSecure
-        passwordVisibility.isHidden = !isSecure
-        passwordVisibility.setImage(UIImage(named: "ic_show_password",
-                                            in: Bundle(identifier: "hiren.ECommerceScreens"),
-                                            with: nil),
-                                    for: .normal)
-        passwordVisibility.addTarget(self, action: #selector(passwordVisibilityTap), for: .touchUpInside)
+        textField.isSecureTextEntry = isSecureTextEntry
+        passwordVisibilityToggleButton.isHidden = !isSecureTextEntry
+        passwordVisibilityToggleButton.setImage(UIImage(namedWithInBundle: "ic_show_password"),
+                                                for: .normal)
+        passwordVisibilityToggleButton.addTarget(self, action: #selector(passwordVisibilityToggleTap), for: .touchUpInside)
         textField.delegate = self
     }
     
@@ -79,9 +77,9 @@ public class InputFieldView: UIView, UITextFieldDelegate {
         
         iconImageView.setContentHuggingPriority(UILayoutPriority(251), for: .horizontal)
         textField.setContentHuggingPriority(UILayoutPriority(250), for: .horizontal)
-        passwordVisibility.setContentHuggingPriority(UILayoutPriority(251), for: .horizontal)
+        passwordVisibilityToggleButton.setContentHuggingPriority(UILayoutPriority(251), for: .horizontal)
 
-        let stackView = UIStackView(arrangedSubviews: [iconImageView, textField, passwordVisibility])
+        let stackView = UIStackView(arrangedSubviews: [iconImageView, textField, passwordVisibilityToggleButton])
         stackView.axis = .horizontal
         stackView.spacing = 5
         stackView.alignment = .center
@@ -94,7 +92,7 @@ public class InputFieldView: UIView, UITextFieldDelegate {
         stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
     }
     
-    @objc func passwordVisibilityTap() {
+    @objc func passwordVisibilityToggleTap() {
         textField.isSecureTextEntry.toggle()
         guard let showPasswordImage = UIImage(named: "ic_show_password",
                                               in: Bundle(identifier: "hiren.ECommerceScreens"),
@@ -107,7 +105,7 @@ public class InputFieldView: UIView, UITextFieldDelegate {
             return
         }
         let image = textField.isSecureTextEntry ? showPasswordImage : hidePasswordImage
-        passwordVisibility.setImage(image, for: .normal)
+        passwordVisibilityToggleButton.setImage(image, for: .normal)
     }
     
     // MARK: - Public Interface

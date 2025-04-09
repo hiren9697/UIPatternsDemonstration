@@ -9,7 +9,7 @@ import XCTest
 @testable import ECommerceScreens
 
 final class InputFieldViewTests: XCTestCase {
-    func test_iconImage_1() {
+    func test_iconImage_isAssignedProperly_1() {
         // Arrange & Act
         let iconImage = UIImage.make(withColor: .blue)
         let sut = makeSUT(iconImage: iconImage)
@@ -18,7 +18,7 @@ final class InputFieldViewTests: XCTestCase {
         XCTAssertEqual(sut.iconImage, iconImage)
     }
     
-    func test_iconImage_2() {
+    func test_iconImage_isAssignedProperly_2() {
         // Arrange & Act
         let iconImage = UIImage.make(withColor: .orange)
         let sut = makeSUT(iconImage: iconImage)
@@ -27,7 +27,7 @@ final class InputFieldViewTests: XCTestCase {
         XCTAssertEqual(sut.iconImage, iconImage)
     }
     
-    func test_placeholderText_1() {
+    func test_placeholderText_isAssignedProperly_1() {
         // Arrange & Act
         let placeholder = "First test placeholder"
         let sut = makeSUT(placeholder: placeholder)
@@ -36,7 +36,7 @@ final class InputFieldViewTests: XCTestCase {
         XCTAssertEqual(sut.placeholderText, placeholder)
     }
     
-    func test_placeholderText_2() {
+    func test_placeholderText_isAssignedProperly_2() {
         // Arrange & Act
         let placeholder = "Second test placeholder"
         let sut = makeSUT(placeholder: placeholder)
@@ -45,7 +45,7 @@ final class InputFieldViewTests: XCTestCase {
         XCTAssertEqual(sut.placeholderText, placeholder)
     }
     
-    func test_keyboardType_1() {
+    func test_keyboardType_isAssignedProperly_1() {
         // Arrange & Act
         let keyboardType: UIKeyboardType = .URL
         let sut = makeSUT(keyboardType: keyboardType)
@@ -54,7 +54,7 @@ final class InputFieldViewTests: XCTestCase {
         XCTAssertEqual(sut.keyboardType, keyboardType)
     }
     
-    func test_keyboardType_2() {
+    func test_keyboardType_isAssignedProperly_2() {
         // Arrange & Act
         let keyboardType: UIKeyboardType = .emailAddress
         let sut = makeSUT(keyboardType: keyboardType)
@@ -63,7 +63,7 @@ final class InputFieldViewTests: XCTestCase {
         XCTAssertEqual(sut.keyboardType, keyboardType)
     }
     
-    func test_returnkeyType_1() {
+    func test_returnkeyType_isAssignedProperly_1() {
         // Arrange & Act
         let returnKeyType: UIReturnKeyType = .done
         let sut = makeSUT(returnKeyType: returnKeyType)
@@ -72,7 +72,7 @@ final class InputFieldViewTests: XCTestCase {
         XCTAssertEqual(sut.returnKeyType, returnKeyType)
     }
     
-    func test_returnkeyType_2() {
+    func test_returnkeyType_isAssignedProperly_2() {
         // Arrange & Act
         let returnKeyType: UIReturnKeyType = .next
         let sut = makeSUT(returnKeyType: returnKeyType)
@@ -81,66 +81,66 @@ final class InputFieldViewTests: XCTestCase {
         XCTAssertEqual(sut.returnKeyType, returnKeyType)
     }
     
-    func test_isSecure_1() {
+    func test_isSecureTextEntry_isAssignedProperly_1() {
         // Arrange & Act
-        let isSecure: Bool = true
-        let sut = makeSUT(isSecure: isSecure)
+        let isSecureTextEntry: Bool = true
+        let sut = makeSUT(isSecureTextEntry: isSecureTextEntry)
         
         // Assert
-        XCTAssertEqual(sut.isSecure, isSecure)
+        XCTAssertEqual(sut.isSecureTextEntry, isSecureTextEntry)
     }
     
-    func test_isSecure_2() {
+    func test_isSecureTextEntry_isAssignedProperly_2() {
         // Arrange & Act
-        let isSecure: Bool = false
-        let sut = makeSUT(isSecure: isSecure)
+        let isSecureTextEntry: Bool = false
+        let sut = makeSUT(isSecureTextEntry: isSecureTextEntry)
         
         // Assert
-        XCTAssertEqual(sut.isSecure, isSecure)
+        XCTAssertEqual(sut.isSecureTextEntry, isSecureTextEntry)
     }
     
     func test_passwordVisibilityUI_isVisible_withSecureTextEntry() {
         // Arrange & Act
-        let sut = makeSUT(isSecure: true)
+        let sut = makeSUT(isSecureTextEntry: true)
         
         // Assert
-        XCTAssertTrue(sut.isPasswordVisibilityUIVisible)
+        XCTAssertTrue(sut.isPasswordVisibilityToggleControlVisible)
     }
     
     func test_passwordVisibilityUI_isNotVisible_withNormalTextEntry() {
         // Arrange & Act
-        let sut = makeSUT(isSecure: false)
+        let sut = makeSUT(isSecureTextEntry: false)
         
         // Assert
-        XCTAssertFalse(sut.isPasswordVisibilityUIVisible)
+        XCTAssertFalse(sut.isPasswordVisibilityToggleControlVisible)
     }
     
     func test_passwordVisibilityUITap_togglePasswordVisibility() {
         // Arrange & Act
-        let sut = makeSUT(isSecure: true)
+        let sut = makeSUT(isSecureTextEntry: true)
         
         // Assert
-        XCTAssertTrue(sut.isSecure,
+        XCTAssertTrue(sut.isSecureTextEntry,
                       "Expected password not visible initially")
-        XCTAssertTrue(sut.isPasswordVisibilityUIShowingShowPasswordOption,
+        XCTAssertTrue(sut.isPasswordVisibilityToggleControlShowingShowPasswordOption,
                       "Expected password visibility UI to show 'Show password' option initially")
         
         // Act
-        sut.simulatePasswordVisibilityTap()
+        sut.simulatePasswordVisibilityToggleTap()
         
         // Assert
-        XCTAssertFalse(sut.isSecure,
+        XCTAssertFalse(sut.isSecureTextEntry,
                       "Expected password visible after first tap")
-        XCTAssertTrue(sut.isPasswordVisibilityUIShowingHidePasswordOption,
+        XCTAssertTrue(sut.isPasswordVisibilityToggleControlShowingHidePasswordOption,
                       "Expected password visibility UI to show 'Hide password' option after first tap")
         
         // Act
-        sut.simulatePasswordVisibilityTap()
+        sut.simulatePasswordVisibilityToggleTap()
         
         // Assert
-        XCTAssertTrue(sut.isSecure,
+        XCTAssertTrue(sut.isSecureTextEntry,
                       "Expected password not visible after second tap")
-        XCTAssertTrue(sut.isPasswordVisibilityUIShowingShowPasswordOption,
+        XCTAssertTrue(sut.isPasswordVisibilityToggleControlShowingShowPasswordOption,
                       "Expected password visibility UI to show 'Show password' option after second tap")
     }
     
@@ -190,7 +190,7 @@ final class InputFieldViewTests: XCTestCase {
                          placeholder: String = "Test",
                          keyboardType: UIKeyboardType = .asciiCapable,
                          returnKeyType: UIReturnKeyType = .next,
-                         isSecure: Bool = false,
+                         isSecureTextEntry: Bool = false,
                          onReturn: @escaping InputFieldView.OnReturn = { true },
                          file: StaticString = #filePath,
                          line: UInt = #line) -> InputFieldView {
@@ -198,7 +198,7 @@ final class InputFieldViewTests: XCTestCase {
                                   placeholder: placeholder,
                                   keyboardType: keyboardType,
                                   returnKeyType: returnKeyType,
-                                  isSecure: isSecure,
+                                  isSecureTextEntry: isSecureTextEntry,
                                   onReturn: onReturn)
         view.layoutSubviews()
         trackMemory(for: view,
@@ -225,32 +225,32 @@ extension InputFieldView {
         textField.returnKeyType
     }
     
-    var isSecure: Bool {
+    var isSecureTextEntry: Bool {
         textField.isSecureTextEntry
     }
     
-    var isPasswordVisibilityUIVisible: Bool {
-        !passwordVisibility.isHidden
+    var isPasswordVisibilityToggleControlVisible: Bool {
+        !passwordVisibilityToggleButton.isHidden
     }
     
     var isInputFirstResponder: Bool {
         textField.isFirstResponder
     }
     
-    var isPasswordVisibilityUIShowingShowPasswordOption: Bool {
-        let currentImage = passwordVisibility.image(for: .normal)
+    var isPasswordVisibilityToggleControlShowingShowPasswordOption: Bool {
+        let currentImage = passwordVisibilityToggleButton.image(for: .normal)
         let showPasswordImage = UIImage(namedWithInBundle: "ic_show_password")!
         return currentImage == showPasswordImage
     }
     
-    var isPasswordVisibilityUIShowingHidePasswordOption: Bool {
-        let currentImage = passwordVisibility.image(for: .normal)
+    var isPasswordVisibilityToggleControlShowingHidePasswordOption: Bool {
+        let currentImage = passwordVisibilityToggleButton.image(for: .normal)
         let showPasswordImage = UIImage(namedWithInBundle: "ic_hide_password")!
         return currentImage == showPasswordImage
     }
     
-    func simulatePasswordVisibilityTap() {
-        passwordVisibility.simulateTap()
+    func simulatePasswordVisibilityToggleTap() {
+        passwordVisibilityToggleButton.simulateTap()
     }
     
     func simulateShouldReturnOnInputField() {

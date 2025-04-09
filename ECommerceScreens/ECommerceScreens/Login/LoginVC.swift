@@ -15,7 +15,7 @@ public class LoginVC: UIViewController {
                                                     placeholder: "Email",
                                                     keyboardType: .emailAddress,
                                                     returnKeyType: .next,
-                                                    isSecure: true,
+                                                    isSecureTextEntry: true,
                                                     onReturn: {
         return true
     })
