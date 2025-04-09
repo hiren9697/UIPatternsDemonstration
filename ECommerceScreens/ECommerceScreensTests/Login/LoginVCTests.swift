@@ -25,6 +25,25 @@ final class LoginVCTests: XCTestCase {
                        "Expected textColor to be AppColors.c000000, but got \(String(describing: sut.welcomeLabel.textColor)) instead")
     }
     
+    func test_emailField_isConfiguredWithCorrectAttributes() {
+        // Arrange && Act
+        let sut = makeSUT()
+        
+        // Assert
+        XCTAssertEqual(sut.emailField.iconImage,
+                       UIImage(namedWithInBundle: "ic_mail")!,
+                       "Expected mail icon but got \(String(describing: sut.emailField.iconImage)) instead")
+        XCTAssertEqual(sut.emailField.placeholderText,
+                       "Email",
+                       "Expected 'Email' placeholder but got \(String(describing: sut.emailField.iconImage)) instead")
+        XCTAssertEqual(sut.emailField.keyboardType,
+                       .emailAddress,
+                       "Expected 'emailAddress' keyboard type but got \(String(describing: sut.emailField.iconImage)) instead")
+        XCTAssertEqual(sut.emailField.returnKeyType,
+                       .next,
+                       "Expected 'next' return key but got \(String(describing: sut.emailField.iconImage)) instead")
+    }
+    
     // MARK: - Helper
     private func makeSUT(file: StaticString = #filePath,
                          line: UInt = #line) -> LoginVC {

@@ -9,9 +9,7 @@ import UIKit
 
 public class LoginVC: UIViewController {
     let welcomeLabel: UILabel = UILabel()
-    let emailField: InputFieldView = InputFieldView(iconImage: UIImage(named: "ic_user",
-                                                                       in: Bundle(identifier: "hiren.ECommerceScreens"),
-                                                                       with: nil)!,
+    let emailField: InputFieldView = InputFieldView(iconImage: UIImage(namedWithInBundle: "ic_mail")!,
                                                     placeholder: "Email",
                                                     keyboardType: .emailAddress,
                                                     returnKeyType: .next,
