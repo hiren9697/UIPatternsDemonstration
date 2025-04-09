@@ -239,13 +239,13 @@ extension InputFieldView {
     
     var isPasswordVisibilityUIShowingShowPasswordOption: Bool {
         let currentImage = passwordVisibility.image(for: .normal)
-        let showPasswordImage = UIImage(named: "ic_show_password", in: Bundle(identifier: "hiren.ECommerceScreens"), with: nil)!
+        let showPasswordImage = UIImage(namedWithInBundle: "ic_show_password")!
         return currentImage == showPasswordImage
     }
     
     var isPasswordVisibilityUIShowingHidePasswordOption: Bool {
         let currentImage = passwordVisibility.image(for: .normal)
-        let showPasswordImage = UIImage(named: "ic_hide_password", in: Bundle(identifier: "hiren.ECommerceScreens"), with: nil)!
+        let showPasswordImage = UIImage(namedWithInBundle: "ic_hide_password")!
         return currentImage == showPasswordImage
     }
     

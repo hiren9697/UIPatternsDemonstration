@@ -9,6 +9,6 @@ import UIKit
 
 public extension UIImage {
     convenience init?(namedWithInBundle imageName: String) {
-        self.init(named: imageName, in: Bundle(identifier:"hiren.ECommerceScreens"), with: nil)
+        self.init(named: imageName, in: Bundle(for: BundleToken.self), with: nil)
     }
 }
