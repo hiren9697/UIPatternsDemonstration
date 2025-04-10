@@ -8,6 +8,18 @@
 import XCTest
 @testable import ECommerceScreens
 
+/// Notes:
+/// To make first responder in tests you can either:
+/// 1. let window = UIWindow()
+///   window.rootViewController = sut
+///   window.makeKeyAndVisible()
+///   `sut.emailField.layoutSubviews()` This is because as we are in tests layout doesn't happen so we have to manually call it's layout methods, even calling `view.layoutSubViews()` not calling `layoutSubViews()` on input field
+///   Test execution time: 0.319, 0.267, 0.243, 0.253 seconds
+/// 2. let window = UIWindow()
+///   window.addSubview(sut.view)
+///   `sut.emailField.layoutSubviews()` This is because as we are in tests layout doesn't happen so we have to manually call it's layout methods even calling `view.layoutSubViews()` not calling `layoutSubViews()` on input field
+///   Test execution time: 0.09, 0.111, 0.114, 0.127 seconds
+
 final class LoginVCTests: XCTestCase {
     func test_welcomeText_isConfiguredWithCorrectTextAndAttributes() {
         // Arrange & Act
@@ -67,6 +79,29 @@ final class LoginVCTests: XCTestCase {
         XCTAssertEqual(sut.passwordField.isSecureTextEntry,
                        true,
                        "Expected secure text entry but got \(String(describing: sut.passwordField.isSecureTextEntry)) instead")
+    }
+    
+    func test_emailInputFieldReturnKeyClick_makesPasswordInputFieldFirstResponder() {
+        // Arrange
+        let sut = makeSUT()
+        let window = UIWindow()
+        window.addSubview(sut.view)
+        sut.emailField.layoutSubviews()
+        sut.passwordField.layoutSubviews()
+
+        // Act
+        sut.emailField.makeInputFirstResponder()
+        
+        // Assert
+        XCTAssertTrue(sut.emailField.isInputFirstResponder,
+                      "Expected emailf field to be first responder")
+        
+        // Act
+        _ = sut.emailField.textField.delegate?.textFieldShouldReturn?(sut.emailField.textField)
+        
+        // Assert
+        XCTAssertTrue(sut.passwordField.isInputFirstResponder,
+                      "Expected password field to be first responder")
     }
     
     // MARK: - Helper
