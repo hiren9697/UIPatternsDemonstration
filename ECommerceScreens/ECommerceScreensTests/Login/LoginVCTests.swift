@@ -126,10 +126,25 @@ final class LoginVCTests: XCTestCase {
                       "Expected password field to not be first responder")
     }
     
+    func test_forgotPasswordClick_callsOnForgotPassword() {
+        // Arrange
+        var forgotPasswordCalls: [Bool] = []
+        let sut = makeSUT(onForgotPasswordTap: {
+            forgotPasswordCalls.append(true)
+        })
+
+        // Act
+        sut.simulateForgotPasswordTap()
+        
+        // Assert
+        XCTAssertEqual(forgotPasswordCalls, [true])
+    }
+    
     // MARK: - Helper
-    private func makeSUT(file: StaticString = #filePath,
+    private func makeSUT(onForgotPasswordTap: @escaping () -> Void = {},
+                         file: StaticString = #filePath,
                          line: UInt = #line) -> LoginVC {
-        let sut = LoginVC()
+        let sut = LoginVC(onForgotPasswordTap: onForgotPasswordTap)
         sut.loadViewIfNeeded()
         trackMemory(for: sut,
                     file: file,
