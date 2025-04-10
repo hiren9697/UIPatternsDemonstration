@@ -94,7 +94,7 @@ final class LoginVCTests: XCTestCase {
         
         // Assert
         XCTAssertTrue(sut.emailField.isInputFirstResponder,
-                      "Expected emailf field to be first responder")
+                      "Expected email field to be first responder")
         
         // Act
         _ = sut.emailField.textField.delegate?.textFieldShouldReturn?(sut.emailField.textField)
@@ -102,6 +102,28 @@ final class LoginVCTests: XCTestCase {
         // Assert
         XCTAssertTrue(sut.passwordField.isInputFirstResponder,
                       "Expected password field to be first responder")
+    }
+    
+    func test_passwordInputFieldReturnKeyClick_makesPasswordFieldResignFirstResponder() {
+        // Arrange
+        let sut = makeSUT()
+        let window = UIWindow()
+        window.addSubview(sut.view)
+        sut.passwordField.layoutSubviews()
+
+        // Act
+        sut.passwordField.makeInputFirstResponder()
+        
+        // Assert
+        XCTAssertTrue(sut.passwordField.isInputFirstResponder,
+                      "Expected passowrd field to be first responder")
+        
+        // Act
+        _ = sut.passwordField.textField.delegate?.textFieldShouldReturn?(sut.passwordField.textField)
+        
+        // Assert
+        XCTAssertFalse(sut.passwordField.isInputFirstResponder,
+                      "Expected password field to not be first responder")
     }
     
     // MARK: - Helper
