@@ -126,6 +126,21 @@ final class LoginVCTests: XCTestCase {
                       "Expected password field to not be first responder")
     }
     
+    func test_forgotPasswordButton_configuredWithCorrectAttributes() {
+        // Arrange & Act
+        let sut = makeSUT()
+        
+        // Assert
+        let expectedTitle: String = "Forgot Password?"
+        let expectedTitleColor: UIColor = AppColors.cF83758
+        XCTAssertEqual(sut.forgotPasswordButtonTitle,
+                       expectedTitle,
+                       "Expected title of forgot password button: \(expectedTitle), but got \(String(describing: sut.forgotPasswordButtonTitle)) instead")
+        XCTAssertEqual(sut.forgotPasswordButtonTitleColor,
+                       expectedTitleColor,
+                       "Expected title color of forgot password button: \(expectedTitleColor), bug got \(String(describing: sut.forgotPasswordButtonTitleColor)) instead")
+    }
+    
     func test_forgotPasswordClick_callsOnForgotPassword() {
         // Arrange
         var forgotPasswordCalls: [Bool] = []

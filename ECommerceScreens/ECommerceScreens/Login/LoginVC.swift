@@ -65,6 +65,11 @@ public class LoginVC: UIViewController {
         welcomeLabel.text = "Welcome\nBack!"
         welcomeLabel.font = UIFont.boldSystemFont(ofSize: 36)
         welcomeLabel.textColor = AppColors.c000000
+        
+        forgotPasswordButton.setTitle("Forgot Password?",
+                                      for: .normal)
+        forgotPasswordButton.setTitleColor(AppColors.cF83758,
+                                           for: .normal)
     }
     
     private func layoutUIComponents() {
