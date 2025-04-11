@@ -75,6 +75,7 @@ public class LoginVC: UIViewController {
                                       for: .normal)
         forgotPasswordButton.setTitleColor(AppColors.cF83758,
                                            for: .normal)
+        forgotPasswordButton.backgroundColor = AppColors.cFFFFFF
         
         loginButton.setTitle("Login",
                              for: .normal)

@@ -133,12 +133,16 @@ final class LoginVCTests: XCTestCase {
         // Assert
         let expectedTitle: String = "Forgot Password?"
         let expectedTitleColor: UIColor = AppColors.cF83758
+        let expectedBackgroundColor: UIColor = AppColors.cFFFFFF
         XCTAssertEqual(sut.forgotPasswordButtonTitle,
                        expectedTitle,
                        "Expected title of forgot password button: \(expectedTitle), but got \(String(describing: sut.forgotPasswordButtonTitle)) instead")
         XCTAssertEqual(sut.forgotPasswordButtonTitleColor,
                        expectedTitleColor,
                        "Expected title color of forgot password button: \(expectedTitleColor), bug got \(String(describing: sut.forgotPasswordButtonTitleColor)) instead")
+        XCTAssertEqual(sut.forgotPasswordButtonBackgroundColor,
+                       expectedBackgroundColor,
+                       "Expected background color of forgot password button: \(expectedBackgroundColor), bug got \(String(describing: sut.forgotPasswordButtonBackgroundColor)) instead")
     }
     
     func test_forgotPasswordClick_callsOnForgotPassword() {
