@@ -36,6 +36,11 @@ public class LoginVC: UIViewController {
         button.addTarget(self, action: #selector(forgotPasswordTap), for: .touchUpInside)
         return button
     }()
+    lazy var loginButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(forgotPasswordTap), for: .touchUpInside)
+        return button
+    }()
     
     let onForgotPasswordTap: () -> Void
     
@@ -70,6 +75,12 @@ public class LoginVC: UIViewController {
                                       for: .normal)
         forgotPasswordButton.setTitleColor(AppColors.cF83758,
                                            for: .normal)
+        
+        loginButton.setTitle("Login",
+                             for: .normal)
+        loginButton.setTitleColor(AppColors.cFFFFFF,
+                                  for: .normal)
+        loginButton.backgroundColor = AppColors.cF83758
     }
     
     private func layoutUIComponents() {

@@ -15,5 +15,6 @@ struct AppColors {
     static let cF83758: UIColor = UIColor(named: "cF83758", in: bundle, compatibleWith: nil)!
     static let cF3F3F3: UIColor = UIColor(named: "cF3F3F3", in: bundle, compatibleWith: nil)!
     static let c676767: UIColor = UIColor(named: "c676767", in: bundle, compatibleWith: nil)!
+    static let cFFFFFF: UIColor = UIColor(named: "cFFFFFF", in: bundle, compatibleWith: nil)!
 }
 

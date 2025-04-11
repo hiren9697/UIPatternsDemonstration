@@ -155,6 +155,25 @@ final class LoginVCTests: XCTestCase {
         XCTAssertEqual(forgotPasswordCalls, [true])
     }
     
+    func test_loginButton_configuredWithCorrectAttributes() {
+        // Arrange & Act
+        let sut = makeSUT()
+        
+        // Assert
+        let expectedTitle: String = "Login"
+        let expectedTitleColor: UIColor = AppColors.cFFFFFF
+        let expectedBackgroundColor: UIColor = AppColors.cF83758
+        XCTAssertEqual(sut.loginButtonTitle,
+                       expectedTitle,
+                       "Expected title of login button: \(expectedTitle), but got \(String(describing: sut.loginButtonTitle)) instead")
+        XCTAssertEqual(sut.loginButtonTitleColor,
+                       expectedTitleColor,
+                       "Expected title color of login button: \(expectedTitleColor), bug got \(String(describing: sut.loginButtonTitleColor)) instead")
+        XCTAssertEqual(sut.loginButtonBackgroundColor,
+                       expectedBackgroundColor,
+                       "Expected background color of login button: \(expectedTitleColor), bug got \(String(describing: sut.loginButtonBackgroundColor)) instead")
+    }
+    
     // MARK: - Helper
     private func makeSUT(onForgotPasswordTap: @escaping () -> Void = {},
                          file: StaticString = #filePath,
