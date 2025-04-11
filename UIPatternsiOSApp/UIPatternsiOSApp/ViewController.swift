@@ -28,7 +28,8 @@ class ViewController: UIViewController {
                                                          onFinish: { print("Finished walkthrough")})
         navigationController?.pushViewController(vc, animated: true)
          */
-        let vc = LoginVC()
+        let vc = LoginVC(onForgotPasswordTap: {},
+                         onLoginTap: {})
         navigationController?.pushViewController(vc, animated: true)
     }
 }
