@@ -148,9 +148,7 @@ final class LoginVCTests: XCTestCase {
     func test_forgotPasswordClick_callsOnForgotPassword() {
         // Arrange
         var forgotPasswordCalls: [Bool] = []
-        let sut = makeSUT(onForgotPasswordTap: {
-            forgotPasswordCalls.append(true)
-        })
+        let sut = makeSUT(onForgotPasswordTap: { forgotPasswordCalls.append(true) })
 
         // Act
         sut.simulateForgotPasswordTap()
@@ -178,11 +176,25 @@ final class LoginVCTests: XCTestCase {
                        "Expected background color of login button: \(expectedTitleColor), bug got \(String(describing: sut.loginButtonBackgroundColor)) instead")
     }
     
+    func test_loginClick_callsOnLogin() {
+        // Arrange
+        var loginCalls: [Bool] = []
+        let sut = makeSUT(onLoginTap: { loginCalls.append(true) })
+
+        // Act
+        sut.simulateLoginTap()
+        
+        // Assert
+        XCTAssertEqual(loginCalls, [true])
+    }
+    
     // MARK: - Helper
     private func makeSUT(onForgotPasswordTap: @escaping () -> Void = {},
+                         onLoginTap: @escaping () -> Void = {},
                          file: StaticString = #filePath,
                          line: UInt = #line) -> LoginVC {
-        let sut = LoginVC(onForgotPasswordTap: onForgotPasswordTap)
+        let sut = LoginVC(onForgotPasswordTap: onForgotPasswordTap,
+                          onLoginTap: onLoginTap)
         sut.loadViewIfNeeded()
         trackMemory(for: sut,
                     file: file,

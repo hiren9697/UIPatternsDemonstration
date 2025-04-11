@@ -30,4 +30,7 @@ extension LoginVC {
     func simulateForgotPasswordTap() {
         forgotPasswordButton.simulateTap()
     }
+    func simulateLoginTap() {
+        loginButton.simulateTap()
+    }
 }

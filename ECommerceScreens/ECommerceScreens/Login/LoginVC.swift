@@ -38,14 +38,17 @@ public class LoginVC: UIViewController {
     }()
     lazy var loginButton: UIButton = {
         let button = UIButton()
-        button.addTarget(self, action: #selector(forgotPasswordTap), for: .touchUpInside)
+        button.addTarget(self, action: #selector(loginTap), for: .touchUpInside)
         return button
     }()
     
     let onForgotPasswordTap: () -> Void
-    
-    public init(onForgotPasswordTap: @escaping () -> Void) {
+    let onLoginTap: () -> Void
+
+    public init(onForgotPasswordTap: @escaping () -> Void,
+                onLoginTap: @escaping () -> Void) {
         self.onForgotPasswordTap = onForgotPasswordTap
+        self.onLoginTap = onLoginTap
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -61,6 +64,10 @@ public class LoginVC: UIViewController {
     
     @objc func forgotPasswordTap() {
         onForgotPasswordTap()
+    }
+    
+    @objc func loginTap() {
+        onLoginTap()
     }
     
     // MARK: - UI Helper
