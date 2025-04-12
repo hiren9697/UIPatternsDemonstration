@@ -52,12 +52,16 @@ final class ProgressButtonTests: XCTestCase {
     private func makeSUT(title: String = "Test Title",
                          titleColor: UIColor = UIColor.white,
                          backgroundColor: UIColor = UIColor.black,
-                         onClick: @escaping () -> Void = {}) -> ProgressButton {
+                         onClick: @escaping () -> Void = {},
+                         file: StaticString = #filePath,
+                         line: UInt = #line) -> ProgressButton {
         let sut = ProgressButton(title: title,
                                  titleColor: titleColor,
                                  backgroundColor: backgroundColor,
                                  onClick: onClick)
-        trackMemory(for: sut)
+        trackMemory(for: sut,
+                    file: file,
+                    line: line)
         return sut
     }
 
