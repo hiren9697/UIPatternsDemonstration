@@ -176,18 +176,6 @@ final class LoginVCTests: XCTestCase {
                        "Expected background color of login button: \(expectedTitleColor), bug got \(String(describing: sut.loginButtonBackgroundColor)) instead")
     }
     
-//    func test_loginClick_callsOnLogin() {
-//        // Arrange
-//        var loginCalls: [Bool] = []
-//        let sut = makeSUT(onLoginTap: { loginCalls.append(true) })
-//
-//        // Act
-//        sut.simulateLoginTap()
-//        
-//        // Assert
-//        XCTAssertEqual(loginCalls, [true])
-//    }
-    
     func test_loginClick_onEmptyEmail_showsError() {
         // Arrange
         var loginCalls: [Bool] = []
@@ -242,6 +230,27 @@ final class LoginVCTests: XCTestCase {
                        "Expected login button click not to call 'onLogin' callback, if password is empty, but got \(loginCalls) instead")
         XCTAssertEqual(toast.messages,
                        [ToastMessage(type: .failure, message: "Please enter password")])
+    }
+    
+    func test_loginClick_onValidEmailAndPassword_callsOnLogin() {
+        // Arrange
+        var loginCalls: [Bool] = []
+        let toast: ToastSpy = ToastSpy()
+        let sut = makeSUT(toast: toast,
+                          onLoginTap: { loginCalls.append(true) })
+        sut.emailField.textField.text = "valid@email.com"
+        sut.passwordField.textField.text = "TestPassword"
+
+        // Act
+        sut.simulateLoginTap()
+        
+        // Assert
+        XCTAssertEqual(loginCalls,
+                       [true],
+                       "Expected login button click to call 'onLogin' callback, if email and password are valid, but got \(loginCalls) instead")
+        XCTAssertEqual(toast.messages,
+                       [],
+                       "Expected no toast messages, if email and password are valid, but got \(toast.messages) instead")
     }
     
     // MARK: - Helper
