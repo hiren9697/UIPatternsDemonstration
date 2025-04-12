@@ -126,31 +126,31 @@ public class InputFieldView: UIView, UITextFieldDelegate {
     }
     
     // MARK: - Test specific
-    var iconImage: UIImage? {
+    public var iconImage: UIImage? {
         iconImageView.image
     }
     
-    var placeholderText: String? {
+    public var placeholderText: String? {
         textField.placeholder
     }
     
-    var keyboardType: UIKeyboardType {
+    public var keyboardType: UIKeyboardType {
         textField.keyboardType
     }
     
-    var returnKeyType: UIReturnKeyType {
+    public var returnKeyType: UIReturnKeyType {
         textField.returnKeyType
     }
     
-    var isSecureTextEntry: Bool {
+    public var isSecureTextEntry: Bool {
         textField.isSecureTextEntry
     }
     
-    var isPasswordVisibilityToggleControlVisible: Bool {
+    public var isPasswordVisibilityToggleControlVisible: Bool {
         !passwordVisibilityToggleButton.isHidden
     }
     
-    var isInputFirstResponder: Bool {
+    public var isInputFirstResponder: Bool {
         textField.isFirstResponder
     }
     
