@@ -8,11 +8,14 @@
 import UIKit
 
 public class ProgressButton: UIView {
-    let button: UIButton = UIButton()
+    private let button: UIButton = UIButton()
+    private let onClick: () -> Void
     
     public init(title: String,
                 titleColor: UIColor,
-                backgroundColor: UIColor) {
+                backgroundColor: UIColor,
+                onClick: @escaping () -> Void) {
+        self.onClick = onClick
         super.init(frame: .zero)
         configureUI(title: title,
                     titleColor: titleColor,
@@ -30,6 +33,13 @@ public class ProgressButton: UIView {
         button.setTitle(title, for: .normal)
         button.setTitleColor(titleColor, for: .normal)
         button.backgroundColor = backgroundColor
+        button.addTarget(self,
+                         action: #selector(buttonClick),
+                         for: .touchUpInside)
+    }
+    
+    @objc func buttonClick() {
+        onClick()
     }
     
     // MARK: - Test Specific
@@ -43,5 +53,9 @@ public class ProgressButton: UIView {
     
     public func buttonBackgroundColor() -> UIColor? {
         button.backgroundColor
+    }
+    
+    public func simulateButtonClick() {
+        button.simulateTap()
     }
 }

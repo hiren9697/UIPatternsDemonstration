@@ -36,13 +36,27 @@ final class ProgressButtonTests: XCTestCase {
         XCTAssertEqual(sut.buttonBackgroundColor(), backgroundColor)
     }
     
+    func test_buttonClick_callsOnClick() {
+        // Arrange
+        var buttonClicks: [Bool] = []
+        let sut = makeSUT(onClick: { buttonClicks.append(true) })
+        
+        // Act
+        sut.simulateButtonClick()
+        
+        // Assert
+        XCTAssertEqual(buttonClicks, [true])
+    }
+    
     // MARK: - Helper
     private func makeSUT(title: String = "Test Title",
                          titleColor: UIColor = UIColor.white,
-                         backgroundColor: UIColor = UIColor.black) -> ProgressButton {
+                         backgroundColor: UIColor = UIColor.black,
+                         onClick: @escaping () -> Void = {}) -> ProgressButton {
         let sut = ProgressButton(title: title,
                                  titleColor: titleColor,
-                                 backgroundColor: backgroundColor)
+                                 backgroundColor: backgroundColor,
+                                 onClick: onClick)
         trackMemory(for: sut)
         return sut
     }
