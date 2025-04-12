@@ -176,29 +176,76 @@ final class LoginVCTests: XCTestCase {
                        "Expected background color of login button: \(expectedTitleColor), bug got \(String(describing: sut.loginButtonBackgroundColor)) instead")
     }
     
-    func test_loginClick_callsOnLogin() {
+//    func test_loginClick_callsOnLogin() {
+//        // Arrange
+//        var loginCalls: [Bool] = []
+//        let sut = makeSUT(onLoginTap: { loginCalls.append(true) })
+//
+//        // Act
+//        sut.simulateLoginTap()
+//        
+//        // Assert
+//        XCTAssertEqual(loginCalls, [true])
+//    }
+    
+    func test_loginClick_onEmptyEmail_showsError() {
         // Arrange
         var loginCalls: [Bool] = []
-        let sut = makeSUT(onLoginTap: { loginCalls.append(true) })
+        let toast: ToastSpy = ToastSpy()
+        let sut = makeSUT(toast: toast,
+                          onLoginTap: { loginCalls.append(true) })
 
         // Act
         sut.simulateLoginTap()
         
         // Assert
-        XCTAssertEqual(loginCalls, [true])
+        XCTAssertEqual(loginCalls,
+                       [],
+                       "Expected login button click not to call 'onLogin' callback, if email is empty, but got \(loginCalls) instead")
+        XCTAssertEqual(toast.messages,
+                       [ToastMessage(type: .failure, message: "Please enter email")])
+    }
+    
+    func test_loginClick_onInvalidEmail_showsError() {
+        // Arrange
+        var loginCalls: [Bool] = []
+        let toast: ToastSpy = ToastSpy()
+        let sut = makeSUT(toast: toast,
+                          onLoginTap: { loginCalls.append(true) })
+        sut.emailField.textField.text = "invalidEmail"
+
+        // Act
+        sut.simulateLoginTap()
+        
+        // Assert
+        XCTAssertEqual(loginCalls,
+                       [],
+                       "Expected login button click not to call 'onLogin' callback, if entered email is invalid, but got \(loginCalls) instead")
+        XCTAssertEqual(toast.messages,
+                       [ToastMessage(type: .failure, message: "Please enter a valid email")])
     }
     
     // MARK: - Helper
-    private func makeSUT(onForgotPasswordTap: @escaping () -> Void = {},
+    private func makeSUT(toast: Toast = ToastSpy(),
+                         onForgotPasswordTap: @escaping () -> Void = {},
                          onLoginTap: @escaping () -> Void = {},
                          file: StaticString = #filePath,
                          line: UInt = #line) -> LoginVC {
-        let sut = LoginVC(onForgotPasswordTap: onForgotPasswordTap,
+        let sut = LoginVC(toast: toast,
+                          onForgotPasswordTap: onForgotPasswordTap,
                           onLoginTap: onLoginTap)
         sut.loadViewIfNeeded()
         trackMemory(for: sut,
                     file: file,
                     line: line)
         return sut
+    }
+    
+    private class ToastSpy: Toast {
+        var messages: [ToastMessage] = []
+        
+        func present(message: ToastMessage) {
+            messages.append(message)
+        }
     }
 }

@@ -44,13 +44,16 @@ public class LoginVC: UIViewController {
     }()
     
     // MARK: - Variables
+    let toast: Toast
     let onForgotPasswordTap: () -> Void
     let onLoginTap: () -> Void
     private let horizontalPadding: CGFloat = 32
 
     // MARK: - Init
-    public init(onForgotPasswordTap: @escaping () -> Void,
+    public init(toast: Toast,
+                onForgotPasswordTap: @escaping () -> Void,
                 onLoginTap: @escaping () -> Void) {
+        self.toast = toast
         self.onForgotPasswordTap = onForgotPasswordTap
         self.onLoginTap = onLoginTap
         super.init(nibName: nil, bundle: nil)
@@ -73,7 +76,30 @@ public class LoginVC: UIViewController {
     }
     
     @objc func loginTap() {
-        onLoginTap()
+        if validte() {
+            onLoginTap()
+        }
+    }
+    
+    private func validte() -> Bool {
+        let email = emailField.textField.text ?? ""
+        
+        if email.isEmpty {
+            toast.present(message: ToastMessage(type: .failure, message: "Please enter email"))
+            return false
+        } else if !isValidEmail(email) {
+            toast.present(message: ToastMessage(type: .failure, message: "Please enter a valid email"))
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    private func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
     }
     
     // MARK: - UI Helper
