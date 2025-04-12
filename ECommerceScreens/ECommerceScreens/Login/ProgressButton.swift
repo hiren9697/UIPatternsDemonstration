@@ -10,9 +10,10 @@ import UIKit
 public class ProgressButton: UIView {
     let button: UIButton = UIButton()
     
-    public init(title: String) {
+    public init(title: String, titleColor: UIColor) {
         super.init(frame: .zero)
-        configureUI(title: title)
+        configureUI(title: title,
+                    titleColor: titleColor)
     }
     
     required init?(coder: NSCoder) {
@@ -20,12 +21,18 @@ public class ProgressButton: UIView {
     }
     
     // MARK: - UI Helper
-    private func configureUI(title: String) {
+    private func configureUI(title: String,
+                             titleColor: UIColor) {
         button.setTitle(title, for: .normal)
+        button.setTitleColor(titleColor, for: .normal)
     }
     
     // MARK: - Test Specific
     public func buttonTitle(for state: UIControl.State) -> String? {
         button.title(for: .normal)
+    }
+    
+    public func buttonTitleColor(for state: UIControl.State) -> UIColor? {
+        button.titleColor(for: .normal)
     }
 }
