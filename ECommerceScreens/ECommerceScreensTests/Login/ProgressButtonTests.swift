@@ -27,10 +27,22 @@ final class ProgressButtonTests: XCTestCase {
         XCTAssertEqual(sut.buttonTitleColor(for: .normal), titleColor)
     }
     
+    func test_backgroundColor_isConfigured() {
+        // Arrange & Act
+        let backgroundColor: UIColor = AppColors.cF83758
+        let sut = makeSUT(backgroundColor: backgroundColor)
+        
+        // Assert
+        XCTAssertEqual(sut.buttonBackgroundColor(), backgroundColor)
+    }
+    
     // MARK: - Helper
     private func makeSUT(title: String = "Test Title",
-                         titleColor: UIColor = UIColor.white) -> ProgressButton {
-        let sut = ProgressButton(title: title, titleColor: titleColor)
+                         titleColor: UIColor = UIColor.white,
+                         backgroundColor: UIColor = UIColor.black) -> ProgressButton {
+        let sut = ProgressButton(title: title,
+                                 titleColor: titleColor,
+                                 backgroundColor: backgroundColor)
         trackMemory(for: sut)
         return sut
     }
