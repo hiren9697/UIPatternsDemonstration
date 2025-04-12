@@ -225,6 +225,25 @@ final class LoginVCTests: XCTestCase {
                        [ToastMessage(type: .failure, message: "Please enter a valid email")])
     }
     
+    func test_loginClick_onEmptyPassword_showsError() {
+        // Arrange
+        var loginCalls: [Bool] = []
+        let toast: ToastSpy = ToastSpy()
+        let sut = makeSUT(toast: toast,
+                          onLoginTap: { loginCalls.append(true) })
+        sut.emailField.textField.text = "valid@email.com"
+
+        // Act
+        sut.simulateLoginTap()
+        
+        // Assert
+        XCTAssertEqual(loginCalls,
+                       [],
+                       "Expected login button click not to call 'onLogin' callback, if password is empty, but got \(loginCalls) instead")
+        XCTAssertEqual(toast.messages,
+                       [ToastMessage(type: .failure, message: "Please enter password")])
+    }
+    
     // MARK: - Helper
     private func makeSUT(toast: Toast = ToastSpy(),
                          onForgotPasswordTap: @escaping () -> Void = {},

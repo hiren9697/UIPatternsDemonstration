@@ -83,12 +83,16 @@ public class LoginVC: UIViewController {
     
     private func validte() -> Bool {
         let email = emailField.textField.text ?? ""
+        let password = passwordField.textField.text ?? ""
         
         if email.isEmpty {
             toast.present(message: ToastMessage(type: .failure, message: "Please enter email"))
             return false
         } else if !isValidEmail(email) {
             toast.present(message: ToastMessage(type: .failure, message: "Please enter a valid email"))
+            return false
+        } else if password.isEmpty {
+            toast.present(message: ToastMessage(type: .failure, message: "Please enter password"))
             return false
         } else {
             return true
