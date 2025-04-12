@@ -132,9 +132,6 @@ public class LoginVC: UIViewController {
     }
     
     private func layoutUIComponents() {
-//        view.addSubview(emailField)
-//        view.addSubview(passwordField)
-        
         let scrollView = UIScrollView()
         view.addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
