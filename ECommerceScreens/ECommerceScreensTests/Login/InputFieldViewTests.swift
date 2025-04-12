@@ -180,7 +180,7 @@ final class InputFieldViewTests: XCTestCase {
         })
         
         // Act
-        sut.simulateShouldReturnOnInputField()
+        _ = sut.textFieldShouldReturn()
         
         // Assert
         XCTAssertEqual(onReturnCalls, [true])

@@ -97,7 +97,7 @@ final class LoginVCTests: XCTestCase {
                       "Expected email field to be first responder")
         
         // Act
-        _ = sut.emailField.textField.delegate?.textFieldShouldReturn?(sut.emailField.textField)
+        _ = sut.emailField.textFieldShouldReturn()
         
         // Assert
         XCTAssertTrue(sut.passwordField.isInputFirstResponder,
@@ -119,7 +119,7 @@ final class LoginVCTests: XCTestCase {
                       "Expected passowrd field to be first responder")
         
         // Act
-        _ = sut.passwordField.textField.delegate?.textFieldShouldReturn?(sut.passwordField.textField)
+        _ = sut.passwordField.textFieldShouldReturn()
         
         // Assert
         XCTAssertFalse(sut.passwordField.isInputFirstResponder,
@@ -200,7 +200,7 @@ final class LoginVCTests: XCTestCase {
         let toast: ToastSpy = ToastSpy()
         let sut = makeSUT(toast: toast,
                           onLoginTap: { loginCalls.append(true) })
-        sut.emailField.textField.text = "invalidEmail"
+        sut.emailField.setText("invalidEmail")
 
         // Act
         sut.simulateLoginTap()
@@ -219,7 +219,7 @@ final class LoginVCTests: XCTestCase {
         let toast: ToastSpy = ToastSpy()
         let sut = makeSUT(toast: toast,
                           onLoginTap: { loginCalls.append(true) })
-        sut.emailField.textField.text = "valid@email.com"
+        sut.emailField.setText("valid@email.com")
 
         // Act
         sut.simulateLoginTap()
@@ -238,8 +238,8 @@ final class LoginVCTests: XCTestCase {
         let toast: ToastSpy = ToastSpy()
         let sut = makeSUT(toast: toast,
                           onLoginTap: { loginCalls.append(true) })
-        sut.emailField.textField.text = "valid@email.com"
-        sut.passwordField.textField.text = "TestPassword"
+        sut.emailField.setText("valid@email.com")
+        sut.passwordField.setText("TestPassword")
 
         // Act
         sut.simulateLoginTap()

@@ -9,11 +9,14 @@ import UIKit
 
 public class InputFieldView: UIView, UITextFieldDelegate {
     public typealias OnReturn = () -> Bool
-    let iconImageView: UIImageView = UIImageView()
-    let textField: UITextField = UITextField()
-    let passwordVisibilityToggleButton: UIButton = UIButton()
-    let onReturn: OnReturn
-    var onLayoutSubViews: (() -> Void)?
+    private let iconImageView: UIImageView = UIImageView()
+    private let textField: UITextField = UITextField()
+    private let passwordVisibilityToggleButton: UIButton = UIButton()
+    private let onReturn: OnReturn
+    private(set) var onLayoutSubViews: (() -> Void)?
+    var text: String? {
+        textField.text
+    }
     
     public init(iconImage: UIImage,
                 placeholder: String,
@@ -109,16 +112,61 @@ public class InputFieldView: UIView, UITextFieldDelegate {
     }
     
     // MARK: - Public Interface
-    func makeInputFirstResponder() {
+    public func makeInputFirstResponder() {
         textField.becomeFirstResponder()
     }
     
-    func makeInputRsignResponder() {
+    public func makeInputRsignResponder() {
         textField.resignFirstResponder()
     }
     
     // MARK: - TextField Delegate
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         onReturn()
+    }
+    
+    // MARK: - Test specific
+    var iconImage: UIImage? {
+        iconImageView.image
+    }
+    
+    var placeholderText: String? {
+        textField.placeholder
+    }
+    
+    var keyboardType: UIKeyboardType {
+        textField.keyboardType
+    }
+    
+    var returnKeyType: UIReturnKeyType {
+        textField.returnKeyType
+    }
+    
+    var isSecureTextEntry: Bool {
+        textField.isSecureTextEntry
+    }
+    
+    var isPasswordVisibilityToggleControlVisible: Bool {
+        !passwordVisibilityToggleButton.isHidden
+    }
+    
+    var isInputFirstResponder: Bool {
+        textField.isFirstResponder
+    }
+    
+    public func setText(_ text: String) {
+        textField.text = text
+    }
+    
+    public func textFieldShouldReturn() -> Bool? {
+        textField.delegate?.textFieldShouldReturn?(textField)
+    }
+    
+    public func passwordVisibilityToggleButtonImage(for state: UIControl.State) -> UIImage? {
+        passwordVisibilityToggleButton.image(for: state)
+    }
+    
+    public func simulatePasswordVisibilityToggleTap() {
+        passwordVisibilityToggleButton.simulateTap()
     }
 }

@@ -33,6 +33,13 @@
 			);
 			target = 8727EB902D97DA4E005A981F /* ECommerceScreens */;
 		};
+		87E5DE8B2DAA479400E1BE3E /* Exceptions for "ECommerceScreensTests" folder in "ECommerceScreens" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Helper/UIButton+Helper.swift",
+			);
+			target = 8727EB902D97DA4E005A981F /* ECommerceScreens */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -46,6 +53,9 @@
 		};
 		8727EB9D2D97DA4F005A981F /* ECommerceScreensTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				87E5DE8B2DAA479400E1BE3E /* Exceptions for "ECommerceScreensTests" folder in "ECommerceScreens" target */,
+			);
 			path = ECommerceScreensTests;
 			sourceTree = "<group>";
 		};
