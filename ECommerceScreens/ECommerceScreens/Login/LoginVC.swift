@@ -57,9 +57,13 @@ public class LoginVC: UIViewController {
         button.addTarget(self, action: #selector(forgotPasswordTap), for: .touchUpInside)
         return button
     }()
-    lazy var loginButton: UIButton = {
-        let button = UIButton()
-        button.addTarget(self, action: #selector(loginTap), for: .touchUpInside)
+    lazy var loginButton: ProgressButton = {
+        let button = ProgressButton(title: "Login",
+                                    titleColor: AppColors.cFFFFFF,
+                                    backgroundColor: AppColors.cF83758,
+                                    onClick: {[weak self] in
+            self?.loginTap()
+        })
         return button
     }()
     
@@ -98,6 +102,7 @@ public class LoginVC: UIViewController {
     @objc func loginTap() {
         switch getValidInputs() {
         case .success(let inputData):
+            loginButton.showProgress()
             service.login(with: LoginServiceInputData(email: inputData.email, password: inputData.password),
                           completion: { result in
                 
@@ -148,10 +153,10 @@ public class LoginVC: UIViewController {
                                            for: .normal)
         forgotPasswordButton.backgroundColor = AppColors.cFFFFFF
         
-        loginButton.setTitle("Login",
-                             for: .normal)
-        loginButton.setTitleColor(AppColors.cFFFFFF,
-                                  for: .normal)
+//        loginButton.setTitle("Login",
+//                             for: .normal)
+//        loginButton.setTitleColor(AppColors.cFFFFFF,
+//                                  for: .normal)
         loginButton.backgroundColor = AppColors.cF83758
         loginButton.layer.cornerRadius = 4
         loginButton.layer.masksToBounds = true

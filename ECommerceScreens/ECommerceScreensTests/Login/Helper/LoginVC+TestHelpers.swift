@@ -19,18 +19,21 @@ extension LoginVC {
         forgotPasswordButton.backgroundColor
     }
     var loginButtonTitle: String? {
-        loginButton.title(for: .normal)
+        // loginButton.title(for: .normal)
+        loginButton.buttonTitle(for: .normal)
     }
     var loginButtonTitleColor: UIColor? {
-        loginButton.titleColor(for: .normal)
+        // loginButton.titleColor(for: .normal)
+        loginButton.buttonTitleColor(for: .normal)
     }
     var loginButtonBackgroundColor: UIColor? {
-        loginButton.backgroundColor
+        loginButton.containerViewBackgroundColor()
     }
     func simulateForgotPasswordTap() {
         forgotPasswordButton.simulateTap()
     }
     func simulateLoginTap() {
-        loginButton.simulateTap()
+        // loginButton.simulateTap()
+        loginButton.simulateButtonClick()
     }
 }
