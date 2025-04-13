@@ -225,10 +225,7 @@ final class LoginVCTests: XCTestCase {
         let spy: LoginServiceSpy = LoginServiceSpy()
         let toast: ToastSpy = ToastSpy()
         let sut = makeSUT(toast: toast, service: spy)
-        let email = "valid@email.com"
-        let password = "TestPassword"
-        sut.emailField.setText(email)
-        sut.passwordField.setText(password)
+        let (email, password) = setValidEmailAndPassword(on: sut)
 
         // Act
         sut.simulateLoginTap()
@@ -246,10 +243,7 @@ final class LoginVCTests: XCTestCase {
     func test_loginClick_withValidEmailAndPassword_showProgressInLoginButton() {
         // Arrange
         let sut = makeSUT()
-        let email = "valid@email.com"
-        let password = "TestPassword"
-        sut.emailField.setText(email)
-        sut.passwordField.setText(password)
+        _ = setValidEmailAndPassword(on: sut)
 
         // Act
         sut.simulateLoginTap()
@@ -276,6 +270,14 @@ final class LoginVCTests: XCTestCase {
                     file: file,
                     line: line)
         return sut
+    }
+    
+    private func setValidEmailAndPassword(on sut: LoginVC) -> (email: String, password: String) {
+        let email = "valid@email.com"
+        let password = "TestPassword"
+        sut.emailField.setText(email)
+        sut.passwordField.setText(password)
+        return (email, password)
     }
     
     private class ToastSpy: Toast {
