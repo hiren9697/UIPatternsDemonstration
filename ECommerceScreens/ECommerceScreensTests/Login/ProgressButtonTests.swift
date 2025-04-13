@@ -52,14 +52,14 @@ final class ProgressButtonTests: XCTestCase {
         // Arrange
         let sut = makeSUT()
         
+        // Assert
+        checkProgressVisible(sut: sut, expectedProgressVisibility: false)
+        
         // Act
         sut.showProgress()
         
         // Assert
-        XCTAssertFalse(sut.isButtonVisible,
-                       "Expected button hidden after calling `showProgress()`")
-        XCTAssertTrue(sut.isProgressVisible,
-                       "Expected progress visible after calling `showProgress()`")
+        checkProgressVisible(sut: sut, expectedProgressVisibility: true)
     }
     
     // MARK: - Helper
@@ -77,6 +77,24 @@ final class ProgressButtonTests: XCTestCase {
                     file: file,
                     line: line)
         return sut
+    }
+    
+    private func checkProgressVisible(sut: ProgressButton,
+                                      expectedProgressVisibility: Bool,
+                                      file: StaticString = #filePath,
+                                      line: UInt = #line) {
+        let expectedButtonVisibility: Bool = !expectedProgressVisibility
+        // Assert
+        XCTAssertEqual(sut.isButtonVisible,
+                       expectedButtonVisibility,
+                       "Expected button visibility: \(expectedButtonVisibility), but got: \(sut.isButtonVisible) instedad",
+                       file: file,
+                       line: line)
+        XCTAssertEqual(sut.isProgressVisible,
+                       expectedProgressVisibility,
+                       "Expected progress visibility: \(expectedProgressVisibility), but got: \(sut.isProgressVisible) instedad",
+                       file: file,
+                       line: line)
     }
 
 }
