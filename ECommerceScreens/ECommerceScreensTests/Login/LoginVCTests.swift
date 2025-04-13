@@ -220,7 +220,7 @@ final class LoginVCTests: XCTestCase {
                        [ToastMessage(type: .failure, message: "Please enter password")])
     }
     
-    func test_loginClick_onValidEmailAndPassword_requestsLogin() {
+    func test_loginClick_withValidEmailAndPassword_requestsLogin() {
         // Arrange
         let spy: LoginServiceSpy = LoginServiceSpy()
         let toast: ToastSpy = ToastSpy()
@@ -243,10 +243,9 @@ final class LoginVCTests: XCTestCase {
                        "Expected no toast messages, if email and password are valid, but got \(toast.messages) instead")
     }
     
-    func test_onRequestingLogin_showProgressInLoginButton() {
+    func test_loginClick_withValidEmailAndPassword_showProgressInLoginButton() {
         // Arrange
-        let spy: LoginServiceSpy = LoginServiceSpy()
-        let sut = makeSUT(service: spy)
+        let sut = makeSUT()
         let email = "valid@email.com"
         let password = "TestPassword"
         sut.emailField.setText(email)
@@ -256,11 +255,11 @@ final class LoginVCTests: XCTestCase {
         sut.simulateLoginTap()
         
         // Assert
-        let expectedLoginServiceInputData = LoginServiceInputData(email: email, password: password)
-        XCTAssertEqual(spy.loginRequests,
-                       [expectedLoginServiceInputData],
-                       "Expected login button click to call login service with \(expectedLoginServiceInputData), if email and password are valid, but got \(spy.loginRequests) instead")
         XCTAssertTrue(sut.loginButton.isProgressVisible)
+    }
+    
+    func test_onRecivingLoginRequestCompletion_hidesProgressInLoginButton() {
+        
     }
     
     // MARK: - Helper
