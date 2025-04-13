@@ -178,76 +178,78 @@ final class LoginVCTests: XCTestCase {
     
     func test_loginClick_onEmptyEmail_showsError() {
         // Arrange
-        var loginCalls: [Bool] = []
+        let spy: LoginServiceSpy = LoginServiceSpy()
         let toast: ToastSpy = ToastSpy()
         let sut = makeSUT(toast: toast,
-                          onLoginTap: { loginCalls.append(true) })
+                          service: spy)
 
         // Act
         sut.simulateLoginTap()
         
         // Assert
-        XCTAssertEqual(loginCalls,
+        XCTAssertEqual(spy.loginRequests,
                        [],
-                       "Expected login button click not to call 'onLogin' callback, if email is empty, but got \(loginCalls) instead")
+                       "Expected service to receive no login requests, if email is empty, but got \(spy.loginRequests) instead")
         XCTAssertEqual(toast.messages,
                        [ToastMessage(type: .failure, message: "Please enter email")])
     }
     
     func test_loginClick_onInvalidEmail_showsError() {
         // Arrange
-        var loginCalls: [Bool] = []
+        let spy: LoginServiceSpy = LoginServiceSpy()
         let toast: ToastSpy = ToastSpy()
         let sut = makeSUT(toast: toast,
-                          onLoginTap: { loginCalls.append(true) })
+                          service: spy)
         sut.emailField.setText("invalidEmail")
 
         // Act
         sut.simulateLoginTap()
         
         // Assert
-        XCTAssertEqual(loginCalls,
+        XCTAssertEqual(spy.loginRequests,
                        [],
-                       "Expected login button click not to call 'onLogin' callback, if entered email is invalid, but got \(loginCalls) instead")
+                       "Expected service to receive no login requests, if entered email is invalid, but got \(spy.loginRequests) instead")
         XCTAssertEqual(toast.messages,
                        [ToastMessage(type: .failure, message: "Please enter a valid email")])
     }
     
     func test_loginClick_onEmptyPassword_showsError() {
         // Arrange
-        var loginCalls: [Bool] = []
+        let spy: LoginServiceSpy = LoginServiceSpy()
         let toast: ToastSpy = ToastSpy()
         let sut = makeSUT(toast: toast,
-                          onLoginTap: { loginCalls.append(true) })
+                          service: spy)
         sut.emailField.setText("valid@email.com")
 
         // Act
         sut.simulateLoginTap()
         
         // Assert
-        XCTAssertEqual(loginCalls,
+        XCTAssertEqual(spy.loginRequests,
                        [],
-                       "Expected login button click not to call 'onLogin' callback, if password is empty, but got \(loginCalls) instead")
+                       "Expected service to receive no login requests, if password is empty, but got \(spy.loginRequests) instead")
         XCTAssertEqual(toast.messages,
                        [ToastMessage(type: .failure, message: "Please enter password")])
     }
     
     func test_loginClick_onValidEmailAndPassword_callsOnLogin() {
         // Arrange
-        var loginCalls: [Bool] = []
+        let spy: LoginServiceSpy = LoginServiceSpy()
         let toast: ToastSpy = ToastSpy()
-        let sut = makeSUT(toast: toast,
-                          onLoginTap: { loginCalls.append(true) })
-        sut.emailField.setText("valid@email.com")
-        sut.passwordField.setText("TestPassword")
+        let sut = makeSUT(toast: toast, service: spy)
+        let email = "valid@email.com"
+        let password = "TestPassword"
+        sut.emailField.setText(email)
+        sut.passwordField.setText(password)
 
         // Act
         sut.simulateLoginTap()
         
         // Assert
-        XCTAssertEqual(loginCalls,
-                       [true],
-                       "Expected login button click to call 'onLogin' callback, if email and password are valid, but got \(loginCalls) instead")
+        let expectedLoginServiceInputData = LoginServiceInputData(email: email, password: password)
+        XCTAssertEqual(spy.loginRequests,
+                       [expectedLoginServiceInputData],
+                       "Expected login button click to call login service with \(expectedLoginServiceInputData), if email and password are valid, but got \(spy.loginRequests) instead")
         XCTAssertEqual(toast.messages,
                        [],
                        "Expected no toast messages, if email and password are valid, but got \(toast.messages) instead")
@@ -256,12 +258,12 @@ final class LoginVCTests: XCTestCase {
     // MARK: - Helper
     private func makeSUT(toast: Toast = ToastSpy(),
                          onForgotPasswordTap: @escaping () -> Void = {},
-                         onLoginTap: @escaping () -> Void = {},
+                         service: LoginServiceSpy = LoginServiceSpy(),
                          file: StaticString = #filePath,
                          line: UInt = #line) -> LoginVC {
         let sut = LoginVC(toast: toast,
                           onForgotPasswordTap: onForgotPasswordTap,
-                          onLoginTap: onLoginTap)
+                          service: service)
         sut.loadViewIfNeeded()
         trackMemory(for: sut,
                     file: file,
@@ -274,6 +276,22 @@ final class LoginVCTests: XCTestCase {
         
         func present(message: ToastMessage) {
             messages.append(message)
+        }
+    }
+    
+    private class LoginServiceSpy: LoginService {
+        struct Message {
+            let data: LoginServiceInputData
+            let completion: LoginService.Completion
+        }
+        var messages: [Message] = []
+        var loginRequests: [LoginServiceInputData] {
+            messages.map { $0.data }
+        }
+        
+        func login(with data: LoginServiceInputData, completion: @escaping LoginService.Completion) {
+            messages.append(Message(data: data,
+                                    completion: completion))
         }
     }
 }

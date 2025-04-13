@@ -46,16 +46,16 @@ public class LoginVC: UIViewController {
     // MARK: - Variables
     let toast: Toast
     let onForgotPasswordTap: () -> Void
-    let onLoginTap: () -> Void
+    let service: LoginService
     private let horizontalPadding: CGFloat = 32
 
     // MARK: - Init
     public init(toast: Toast,
                 onForgotPasswordTap: @escaping () -> Void,
-                onLoginTap: @escaping () -> Void) {
+                service: LoginService) {
         self.toast = toast
         self.onForgotPasswordTap = onForgotPasswordTap
-        self.onLoginTap = onLoginTap
+        self.service = service
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -77,7 +77,10 @@ public class LoginVC: UIViewController {
     
     @objc func loginTap() {
         if validte() {
-            onLoginTap()
+            service.login(with: LoginServiceInputData(email: emailField.text!,
+                                                      password: passwordField.text!),
+                          completion: { result in
+            })
         }
     }
     
