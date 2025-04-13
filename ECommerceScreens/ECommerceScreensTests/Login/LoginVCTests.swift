@@ -266,6 +266,28 @@ final class LoginVCTests: XCTestCase {
         XCTAssertFalse(sut.loginButton.isProgressVisible)
     }
     
+    func test_onLoginRequestCompletion_withFailure_showsToast() {
+        // Arrange
+        let spy = LoginServiceSpy()
+        let toast = ToastSpy()
+        let sut = makeSUT(toast: toast, service: spy)
+        _ = setValidEmailAndPassword(on: sut)
+        sut.simulateLoginTap()
+
+        // Act
+        spy.requestCompletions[0](.failure(getLoginError()))
+        
+        // Assert
+        guard toast.messages.count == 1 else {
+            XCTFail("Expected one failure message to be shown, but didn't find any")
+            return
+        }
+        let toastMessage = toast.messages[0]
+        XCTAssertEqual(toastMessage.type,
+                       .failure,
+                       "Expected failure toast message to be shown, but got: \(toastMessage) instead")
+    }
+    
     // MARK: - Helper
     private func makeSUT(toast: Toast = ToastSpy(),
                          onForgotPasswordTap: @escaping () -> Void = {},
@@ -288,6 +310,10 @@ final class LoginVCTests: XCTestCase {
         sut.emailField.setText(email)
         sut.passwordField.setText(password)
         return (email, password)
+    }
+    
+    func getLoginError() -> NSError {
+        NSError(domain: "Test", code: 0)
     }
     
     private class ToastSpy: Toast {
