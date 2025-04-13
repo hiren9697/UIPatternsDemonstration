@@ -10,8 +10,27 @@ import ECommerceScreens
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var button: UIButton!
+    
+    lazy var progressButton: ProgressButton = {
+        let button = ProgressButton(title: "TEst",
+                                    titleColor: .white,
+                                    backgroundColor: .systemPink,
+                                    onClick: {
+            print("Hello there")
+        })
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        progressButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(progressButton)
+        progressButton.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        progressButton.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        progressButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        progressButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
     }
     
     @IBAction func btnTap() {
@@ -28,9 +47,13 @@ class ViewController: UIViewController {
                                                          onFinish: { print("Finished walkthrough")})
         navigationController?.pushViewController(vc, animated: true)
          */
+        /*
         let vc = LoginVC(onForgotPasswordTap: {},
                          onLoginTap: {})
         navigationController?.pushViewController(vc, animated: true)
+         */
+        
+        progressButton.showProgress()
     }
 }
 
