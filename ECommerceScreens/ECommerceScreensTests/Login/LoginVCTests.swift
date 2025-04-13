@@ -312,9 +312,9 @@ final class LoginVCTests: XCTestCase {
     
     // MARK: - Helper
     private func makeSUT(toast: Toast = ToastSpy(),
-                         onForgotPasswordTap: @escaping () -> Void = {},
+                         onForgotPasswordTap: @escaping LoginVC.ForgotPasswordCompletion = {},
                          service: LoginServiceSpy = LoginServiceSpy(),
-                         loginCompletion: @escaping () -> Void = {},
+                         loginCompletion: @escaping LoginVC.LoginCompletion = {},
                          file: StaticString = #filePath,
                          line: UInt = #line) -> LoginVC {
         let sut = LoginVC(toast: toast,

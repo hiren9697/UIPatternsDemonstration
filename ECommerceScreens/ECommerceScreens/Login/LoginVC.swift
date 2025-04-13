@@ -8,6 +8,9 @@
 import UIKit
 
 public class LoginVC: UIViewController {
+    public typealias ForgotPasswordCompletion = () -> Void
+    public typealias LoginCompletion = () -> Void
+    
     // MARK: - UI Components
     let welcomeLabel: UILabel = UILabel()
     lazy var emailField: InputFieldView = {
@@ -49,16 +52,16 @@ public class LoginVC: UIViewController {
     
     // MARK: - Variables
     let toast: Toast
-    let onForgotPasswordTap: () -> Void
+    let onForgotPasswordTap: ForgotPasswordCompletion
     let service: LoginService
-    let loginCompletion: () -> Void
+    let loginCompletion: LoginCompletion
     private let horizontalPadding: CGFloat = 32
 
     // MARK: - Init
     public init(toast: Toast,
-                onForgotPasswordTap: @escaping () -> Void,
+                onForgotPasswordTap: @escaping ForgotPasswordCompletion,
                 service: LoginService,
-                loginCompletion: @escaping () -> Void) {
+                loginCompletion: @escaping LoginCompletion) {
         self.toast = toast
         self.onForgotPasswordTap = onForgotPasswordTap
         self.service = service
