@@ -8,26 +8,6 @@
 import UIKit
 
 public class LoginVC: UIViewController {
-    enum LoginValidationError: Error, LocalizedError {
-        case emptyEmail
-        case invalidEmail
-        case emptyPassword
-        case unexpected
-        
-        var errorDescription: String? {
-            switch self {
-            case .emptyEmail:
-                return "Please enter email"
-            case .invalidEmail:
-                return "Please enter a valid email"
-            case .emptyPassword:
-                return "Please enter password"
-            case .unexpected:
-                return "Something went wrong"
-            }
-        }
-    }
-    
     // MARK: - UI Components
     let welcomeLabel: UILabel = UILabel()
     lazy var emailField: InputFieldView = {
@@ -103,7 +83,8 @@ public class LoginVC: UIViewController {
     }
     
     @objc func loginTap() {
-        switch getValidInputs() {
+        switch LoginValidator.getValidInputs(email: emailField.text,
+                                             password: passwordField.text) {
         case .success(let inputData):
             loginButton.showProgress()
             service.login(with: LoginServiceInputData(email: inputData.email, password: inputData.password),
@@ -119,31 +100,6 @@ public class LoginVC: UIViewController {
         case .failure(let error):
             toast.present(message: ToastMessage(type: .failure, message: error.localizedDescription))
         }
-    }
-    
-    private func getValidInputs() -> Result<(email: String, password: String),
-                                            LoginValidationError> {
-        guard let email = emailField.text,
-              let password = passwordField.text else {
-            return .failure(LoginValidationError.unexpected)
-        }
-        
-        if email.isEmpty {
-            return .failure(LoginValidationError.emptyEmail)
-        } else if !isValidEmail(email) {
-            return .failure(LoginValidationError.invalidEmail)
-        } else if password.isEmpty {
-            return .failure(LoginValidationError.emptyPassword)
-        } else {
-            return .success((email, password))
-        }
-    }
-    
-    private func isValidEmail(_ email: String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-
-        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailPred.evaluate(with: email)
     }
     
     // MARK: - UI Helper

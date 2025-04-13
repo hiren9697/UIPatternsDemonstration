@@ -47,13 +47,26 @@ class ViewController: UIViewController {
                                                          onFinish: { print("Finished walkthrough")})
         navigationController?.pushViewController(vc, animated: true)
          */
-        /*
-        let vc = LoginVC(onForgotPasswordTap: {},
-                         onLoginTap: {})
+        ///*
+        let vc = LoginVC(toast: FakeToast(),
+                         onForgotPasswordTap: {},
+                         service: FakeLoginService(),
+                         loginCompletion: {})
         navigationController?.pushViewController(vc, animated: true)
-         */
+         //*/
         
-        progressButton.showProgress()
+    }
+}
+
+class FakeToast: Toast {
+    func present(message: ToastMessage) {
+        // Do nothing
+    }
+}
+
+class FakeLoginService: LoginService {
+    func login(with data: LoginServiceInputData, completion: @escaping Completion) {
+        // Do nothing
     }
 }
 
