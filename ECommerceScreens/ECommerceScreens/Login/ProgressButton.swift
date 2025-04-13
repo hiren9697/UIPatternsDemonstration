@@ -9,7 +9,7 @@ import UIKit
 
 public class ProgressButton: UIView {
     private let containerView: UIView = UIView()
-    private let button: UIButton = UIButton()
+    private let button: UIButton = UIButton(type: .custom)
     private let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     private let onClick: () -> Void
     private var onLayoutSubViews: (() -> Void)?
@@ -44,6 +44,7 @@ public class ProgressButton: UIView {
                              backgroundColor: UIColor) {
         activityIndicator.hidesWhenStopped = true
         activityIndicator.style = .medium
+        activityIndicator.color = titleColor
         button.backgroundColor = UIColor.clear
         button.setTitle(title, for: .normal)
         button.setTitleColor(titleColor, for: .normal)
@@ -58,7 +59,24 @@ public class ProgressButton: UIView {
     }
     
     private func layoutUI() {
-        self.addSubview(button)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(containerView)
+        containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        containerView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(button)
+        button.leadingAnchor.constraint(equalTo: containerView.leadingAnchor).isActive = true
+        button.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
+        button.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        button.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
+        
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(activityIndicator)
+        activityIndicator.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
     }
     
     public func showProgress() {
@@ -82,6 +100,10 @@ public class ProgressButton: UIView {
     
     public var buttonBackgroundColor: UIColor? {
         button.backgroundColor
+    }
+    
+    public var progressColor: UIColor? {
+        activityIndicator.color
     }
     
     public func buttonTitle(for state: UIControl.State) -> String? {

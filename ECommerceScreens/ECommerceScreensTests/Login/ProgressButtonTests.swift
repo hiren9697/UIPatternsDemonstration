@@ -44,6 +44,15 @@ final class ProgressButtonTests: XCTestCase {
         XCTAssertEqual(sut.buttonBackgroundColor, UIColor.clear)
     }
     
+    func test_progressColor_isConfigured() {
+       // Arrange & Act
+        let titleColor: UIColor = AppColors.cFFFFFF
+        let sut = makeSUT(titleColor: titleColor)
+        
+        // Assert
+        XCTAssertEqual(sut.progressColor, titleColor)
+    }
+    
     func test_buttonClick_callsOnClick() {
         // Arrange
         var buttonClicks: [Bool] = []
