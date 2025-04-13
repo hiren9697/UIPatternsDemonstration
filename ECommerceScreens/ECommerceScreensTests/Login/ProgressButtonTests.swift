@@ -62,6 +62,23 @@ final class ProgressButtonTests: XCTestCase {
         checkProgressVisible(sut: sut, expectedProgressVisibility: true)
     }
     
+    func test_hideProgress_showsButtonAndHidesProgress() {
+        // Arrange
+        let sut = makeSUT()
+        
+        // Act
+        sut.showProgress()
+        
+        // Assert
+        checkProgressVisible(sut: sut, expectedProgressVisibility: true)
+        
+        // Act
+        sut.hideProgress()
+        
+        // Assert
+        checkProgressVisible(sut: sut, expectedProgressVisibility: false)
+    }
+    
     // MARK: - Helper
     private func makeSUT(title: String = "Test Title",
                          titleColor: UIColor = UIColor.white,

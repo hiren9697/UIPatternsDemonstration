@@ -65,6 +65,11 @@ public class ProgressButton: UIView {
         activityIndicator.startAnimating()
     }
     
+    public func hideProgress() {
+        button.isHidden = false
+        activityIndicator.stopAnimating()
+    }
+    
     // MARK: - Test Specific
     public var isButtonVisible: Bool {
         !button.isHidden
