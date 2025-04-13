@@ -44,6 +44,7 @@ public class ProgressButton: UIView {
                              backgroundColor: UIColor) {
         activityIndicator.hidesWhenStopped = true
         activityIndicator.style = .medium
+        button.backgroundColor = UIColor.clear
         button.setTitle(title, for: .normal)
         button.setTitleColor(titleColor, for: .normal)
         containerView.backgroundColor = backgroundColor
@@ -77,6 +78,10 @@ public class ProgressButton: UIView {
     
     public var isProgressVisible: Bool {
         !activityIndicator.isHidden
+    }
+    
+    public var buttonBackgroundColor: UIColor? {
+        button.backgroundColor
     }
     
     public func buttonTitle(for state: UIControl.State) -> String? {
