@@ -8,18 +8,6 @@
 import XCTest
 @testable import ECommerceScreens
 
-/// Notes:
-/// To make first responder in tests you can either:
-/// 1. let window = UIWindow()
-///   window.rootViewController = sut
-///   window.makeKeyAndVisible()
-///   `sut.emailField.layoutSubviews()` This is because as we are in tests layout doesn't happen so we have to manually call it's layout methods, even calling `view.layoutSubViews()` not calling `layoutSubViews()` on input field
-///   Test execution time: 0.319, 0.267, 0.243, 0.253 seconds
-/// 2. let window = UIWindow()
-///   window.addSubview(sut.view)
-///   `sut.emailField.layoutSubviews()` This is because as we are in tests layout doesn't happen so we have to manually call it's layout methods even calling `view.layoutSubViews()` not calling `layoutSubViews()` on input field
-///   Test execution time: 0.09, 0.111, 0.114, 0.127 seconds
-
 final class LoginVCTests: XCTestCase {
     func test_welcomeText_isConfiguredWithCorrectTextAndAttributes() {
         // Arrange & Act

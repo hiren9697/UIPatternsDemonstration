@@ -2,9 +2,11 @@
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Bold;\f1\fnil\fcharset0 Menlo-Regular;\f2\fswiss\fcharset0 Helvetica;
 }
 {\colortbl;\red255\green255\blue255;\red252\green95\blue163;\red31\green31\blue36;\red255\green255\blue255;
-\red65\green161\blue192;\red108\green121\blue134;\red108\green121\blue134;}
+\red65\green161\blue192;\red108\green121\blue134;\red108\green121\blue134;\red108\green121\blue134;\red182\green188\blue194;
+}
 {\*\expandedcolortbl;;\csgenericrgb\c98839\c37355\c63833;\csgenericrgb\c12054\c12284\c14131;\csgenericrgb\c100000\c100000\c100000\c85000;
-\csgenericrgb\c25490\c63137\c75294;\csgenericrgb\c42394\c47462\c52518\c45000;\csgenericrgb\c42394\c47462\c52518;}
+\csgenericrgb\c25490\c63137\c75294;\csgenericrgb\c42394\c47462\c52518\c45000;\csgenericrgb\c42394\c47462\c52518;\csgenericrgb\c42394\c47462\c52518\c60000;\csgenericrgb\c71197\c73731\c76259\c92500;
+}
 \margl1440\margr1440\vieww9000\viewh8400\viewkind0
 \deftab939
 \pard\tx939\pardeftab939\partightenfactor0
@@ -44,5 +46,46 @@
 \
 \
 \
-\
-}
+\pard\tx939\pardeftab939\partightenfactor0
+\cf4 \
+\pard\tx939\pardeftab939\partightenfactor0
+\cf6 ///\cf4  
+\f2 \cf7 Notes:
+\f1 \cf4 \
+\cf6 ///\cf4  
+\f2 \cf7 To make first responder in tests you can either:
+\f1 \cf4 \
+\cf6 ///\cf4  
+\f2 \cf7 1. let window = UIWindow()
+\f1 \cf4 \
+\cf6 ///\cf4    
+\f2 \cf7 window.rootViewController = sut
+\f1 \cf4 \
+\cf6 ///\cf4    
+\f2 \cf7 window.makeKeyAndVisible()
+\f1 \cf4 \
+\cf6 ///\cf4    \cf8 \cb3 `\cf9 sut.emailField.layoutSubviews()\cf8 `
+\f2 \cf7 \cb3  This is because as we are in tests layout doesn't happen so we have to manually call it's layout methods, even calling 
+\f1 \cf8 \cb3 `\cf9 view.layoutSubViews()\cf8 `
+\f2 \cf7 \cb3  not calling 
+\f1 \cf8 \cb3 `\cf9 layoutSubViews()\cf8 `
+\f2 \cf7 \cb3  on input field
+\f1 \cf4 \
+\cf6 ///\cf4    
+\f2 \cf7 Test execution time: 0.319, 0.267, 0.243, 0.253 seconds
+\f1 \cf4 \
+\cf6 ///\cf4  
+\f2 \cf7 2. let window = UIWindow()
+\f1 \cf4 \
+\cf6 ///\cf4    
+\f2 \cf7 window.addSubview(sut.view)
+\f1 \cf4 \
+\cf6 ///\cf4    \cf8 \cb3 `\cf9 sut.emailField.layoutSubviews()\cf8 `
+\f2 \cf7 \cb3  This is because as we are in tests layout doesn't happen so we have to manually call it's layout methods even calling 
+\f1 \cf8 \cb3 `\cf9 view.layoutSubViews()\cf8 `
+\f2 \cf7 \cb3  not calling 
+\f1 \cf8 \cb3 `\cf9 layoutSubViews()\cf8 `
+\f2 \cf7 \cb3  on input field
+\f1 \cf4 \
+\cf6 ///\cf4    
+\f2 \cf7 Test execution time: 0.09, 0.111, 0.114, 0.127 seconds}
