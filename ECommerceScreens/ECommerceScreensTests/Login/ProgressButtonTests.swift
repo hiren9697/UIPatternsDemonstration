@@ -9,48 +9,29 @@ import XCTest
 import ECommerceScreens
 
 final class ProgressButtonTests: XCTestCase {
-    func test_title_isConfigured() {
+    func test_attributes_areConfigured() {
         // Arrange & Act
         let title: String = "Test Title"
-        let sut = makeSUT(title: title)
-        
-        // Assert
-        XCTAssertEqual(sut.buttonTitle(for: .normal), title)
-    }
-    
-    func test_titleColor_isConfigured() {
-        // Arrange & Act
         let titleColor: UIColor = AppColors.cFFFFFF
-        let sut = makeSUT(titleColor: titleColor)
-        
-        // Assert
-        XCTAssertEqual(sut.buttonTitleColor(for: .normal), titleColor)
-    }
-    
-    func test_backgroundColor_isConfigured() {
-        // Arrange & Act
         let backgroundColor: UIColor = AppColors.cF83758
-        let sut = makeSUT(backgroundColor: backgroundColor)
+        let sut = makeSUT(title: title, titleColor: titleColor, backgroundColor: backgroundColor)
         
         // Assert
-        XCTAssertEqual(sut.containerViewBackgroundColor(), backgroundColor)
-    }
-    
-    func test_buttonBackgroundColor_isClear() {
-        // Arrange & Act
-        let sut = makeSUT()
-        
-        // Assert
-        XCTAssertEqual(sut.buttonBackgroundColor, UIColor.clear)
-    }
-    
-    func test_progressColor_isConfigured() {
-       // Arrange & Act
-        let titleColor: UIColor = AppColors.cFFFFFF
-        let sut = makeSUT(titleColor: titleColor)
-        
-        // Assert
-        XCTAssertEqual(sut.progressColor, titleColor)
+        XCTAssertEqual(sut.buttonTitle(for: .normal),
+                       title,
+                       "Expected title: \(title), but got \(String(describing: sut.buttonTitle(for: .normal))) instead")
+        XCTAssertEqual(sut.buttonTitleColor(for: .normal),
+                       titleColor,
+                       "Expected titleColor: \(titleColor), but got \(String(describing: sut.buttonTitleColor(for: .normal))) instead")
+        XCTAssertEqual(sut.containerViewBackgroundColor(),
+                       backgroundColor,
+                       "Expected background color: \(backgroundColor), but got \(String(describing: sut.containerViewBackgroundColor())) instead")
+        XCTAssertEqual(sut.buttonBackgroundColor,
+                       UIColor.clear,
+                       "Expected button background color to be clear, but got \(String(describing: sut.buttonBackgroundColor)) instead")
+        XCTAssertEqual(sut.progressColor,
+                       titleColor,
+                       "Expected progress color \(titleColor), but got \(String(describing: sut.progressColor)) instead")
     }
     
     func test_buttonClick_callsOnClick() {
