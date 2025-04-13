@@ -8,6 +8,26 @@
 import UIKit
 
 public class LoginVC: UIViewController {
+    enum LoginValidationError: Error, LocalizedError {
+        case emptyEmail
+        case invalidEmail
+        case emptyPassword
+        case unexpected
+        
+        var errorDescription: String? {
+            switch self {
+            case .emptyEmail:
+                return "Please enter email"
+            case .invalidEmail:
+                return "Please enter a valid email"
+            case .emptyPassword:
+                return "Please enter password"
+            case .unexpected:
+                return "Something went wrong"
+            }
+        }
+    }
+    
     // MARK: - UI Components
     let welcomeLabel: UILabel = UILabel()
     lazy var emailField: InputFieldView = {
@@ -76,29 +96,32 @@ public class LoginVC: UIViewController {
     }
     
     @objc func loginTap() {
-        if validte() {
-            service.login(with: LoginServiceInputData(email: emailField.text!,
-                                                      password: passwordField.text!),
+        switch getValidInputs() {
+        case .success(let inputData):
+            service.login(with: LoginServiceInputData(email: inputData.email, password: inputData.password),
                           completion: { result in
+                
             })
+        case .failure(let error):
+            toast.present(message: ToastMessage(type: .failure, message: error.localizedDescription))
         }
     }
     
-    private func validte() -> Bool {
-        let email = emailField.text ?? ""
-        let password = passwordField.text ?? ""
+    private func getValidInputs() -> Result<(email: String, password: String),
+                                            LoginValidationError> {
+        guard let email = emailField.text,
+              let password = passwordField.text else {
+            return .failure(LoginValidationError.unexpected)
+        }
         
         if email.isEmpty {
-            toast.present(message: ToastMessage(type: .failure, message: "Please enter email"))
-            return false
+            return .failure(LoginValidationError.emptyEmail)
         } else if !isValidEmail(email) {
-            toast.present(message: ToastMessage(type: .failure, message: "Please enter a valid email"))
-            return false
+            return .failure(LoginValidationError.invalidEmail)
         } else if password.isEmpty {
-            toast.present(message: ToastMessage(type: .failure, message: "Please enter password"))
-            return false
+            return .failure(LoginValidationError.emptyPassword)
         } else {
-            return true
+            return .success((email, password))
         }
     }
     
