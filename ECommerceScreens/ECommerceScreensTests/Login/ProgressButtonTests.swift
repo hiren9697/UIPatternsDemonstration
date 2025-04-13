@@ -33,7 +33,7 @@ final class ProgressButtonTests: XCTestCase {
         let sut = makeSUT(backgroundColor: backgroundColor)
         
         // Assert
-        XCTAssertEqual(sut.buttonBackgroundColor(), backgroundColor)
+        XCTAssertEqual(sut.containerViewBackgroundColor(), backgroundColor)
     }
     
     func test_buttonClick_callsOnClick() {
@@ -46,6 +46,11 @@ final class ProgressButtonTests: XCTestCase {
         
         // Assert
         XCTAssertEqual(buttonClicks, [true])
+    }
+    
+    func test_buttonClick_hidesTitleAndShowsProgress() {
+        
+        
     }
     
     // MARK: - Helper

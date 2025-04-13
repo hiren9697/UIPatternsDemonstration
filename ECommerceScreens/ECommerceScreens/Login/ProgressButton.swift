@@ -8,8 +8,10 @@
 import UIKit
 
 public class ProgressButton: UIView {
+    private let containerView: UIView = UIView()
     private let button: UIButton = UIButton()
     private let onClick: () -> Void
+    private var onLayoutSubViews: (() -> Void)?
     
     public init(title: String,
                 titleColor: UIColor,
@@ -20,10 +22,19 @@ public class ProgressButton: UIView {
         configureUI(title: title,
                     titleColor: titleColor,
                     backgroundColor: backgroundColor)
+        onLayoutSubViews = {[weak self] in
+            self?.layoutUI()
+            self?.onLayoutSubViews = nil
+        }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        onLayoutSubViews?()
     }
     
     // MARK: - UI Helper
@@ -32,7 +43,7 @@ public class ProgressButton: UIView {
                              backgroundColor: UIColor) {
         button.setTitle(title, for: .normal)
         button.setTitleColor(titleColor, for: .normal)
-        button.backgroundColor = backgroundColor
+        containerView.backgroundColor = backgroundColor
         button.addTarget(self,
                          action: #selector(buttonClick),
                          for: .touchUpInside)
@@ -42,7 +53,18 @@ public class ProgressButton: UIView {
         onClick()
     }
     
+    private func layoutUI() {
+        self.addSubview(button)
+    }
+    
     // MARK: - Test Specific
+    public var isTitleVisible: Bool? {
+        guard let isHidden = button.titleLabel?.isHidden else {
+            return nil
+        }
+        return !isHidden
+    }
+    
     public func buttonTitle(for state: UIControl.State) -> String? {
         button.title(for: .normal)
     }
@@ -51,8 +73,8 @@ public class ProgressButton: UIView {
         button.titleColor(for: .normal)
     }
     
-    public func buttonBackgroundColor() -> UIColor? {
-        button.backgroundColor
+    public func containerViewBackgroundColor() -> UIColor? {
+        containerView.backgroundColor
     }
     
     public func simulateButtonClick() {
