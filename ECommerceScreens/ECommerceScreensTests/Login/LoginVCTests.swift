@@ -278,15 +278,16 @@ final class LoginVCTests: XCTestCase {
         spy.requestCompletions[0](.failure(getLoginError()))
         
         // Assert
-        guard toast.messages.count == 1 else {
-            XCTFail("Expected one failure message to be shown, but didn't find any")
-            return
-        }
+        XCTAssertEqual(toast.messages.count,
+                       1,
+                       "Expected one failure message to be shown, but didn't find any")
         let toastMessage = toast.messages[0]
         XCTAssertEqual(toastMessage.type,
                        .failure,
                        "Expected failure toast message to be shown, but got: \(toastMessage) instead")
     }
+    
+    
     
     // MARK: - Helper
     private func makeSUT(toast: Toast = ToastSpy(),
