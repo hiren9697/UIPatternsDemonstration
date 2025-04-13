@@ -71,15 +71,18 @@ public class LoginVC: UIViewController {
     let toast: Toast
     let onForgotPasswordTap: () -> Void
     let service: LoginService
+    let loginCompletion: () -> Void
     private let horizontalPadding: CGFloat = 32
 
     // MARK: - Init
     public init(toast: Toast,
                 onForgotPasswordTap: @escaping () -> Void,
-                service: LoginService) {
+                service: LoginService,
+                loginCompletion: @escaping () -> Void) {
         self.toast = toast
         self.onForgotPasswordTap = onForgotPasswordTap
         self.service = service
+        self.loginCompletion = loginCompletion
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -110,7 +113,7 @@ public class LoginVC: UIViewController {
                 case .failure:
                     self?.toast.present(message: ToastMessage(type: .failure, message: "Something went wrong"))
                 case .success:
-                    break
+                    self?.loginCompletion()
                 }
             })
         case .failure(let error):

@@ -287,17 +287,40 @@ final class LoginVCTests: XCTestCase {
                        "Expected failure toast message to be shown, but got: \(toastMessage) instead")
     }
     
-    
+    func test_onLoginRequestCompletion_withSuccess_doesNotShowToastAndCallsCompletion() {
+        // Arrange
+        var loginCompletionCalls: [Bool] = []
+        let spy = LoginServiceSpy()
+        let toast = ToastSpy()
+        let sut = makeSUT(toast: toast,
+                          service: spy,
+                          loginCompletion: { loginCompletionCalls.append(true) })
+        _ = setValidEmailAndPassword(on: sut)
+        sut.simulateLoginTap()
+
+        // Act
+        spy.requestCompletions[0](.success(()))
+        
+        // Assert
+        XCTAssertTrue(toast.messages.isEmpty,
+                      "Expected zero failure message to be shown, but didn't find any")
+        XCTAssertEqual(loginCompletionCalls,
+                       [true],
+                       "Expected `loginCompletion` to be called once after receiving success of login request")
+        
+    }
     
     // MARK: - Helper
     private func makeSUT(toast: Toast = ToastSpy(),
                          onForgotPasswordTap: @escaping () -> Void = {},
                          service: LoginServiceSpy = LoginServiceSpy(),
+                         loginCompletion: @escaping () -> Void = {},
                          file: StaticString = #filePath,
                          line: UInt = #line) -> LoginVC {
         let sut = LoginVC(toast: toast,
                           onForgotPasswordTap: onForgotPasswordTap,
-                          service: service)
+                          service: service,
+                          loginCompletion: loginCompletion)
         sut.loadViewIfNeeded()
         trackMemory(for: sut,
                     file: file,
