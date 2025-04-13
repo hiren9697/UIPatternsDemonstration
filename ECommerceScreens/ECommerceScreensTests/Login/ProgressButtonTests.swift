@@ -48,9 +48,18 @@ final class ProgressButtonTests: XCTestCase {
         XCTAssertEqual(buttonClicks, [true])
     }
     
-    func test_buttonClick_hidesTitleAndShowsProgress() {
+    func test_showProgress_hidesButtonAndShowsProgress() {
+        // Arrange
+        let sut = makeSUT()
         
+        // Act
+        sut.showProgress()
         
+        // Assert
+        XCTAssertFalse(sut.isButtonVisible,
+                       "Expected button hidden after calling `showProgress()`")
+        XCTAssertTrue(sut.isProgressVisible,
+                       "Expected progress visible after calling `showProgress()`")
     }
     
     // MARK: - Helper

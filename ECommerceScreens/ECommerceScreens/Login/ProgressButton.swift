@@ -10,6 +10,7 @@ import UIKit
 public class ProgressButton: UIView {
     private let containerView: UIView = UIView()
     private let button: UIButton = UIButton()
+    private let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     private let onClick: () -> Void
     private var onLayoutSubViews: (() -> Void)?
     
@@ -41,6 +42,8 @@ public class ProgressButton: UIView {
     private func configureUI(title: String,
                              titleColor: UIColor,
                              backgroundColor: UIColor) {
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = .medium
         button.setTitle(title, for: .normal)
         button.setTitleColor(titleColor, for: .normal)
         containerView.backgroundColor = backgroundColor
@@ -57,12 +60,18 @@ public class ProgressButton: UIView {
         self.addSubview(button)
     }
     
+    public func showProgress() {
+        button.isHidden = true
+        activityIndicator.startAnimating()
+    }
+    
     // MARK: - Test Specific
-    public var isTitleVisible: Bool? {
-        guard let isHidden = button.titleLabel?.isHidden else {
-            return nil
-        }
-        return !isHidden
+    public var isButtonVisible: Bool {
+        !button.isHidden
+    }
+    
+    public var isProgressVisible: Bool {
+        !activityIndicator.isHidden
     }
     
     public func buttonTitle(for state: UIControl.State) -> String? {
