@@ -252,8 +252,18 @@ final class LoginVCTests: XCTestCase {
         XCTAssertTrue(sut.loginButton.isProgressVisible)
     }
     
-    func test_onRecivingLoginRequestCompletion_hidesProgressInLoginButton() {
+    func test_onLoginRequestCompletion_hidesProgressInLoginButton() {
+        // Arrange
+        let spy = LoginServiceSpy()
+        let sut = makeSUT(service: spy)
+        _ = setValidEmailAndPassword(on: sut)
+        sut.simulateLoginTap()
+
+        // Act
+        spy.requestCompletions[0](.success(()))
         
+        // Assert
+        XCTAssertFalse(sut.loginButton.isProgressVisible)
     }
     
     // MARK: - Helper
@@ -296,6 +306,9 @@ final class LoginVCTests: XCTestCase {
         var messages: [Message] = []
         var loginRequests: [LoginServiceInputData] {
             messages.map { $0.data }
+        }
+        var requestCompletions: [LoginService.Completion] {
+            messages.map { $0.completion }
         }
         
         func login(with data: LoginServiceInputData, completion: @escaping LoginService.Completion) {

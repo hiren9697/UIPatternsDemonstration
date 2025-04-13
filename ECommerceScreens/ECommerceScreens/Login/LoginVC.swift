@@ -104,8 +104,8 @@ public class LoginVC: UIViewController {
         case .success(let inputData):
             loginButton.showProgress()
             service.login(with: LoginServiceInputData(email: inputData.email, password: inputData.password),
-                          completion: { result in
-                
+                          completion: {[weak self] result in
+                self?.loginButton.hideProgress()
             })
         case .failure(let error):
             toast.present(message: ToastMessage(type: .failure, message: error.localizedDescription))
