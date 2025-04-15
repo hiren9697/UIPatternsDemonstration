@@ -40,32 +40,21 @@ public class LoginMultipleMVCs: UIViewController {
         button.addTarget(self, action: #selector(forgotPasswordTap), for: .touchUpInside)
         return button
     }()
-    lazy var loginButton: ProgressButton = {
-        let button = ProgressButton(title: "Login",
-                                    titleColor: AppColors.cFFFFFF,
-                                    backgroundColor: AppColors.cF83758,
-                                    onClick: {[weak self] in
-            self?.loginTap()
-        })
-        return button
-    }()
+    var loginButtonController: LoginButtonController?
+    var loginButton: ProgressButton? {
+        loginButtonController?.view
+    }
     
     // MARK: - Variables
     let toast: Toast
     let onForgotPasswordTap: ForgotPasswordCompletion
-    let service: LoginService
-    let loginCompletion: LoginCompletion
     private let horizontalPadding: CGFloat = 32
 
     // MARK: - Init
     public init(toast: Toast,
-                onForgotPasswordTap: @escaping ForgotPasswordCompletion,
-                service: LoginService,
-                loginCompletion: @escaping LoginCompletion) {
+                onForgotPasswordTap: @escaping ForgotPasswordCompletion) {
         self.toast = toast
         self.onForgotPasswordTap = onForgotPasswordTap
-        self.service = service
-        self.loginCompletion = loginCompletion
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -85,24 +74,13 @@ public class LoginMultipleMVCs: UIViewController {
         onForgotPasswordTap()
     }
     
-    @objc func loginTap() {
-        switch LoginValidator.getValidInputs(email: emailField.text,
-                                             password: passwordField.text) {
-        case .success(let inputData):
-            loginButton.showProgress()
-            service.login(with: LoginServiceInputData(email: inputData.email, password: inputData.password),
-                          completion: {[weak self] result in
-                self?.loginButton.hideProgress()
-                switch result {
-                case .failure:
-                    self?.toast.present(message: ToastMessage(type: .failure, message: "Something went wrong"))
-                case .success:
-                    self?.loginCompletion()
-                }
-            })
-        case .failure(let error):
-            toast.present(message: ToastMessage(type: .failure, message: error.localizedDescription))
-        }
+    // MARK: - Helper
+    func showToast(message: ToastMessage) {
+        toast.present(message: message)
+    }
+    
+    func rawInputs() -> (email: String?, password: String?) {
+        (emailField.text, passwordField.text)
     }
     
     // MARK: - UI Helper
@@ -120,17 +98,13 @@ public class LoginMultipleMVCs: UIViewController {
         forgotPasswordButton.setTitleColor(AppColors.cF83758,
                                            for: .normal)
         forgotPasswordButton.backgroundColor = AppColors.cFFFFFF
-        
-//        loginButton.setTitle("Login",
-//                             for: .normal)
-//        loginButton.setTitleColor(AppColors.cFFFFFF,
-//                                  for: .normal)
-        loginButton.backgroundColor = AppColors.cF83758
-        loginButton.layer.cornerRadius = 4
-        loginButton.layer.masksToBounds = true
     }
     
     private func layoutUIComponents() {
+        guard let loginButton = loginButton else {
+            return
+        }
+        
         let scrollView = UIScrollView()
         view.addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
