@@ -8,7 +8,7 @@
 import XCTest
 @testable import ECommerceScreens
 
-final class LoginVCTests: XCTestCase {
+final class LoginBigMVCTests: XCTestCase {
     func test_welcomeText_isConfiguredWithCorrectTextAndAttributes() {
         // Arrange & Act
         let sut = makeSUT()
@@ -312,15 +312,15 @@ final class LoginVCTests: XCTestCase {
     
     // MARK: - Helper
     private func makeSUT(toast: Toast = ToastSpy(),
-                         onForgotPasswordTap: @escaping LoginVC.ForgotPasswordCompletion = {},
+                         onForgotPasswordTap: @escaping LoginBigMVC.ForgotPasswordCompletion = {},
                          service: LoginServiceSpy = LoginServiceSpy(),
-                         loginCompletion: @escaping LoginVC.LoginCompletion = {},
+                         loginCompletion: @escaping LoginBigMVC.LoginCompletion = {},
                          file: StaticString = #filePath,
-                         line: UInt = #line) -> LoginVC {
-        let sut = LoginVC(toast: toast,
-                          onForgotPasswordTap: onForgotPasswordTap,
-                          service: service,
-                          loginCompletion: loginCompletion)
+                         line: UInt = #line) -> LoginBigMVC {
+        let sut = LoginBigMVC(toast: toast,
+                              onForgotPasswordTap: onForgotPasswordTap,
+                              service: service,
+                              loginCompletion: loginCompletion)
         sut.loadViewIfNeeded()
         trackMemory(for: sut,
                     file: file,
@@ -328,7 +328,7 @@ final class LoginVCTests: XCTestCase {
         return sut
     }
     
-    private func setValidEmailAndPassword(on sut: LoginVC) -> (email: String, password: String) {
+    private func setValidEmailAndPassword(on sut: LoginBigMVC) -> (email: String, password: String) {
         let email = "valid@email.com"
         let password = "TestPassword"
         sut.emailField.setText(email)

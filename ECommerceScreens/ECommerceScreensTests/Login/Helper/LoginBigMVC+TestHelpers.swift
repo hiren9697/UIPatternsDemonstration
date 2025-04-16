@@ -8,7 +8,7 @@
 import UIKit
 @testable import ECommerceScreens
 
-extension LoginVC {
+extension LoginBigMVC {
     var forgotPasswordButtonTitle: String? {
         forgotPasswordButton.title(for: .normal)
     }
