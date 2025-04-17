@@ -15,7 +15,7 @@ public class LoginMVVMComposer {
         
         let vc = LoginMVVM(toast: toast,
                            onForgotPasswordTap: onForgotPasswrdTap)
-        let loginButtonController: LoginButtonController = LoginButtonController(service: service,
+        let loginButtonController: LoginMultipleMVCsLoginButtonController = LoginMultipleMVCsLoginButtonController(service: service,
                                                                                  loginCompletion: loginCompletion,
                                                                                  showToast: {[weak vc] message in
             vc?.showToast(message: message)

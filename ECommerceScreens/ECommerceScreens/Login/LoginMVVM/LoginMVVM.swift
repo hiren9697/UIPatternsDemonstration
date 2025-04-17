@@ -40,7 +40,7 @@ public class LoginMVVM: UIViewController {
         button.addTarget(self, action: #selector(forgotPasswordTap), for: .touchUpInside)
         return button
     }()
-    var loginButtonController: LoginButtonController?
+    var loginButtonController: LoginMultipleMVCsLoginButtonController?
     var loginButton: ProgressButton? {
         loginButtonController?.view
     }

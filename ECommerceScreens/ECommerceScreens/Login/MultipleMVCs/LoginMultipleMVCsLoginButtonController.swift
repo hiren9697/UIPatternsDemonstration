@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginButtonController {
+class LoginMultipleMVCsLoginButtonController {
     public typealias ShowToast = (ToastMessage) -> Void
     public typealias GetRawInputs = () -> (String?, String?)?
     lazy var view: ProgressButton = {
