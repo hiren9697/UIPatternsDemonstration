@@ -7,15 +7,15 @@
 
 import UIKit
 
-public class LoginMultipleMVCsComposer {
+public class LGSplitMVCComposer {
     public static func compose(toast: Toast,
-                               onForgotPasswrdTap: @escaping LoginMultipleMVCs.ForgotPasswordCompletion,
+                               onForgotPasswrdTap: @escaping LGSplitMVCLoginViewController.ForgotPasswordCompletion,
                                service: LoginService,
-                               loginCompletion: @escaping LoginMultipleMVCs.LoginCompletion) -> LoginMultipleMVCs {
+                               loginCompletion: @escaping LGSplitMVCLoginViewController.LoginCompletion) -> LGSplitMVCLoginViewController {
         
-        let vc = LoginMultipleMVCs(toast: toast,
+        let vc = LGSplitMVCLoginViewController(toast: toast,
                                    onForgotPasswordTap: onForgotPasswrdTap)
-        let loginButtonController: LoginMultipleMVCsLoginButtonController = LoginMultipleMVCsLoginButtonController(service: service,
+        let loginButtonController: LGSplitMVCLoginButtonController = LGSplitMVCLoginButtonController(service: service,
                                                                                  loginCompletion: loginCompletion,
                                                                                  showToast: {[weak vc] message in
             vc?.showToast(message: message)

@@ -8,7 +8,7 @@
 import UIKit
 @testable import ECommerceScreens
 
-extension LoginMultipleMVCs {
+extension LGSplitMVCLoginViewController {
     var forgotPasswordButtonTitle: String? {
         forgotPasswordButton.title(for: .normal)
     }

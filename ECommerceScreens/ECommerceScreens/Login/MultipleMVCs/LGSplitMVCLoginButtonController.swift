@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginMultipleMVCsLoginButtonController {
+class LGSplitMVCLoginButtonController {
     public typealias ShowToast = (ToastMessage) -> Void
     public typealias GetRawInputs = () -> (String?, String?)?
     lazy var view: ProgressButton = {
@@ -21,13 +21,13 @@ class LoginMultipleMVCsLoginButtonController {
     }()
     
     let service: LoginService
-    let loginCompletion: LoginMultipleMVCs.LoginCompletion
+    let loginCompletion: LGSplitMVCLoginViewController.LoginCompletion
     var showToast: (ToastMessage) -> Void
     var getRawInputs: () -> (email: String?, password: String?)?
     
     
     init(service: LoginService,
-         loginCompletion: @escaping LoginMultipleMVCs.LoginCompletion,
+         loginCompletion: @escaping LGSplitMVCLoginViewController.LoginCompletion,
          showToast: @escaping ShowToast,
          getRawInputs: @escaping GetRawInputs){
         self.service = service
