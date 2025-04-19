@@ -7,15 +7,15 @@
 
 import UIKit
 
-public class LGBasicMVVMViewModel {
-    public typealias Observer<T> = (T) -> Void
-    public typealias LoginCompletion = () -> Void
+class LGBasicMVVMViewModel {
+    typealias Observer<T> = (T) -> Void
+    typealias LoginCompletion = () -> Void
     
     private let service: LoginService
     private let loginCompletion: LoginCompletion
     
-    public init(service: LoginService,
-                loginCompletion: @escaping LoginCompletion) {
+    init(service: LoginService,
+         loginCompletion: @escaping LoginCompletion) {
         self.service = service
         self.loginCompletion = loginCompletion
     }

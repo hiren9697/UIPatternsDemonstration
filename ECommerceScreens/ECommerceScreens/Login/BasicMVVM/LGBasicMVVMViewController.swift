@@ -57,7 +57,7 @@ public class LGBasicMVVMViewController: UIViewController {
     private let horizontalPadding: CGFloat = 32
 
     // MARK: - Init
-    public init(toast: Toast,
+    init(toast: Toast,
                 onForgotPasswordTap: @escaping ForgotPasswordCompletion,
                 viewModel: LGBasicMVVMViewModel) {
         self.toast = toast
