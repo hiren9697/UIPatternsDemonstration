@@ -13,15 +13,14 @@ class LGBasicMVVMViewModel {
     
     private let service: LoginService
     private let loginCompletion: LoginCompletion
+    public var onShowToast: Observer<ToastMessage>?
+    public var onLoginProgressStateChange: Observer<Bool>?
     
     init(service: LoginService,
          loginCompletion: @escaping LoginCompletion) {
         self.service = service
         self.loginCompletion = loginCompletion
     }
-    
-    public var onShowToast: Observer<ToastMessage>?
-    public var onLoginProgressStateChange: Observer<Bool>?
     
     public func login(rawEmail: String?, rawPassword: String?) {
         switch LoginValidator.getValidInputs(email: rawEmail,
