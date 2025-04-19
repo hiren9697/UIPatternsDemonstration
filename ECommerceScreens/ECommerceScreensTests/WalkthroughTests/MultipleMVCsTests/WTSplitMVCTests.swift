@@ -8,7 +8,7 @@
 import XCTest
 @testable import ECommerceScreens
 
-final class WalkthroughMultipleMVCsTests: XCTestCase {
+final class WTSplitMVCTests: XCTestCase {
     func test_collectionView_configuredCorrectly() {
         // Arrange & Act
         let sut = makeSUT(items: getDummyItems(3))
