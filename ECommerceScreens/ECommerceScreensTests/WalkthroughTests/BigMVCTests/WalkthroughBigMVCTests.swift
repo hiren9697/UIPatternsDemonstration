@@ -319,8 +319,8 @@ final class WalkthroughBigMVCTests: XCTestCase {
     }
     
     private func makeSUT(items: [WalkthroughItem],
-                         onFinishWalkthrough: @escaping WalkthroughBigMVC.FinishCompletion = {}) -> WalkthroughBigMVC {
-        let vc = WalkthroughBigMVC(items: items,
+                         onFinishWalkthrough: @escaping WTBasicMVCWalkthroughViewController.FinishCompletion = {}) -> WTBasicMVCWalkthroughViewController {
+        let vc = WTBasicMVCWalkthroughViewController(items: items,
                                shouldAnimate: false,
                                onFinish: onFinishWalkthrough)
         vc.loadViewIfNeeded()

@@ -8,7 +8,7 @@
 import XCTest
 @testable import ECommerceScreens
 
-func assert(sut: WalkthroughBigMVC,
+func assert(sut: WTBasicMVCWalkthroughViewController,
                         isRendering items: [WalkthroughItem],
                         file: StaticString = #file,
                         line: UInt = #line) {
@@ -27,7 +27,7 @@ func assert(sut: WalkthroughBigMVC,
         }
     }
     
-    func assert(sut: WalkthroughBigMVC,
+    func assert(sut: WTBasicMVCWalkthroughViewController,
                         configured item: WalkthroughItem,
                         at index: Int,
                         file: StaticString = #filePath,
