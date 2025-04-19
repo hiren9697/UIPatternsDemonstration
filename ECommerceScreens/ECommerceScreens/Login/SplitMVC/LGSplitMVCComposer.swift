@@ -9,11 +9,11 @@ import UIKit
 
 public class LGSplitMVCComposer {
     public static func compose(toast: Toast,
-                               onForgotPasswrdTap: @escaping LGSplitMVCLoginViewController.ForgotPasswordCompletion,
+                               onForgotPasswrdTap: @escaping LGSplitMVCViewController.ForgotPasswordCompletion,
                                service: LoginService,
-                               loginCompletion: @escaping LGSplitMVCLoginViewController.LoginCompletion) -> LGSplitMVCLoginViewController {
+                               loginCompletion: @escaping LGSplitMVCViewController.LoginCompletion) -> LGSplitMVCViewController {
         
-        let vc = LGSplitMVCLoginViewController(toast: toast,
+        let vc = LGSplitMVCViewController(toast: toast,
                                    onForgotPasswordTap: onForgotPasswrdTap)
         let loginButtonController: LGSplitMVCLoginButtonController = LGSplitMVCLoginButtonController(service: service,
                                                                                  loginCompletion: loginCompletion,

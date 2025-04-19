@@ -12,13 +12,13 @@ class LoginSplitMVVMLoginButtonViewModel {
     public typealias GetRawInputs = () -> (String?, String?)?
     
     let service: LoginService
-    let loginCompletion: LGSplitMVCLoginViewController.LoginCompletion
+    let loginCompletion: LGSplitMVCViewController.LoginCompletion
     var showToast: (ToastMessage) -> Void
     var getRawInputs: () -> (email: String?, password: String?)?
     var onLoadingChanged: ((Bool) -> Void)?
     
     init(service: LoginService,
-         loginCompletion: @escaping LGSplitMVCLoginViewController.LoginCompletion,
+         loginCompletion: @escaping LGSplitMVCViewController.LoginCompletion,
          showToast: @escaping ShowToast,
          getRawInputs: @escaping GetRawInputs){
         self.service = service

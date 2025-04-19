@@ -312,11 +312,11 @@ final class LoginMultipleMVCsTests: XCTestCase {
     
     // MARK: - Helper
     private func makeSUT(toast: Toast = ToastSpy(),
-                         onForgotPasswordTap: @escaping LGSplitMVCLoginViewController.ForgotPasswordCompletion = {},
+                         onForgotPasswordTap: @escaping LGSplitMVCViewController.ForgotPasswordCompletion = {},
                          service: LoginServiceSpy = LoginServiceSpy(),
-                         loginCompletion: @escaping LGSplitMVCLoginViewController.LoginCompletion = {},
+                         loginCompletion: @escaping LGSplitMVCViewController.LoginCompletion = {},
                          file: StaticString = #filePath,
-                         line: UInt = #line) -> LGSplitMVCLoginViewController {
+                         line: UInt = #line) -> LGSplitMVCViewController {
 //        let sut = LoginMultipleMVCs(toast: toast,
 //                          onForgotPasswordTap: onForgotPasswordTap,
 //                          service: service,
@@ -332,7 +332,7 @@ final class LoginMultipleMVCsTests: XCTestCase {
         return sut
     }
     
-    private func setValidEmailAndPassword(on sut: LGSplitMVCLoginViewController) -> (email: String, password: String) {
+    private func setValidEmailAndPassword(on sut: LGSplitMVCViewController) -> (email: String, password: String) {
         let email = "valid@email.com"
         let password = "TestPassword"
         sut.emailField.setText(email)

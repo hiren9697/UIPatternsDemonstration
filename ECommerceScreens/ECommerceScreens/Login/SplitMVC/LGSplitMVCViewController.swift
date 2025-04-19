@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class LGSplitMVCLoginViewController: UIViewController {
+public class LGSplitMVCViewController: UIViewController {
     public typealias ForgotPasswordCompletion = () -> Void
     public typealias LoginCompletion = () -> Void
     
