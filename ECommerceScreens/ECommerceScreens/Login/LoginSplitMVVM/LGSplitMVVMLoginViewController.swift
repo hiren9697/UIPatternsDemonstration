@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class LoginMVVM: UIViewController {
+public class LGSplitMVVMLoginButtonViewController: UIViewController {
     public typealias ForgotPasswordCompletion = () -> Void
     public typealias LoginCompletion = () -> Void
     
@@ -40,7 +40,7 @@ public class LoginMVVM: UIViewController {
         button.addTarget(self, action: #selector(forgotPasswordTap), for: .touchUpInside)
         return button
     }()
-    var loginButtonController: LoginMultipleMVCsLoginButtonController?
+    var loginButtonController: LGSplitMVVMLoginButtonController?
     var loginButton: ProgressButton? {
         loginButtonController?.view
     }
