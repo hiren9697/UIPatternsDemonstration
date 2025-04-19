@@ -1,14 +1,14 @@
 //
-//  LoginMultipleMVCsTests.swift
+//  LoginVCTests.swift
 //  ECommerceScreensTests
 //
-//  Created by Hirenkumar Fadadu on 14/04/25.
+//  Created by Hirenkumar Fadadu on 06/04/25.
 //
 
 import XCTest
 @testable import ECommerceScreens
 
-final class LoginMultipleMVCsTests: XCTestCase {
+final class LGBasicMVCTests: XCTestCase {
     func test_welcomeText_isConfiguredWithCorrectTextAndAttributes() {
         // Arrange & Act
         let sut = makeSUT()
@@ -249,7 +249,7 @@ final class LoginMultipleMVCsTests: XCTestCase {
         sut.simulateLoginTap()
         
         // Assert
-        XCTAssertEqual(sut.loginButton?.isProgressVisible, true)
+        XCTAssertTrue(sut.loginButton.isProgressVisible)
     }
     
     func test_onLoginRequestCompletion_hidesProgressInLoginButton() {
@@ -263,7 +263,7 @@ final class LoginMultipleMVCsTests: XCTestCase {
         spy.requestCompletions[0](.success(()))
         
         // Assert
-        XCTAssertEqual(sut.loginButton?.isProgressVisible, false)
+        XCTAssertFalse(sut.loginButton.isProgressVisible)
     }
     
     func test_onLoginRequestCompletion_withFailure_showsToast() {
@@ -312,19 +312,15 @@ final class LoginMultipleMVCsTests: XCTestCase {
     
     // MARK: - Helper
     private func makeSUT(toast: Toast = ToastSpy(),
-                         onForgotPasswordTap: @escaping LGSplitMVCViewController.ForgotPasswordCompletion = {},
+                         onForgotPasswordTap: @escaping LGBasicMVCViewController.ForgotPasswordCompletion = {},
                          service: LoginServiceSpy = LoginServiceSpy(),
-                         loginCompletion: @escaping LGSplitMVCViewController.LoginCompletion = {},
+                         loginCompletion: @escaping LGBasicMVCViewController.LoginCompletion = {},
                          file: StaticString = #filePath,
-                         line: UInt = #line) -> LGSplitMVCViewController {
-//        let sut = LoginMultipleMVCs(toast: toast,
-//                          onForgotPasswordTap: onForgotPasswordTap,
-//                          service: service,
-//                          loginCompletion: loginCompletion)
-        let sut = LGSplitMVCComposer.compose(toast: toast,
-                                                    onForgotPasswrdTap: onForgotPasswordTap,
-                                                    service: service,
-                                                    loginCompletion: loginCompletion)
+                         line: UInt = #line) -> LGBasicMVCViewController {
+        let sut = LGBasicMVCViewController(toast: toast,
+                              onForgotPasswordTap: onForgotPasswordTap,
+                              service: service,
+                              loginCompletion: loginCompletion)
         sut.loadViewIfNeeded()
         trackMemory(for: sut,
                     file: file,
@@ -332,7 +328,7 @@ final class LoginMultipleMVCsTests: XCTestCase {
         return sut
     }
     
-    private func setValidEmailAndPassword(on sut: LGSplitMVCViewController) -> (email: String, password: String) {
+    private func setValidEmailAndPassword(on sut: LGBasicMVCViewController) -> (email: String, password: String) {
         let email = "valid@email.com"
         let password = "TestPassword"
         sut.emailField.setText(email)
@@ -371,4 +367,3 @@ final class LoginMultipleMVCsTests: XCTestCase {
         }
     }
 }
-
