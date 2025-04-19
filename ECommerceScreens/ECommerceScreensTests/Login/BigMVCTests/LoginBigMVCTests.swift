@@ -312,12 +312,12 @@ final class LoginBigMVCTests: XCTestCase {
     
     // MARK: - Helper
     private func makeSUT(toast: Toast = ToastSpy(),
-                         onForgotPasswordTap: @escaping LoginBigMVC.ForgotPasswordCompletion = {},
+                         onForgotPasswordTap: @escaping LGBasicMVCViewController.ForgotPasswordCompletion = {},
                          service: LoginServiceSpy = LoginServiceSpy(),
-                         loginCompletion: @escaping LoginBigMVC.LoginCompletion = {},
+                         loginCompletion: @escaping LGBasicMVCViewController.LoginCompletion = {},
                          file: StaticString = #filePath,
-                         line: UInt = #line) -> LoginBigMVC {
-        let sut = LoginBigMVC(toast: toast,
+                         line: UInt = #line) -> LGBasicMVCViewController {
+        let sut = LGBasicMVCViewController(toast: toast,
                               onForgotPasswordTap: onForgotPasswordTap,
                               service: service,
                               loginCompletion: loginCompletion)
@@ -328,7 +328,7 @@ final class LoginBigMVCTests: XCTestCase {
         return sut
     }
     
-    private func setValidEmailAndPassword(on sut: LoginBigMVC) -> (email: String, password: String) {
+    private func setValidEmailAndPassword(on sut: LGBasicMVCViewController) -> (email: String, password: String) {
         let email = "valid@email.com"
         let password = "TestPassword"
         sut.emailField.setText(email)

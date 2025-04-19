@@ -8,7 +8,7 @@
 import UIKit
 @testable import ECommerceScreens
 
-extension LoginBigMVC {
+extension LGBasicMVCViewController {
     var forgotPasswordButtonTitle: String? {
         forgotPasswordButton.title(for: .normal)
     }

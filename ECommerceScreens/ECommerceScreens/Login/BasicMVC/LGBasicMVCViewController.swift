@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class LoginBigMVC: UIViewController {
+public class LGBasicMVCViewController: UIViewController {
     public typealias ForgotPasswordCompletion = () -> Void
     public typealias LoginCompletion = () -> Void
     
