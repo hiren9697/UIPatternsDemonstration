@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class WalkthroughCCController {
+public class WTSplitMVCCellController {
     let model: WalkthroughItem
     
     init(model: WalkthroughItem) {

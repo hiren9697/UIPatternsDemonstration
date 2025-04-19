@@ -319,8 +319,8 @@ final class WalkthroughMultipleMVCsTests: XCTestCase {
     }
     
     private func makeSUT(items: [WalkthroughItem],
-                         onFinishWalkthrough: @escaping WalkthroughMultipleMVCs.FinishCompletion = {}) -> WalkthroughMultipleMVCs {
-        let vc = WalkthroughMultipleMVCsComposer.compose(items: items,
+                         onFinishWalkthrough: @escaping WTSplitMVCViewController.FinishCompletion = {}) -> WTSplitMVCViewController {
+        let vc = WTSplitMVCComposer.compose(items: items,
                                                          onFinish: onFinishWalkthrough,
                                                          shouldAnimate: false)
         vc.loadViewIfNeeded()

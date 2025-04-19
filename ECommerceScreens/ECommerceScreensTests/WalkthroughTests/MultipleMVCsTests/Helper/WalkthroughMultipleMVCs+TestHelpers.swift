@@ -8,7 +8,7 @@
 import UIKit
 @testable import ECommerceScreens
 
-extension WalkthroughMultipleMVCs {
+extension WTSplitMVCViewController {
     var walkthroughItemSection: Int {
         0
     }

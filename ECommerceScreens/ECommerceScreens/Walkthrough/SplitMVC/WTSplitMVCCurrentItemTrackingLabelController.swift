@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class WalkthroughCurrentItemTrackingLabelController {
+public class WTSplitMVCCurrentItemTrackingLabelController {
     let view = UILabel()
     let totalItems: Int
     

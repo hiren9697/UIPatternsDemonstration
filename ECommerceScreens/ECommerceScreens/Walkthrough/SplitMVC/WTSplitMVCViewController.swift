@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class WalkthroughMultipleMVCs: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+public class WTSplitMVCViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     public typealias FinishCompletion = () -> Void
     
     lazy var collectionView: UICollectionView = {
@@ -23,16 +23,16 @@ public class WalkthroughMultipleMVCs: UIViewController, UICollectionViewDataSour
     }()
     
     // Didn't mark `private` because test helper needs to acces it's view
-    let currentItemTrackingLabelController: WalkthroughCurrentItemTrackingLabelController
+    let currentItemTrackingLabelController: WTSplitMVCCurrentItemTrackingLabelController
     // Didn't mark `private` because test helper needs to acces it's views
-    let bottomViewController: WalkthroughBottomViewController
-    private let cellControllers: [WalkthroughCCController]
+    let bottomViewController: WTSplictMVCBottomViewController
+    private let cellControllers: [WTSplitMVCCellController]
     private let shouldAnimate: Bool
     private let onFinish: FinishCompletion
     
-    public init(cellControllers: [WalkthroughCCController],
-                currentItemTrackingLabelController: WalkthroughCurrentItemTrackingLabelController,
-                bottomViewController: WalkthroughBottomViewController,
+    public init(cellControllers: [WTSplitMVCCellController],
+                currentItemTrackingLabelController: WTSplitMVCCurrentItemTrackingLabelController,
+                bottomViewController: WTSplictMVCBottomViewController,
                 shouldAnimate: Bool = true,
                 onFinish: @escaping FinishCompletion) {
         self.cellControllers = cellControllers

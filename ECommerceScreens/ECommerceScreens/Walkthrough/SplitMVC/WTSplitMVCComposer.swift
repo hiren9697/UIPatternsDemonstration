@@ -7,13 +7,13 @@
 
 import UIKit
 
-public class WalkthroughMultipleMVCsComposer {
+public class WTSplitMVCComposer {
     public static func compose(items: [WalkthroughItem],
-                        onFinish: @escaping WalkthroughMultipleMVCs.FinishCompletion,
-                        shouldAnimate: Bool = false) -> WalkthroughMultipleMVCs {
-        let bottomViewController = WalkthroughBottomViewController(totalItems: items.count)
-        let vc = WalkthroughMultipleMVCs(cellControllers: items.map { WalkthroughCCController(model: $0) },
-                                         currentItemTrackingLabelController: WalkthroughCurrentItemTrackingLabelController(totalItems: items.count),
+                        onFinish: @escaping WTSplitMVCViewController.FinishCompletion,
+                        shouldAnimate: Bool = false) -> WTSplitMVCViewController {
+        let bottomViewController = WTSplictMVCBottomViewController(totalItems: items.count)
+        let vc = WTSplitMVCViewController(cellControllers: items.map { WTSplitMVCCellController(model: $0) },
+                                         currentItemTrackingLabelController: WTSplitMVCCurrentItemTrackingLabelController(totalItems: items.count),
                                          bottomViewController: bottomViewController,
                                          onFinish: onFinish)
         bottomViewController.onPreviousTap = {[weak vc] in

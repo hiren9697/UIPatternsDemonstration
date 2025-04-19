@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WalkthroughBottomView: UIView {
+class WTSplitMVCBottomView: UIView {
     let previousButton = UIButton()
     let pageControl = UIPageControl()
     let nextButton = UIButton()

@@ -7,9 +7,9 @@
 
 import UIKit
 
-public class WalkthroughBottomViewController: NSObject {
+public class WTSplictMVCBottomViewController: NSObject {
     let totalItems: Int
-    let view = WalkthroughBottomView()
+    let view = WTSplitMVCBottomView()
     var onPreviousTap: (() -> Void)?
     var onNextTap: (() -> Void)?
     
