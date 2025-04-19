@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class WTBasicMVCWalkthroughViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+public class WTBasicMVCViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     public typealias FinishCompletion = () -> Void
     
     lazy var collectionView: UICollectionView = {

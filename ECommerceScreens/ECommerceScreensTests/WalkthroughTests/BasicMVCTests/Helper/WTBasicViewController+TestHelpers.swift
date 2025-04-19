@@ -8,7 +8,7 @@
 import UIKit
 @testable import ECommerceScreens
 
-extension WTBasicMVCWalkthroughViewController {
+extension WTBasicMVCViewController {
     var walkthroughItemSection: Int {
         0
     }
