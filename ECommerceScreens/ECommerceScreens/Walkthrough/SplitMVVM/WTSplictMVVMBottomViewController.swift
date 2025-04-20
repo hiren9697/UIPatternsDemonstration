@@ -8,10 +8,13 @@
 import UIKit
 
 public class WTSplictMVVMBottomViewController: NSObject {
+    typealias PreviousTap = (() -> Void)
+    typealias NextTap = (() -> Void)?
+    
     let view = WTSplitMVCBottomView()
     let viewModel: WTSplitMVVMBottomViewModel
-    var onPreviousTap: (() -> Void)?
-    var onNextTap: (() -> Void)?
+    var onPreviousTap: PreviousTap?
+    var onNextTap: NextTap?
     
     init(totalItems: Int,
          viewModel: WTSplitMVVMBottomViewModel) {
