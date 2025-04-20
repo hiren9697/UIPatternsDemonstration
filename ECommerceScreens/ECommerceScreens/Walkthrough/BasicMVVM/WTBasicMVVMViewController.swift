@@ -8,25 +8,29 @@
 import UIKit
 
 public class WTBasicMVVMComposer {
-    public static func compose(items: [WalkthroughItem] = [
-        WalkthroughItem(image: UIImage(namedWithInBundle: "ic_walkthrough_item_1")!,
-                        title: "Choose Products",
-                        subtitle: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit."),
-        WalkthroughItem(image: UIImage(namedWithInBundle: "ic_walkthrough_item_2")!,
-                        title: "Make Payment",
-                        subtitle: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit."),
-        WalkthroughItem(image: UIImage(namedWithInBundle: "ic_walkthrough_item_3")!,
-                        title: "Get Your Order",
-                        subtitle: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit."),
-        
-    ],
+    public static func compose(items: [WalkthroughItem]? = nil,
                                shouldAnimate: Bool = true,
                                onFinish: @escaping WTBasicMVVMViewController.FinishCompletion) -> WTBasicMVVMViewController {
+        let items = items ?? getDummyItems()
         let viewModel = WTBasicMVVMViewModel(totalItems: items.count)
         let vc = WTBasicMVVMViewController(items: items,
                                            viewModel: viewModel,
                                            onFinish: onFinish)
         return vc
+    }
+    
+    private static func getDummyItems() -> [WalkthroughItem] {
+        [
+            WalkthroughItem(image: UIImage(namedWithInBundle: "ic_walkthrough_item_1")!,
+                            title: "Choose Products",
+                            subtitle: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit."),
+            WalkthroughItem(image: UIImage(namedWithInBundle: "ic_walkthrough_item_2")!,
+                            title: "Make Payment",
+                            subtitle: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit."),
+            WalkthroughItem(image: UIImage(namedWithInBundle: "ic_walkthrough_item_3")!,
+                            title: "Get Your Order",
+                            subtitle: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit."),
+        ]
     }
 }
 
