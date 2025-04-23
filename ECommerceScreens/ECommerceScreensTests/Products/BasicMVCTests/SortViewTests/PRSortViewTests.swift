@@ -22,15 +22,23 @@ class PRSortViewTests: XCTestCase {
         let (sut, _) = makeSUT()
         
         // Act
-        sut.simulateBackViewClick()
+        sut.simulateBackgroundTap()
         
         // Assert
         XCTAssertNil(sut.superview)
     }
     
-    func test_chossingHighToLowPrice_completesWithHighToLow() {
-       
-    }
+//    func test_chossingHighToLowPrice_completesWithHighToLow() {
+//        // Arrange
+//        var completions: [PRSortOption] = []
+//        let (sut, _) = makeSUT(completion: { completions.append($0) })
+//        
+//        // Act
+//        sut.simulateHighToLowPricesTap()
+//        
+//        // Assert
+//        XCTAssertEqual(completions, [PRSortOption.highToLow])
+//    }
     
     // MARK: - Helper
     private func makeSUT(file: StaticString = #filePath,

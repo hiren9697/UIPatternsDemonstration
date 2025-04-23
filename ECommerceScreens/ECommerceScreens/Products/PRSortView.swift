@@ -8,7 +8,7 @@
 import UIKit
 
 public class PRSortView: UIView {
-    let backgroundButton: UIButton = UIButton()
+    private let backgroundButton: UIButton = UIButton()
     
     public init() {
         super.init(frame: .zero)
@@ -36,5 +36,10 @@ public class PRSortView: UIView {
     
     @objc func handleBackgroundButtonTap() {
         self.removeFromSuperview()
+    }
+    
+    // Test methods
+    public func simulateBackgroundTap() {
+        backgroundButton.simulateTap()
     }
 }

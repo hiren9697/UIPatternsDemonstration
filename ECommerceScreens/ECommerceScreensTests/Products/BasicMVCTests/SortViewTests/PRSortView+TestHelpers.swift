@@ -9,7 +9,6 @@ import UIKit
 @testable import ECommerceScreens
 
 extension PRSortView {
-    func simulateBackViewClick() {
-        backgroundButton.simulateTap()
-    }
+    
+    
 }
