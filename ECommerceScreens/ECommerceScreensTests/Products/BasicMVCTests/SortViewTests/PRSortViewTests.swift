@@ -19,4 +19,16 @@ class PRSortViewTests: XCTestCase {
         // Assert
         XCTAssertEqual(sut.superview, viewController.view)
     }
+    
+    func test_clickOnBackView_dismisses() {
+        // Arrange
+        let viewController = UIViewController()
+        let sut = PRSortView.present(in: viewController.view)
+        
+        // Act
+        sut.simulateBackViewClick()
+        
+        // Assert
+        XCTAssertNil(sut.superview)
+    }
 }

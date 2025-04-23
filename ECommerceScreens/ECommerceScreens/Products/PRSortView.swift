@@ -8,8 +8,11 @@
 import UIKit
 
 public class PRSortView: UIView {
+    let backgroundButton: UIButton = UIButton()
+    
     public init() {
         super.init(frame: .zero)
+        configureInitialUI()
     }
     
     required init?(coder: NSCoder) {
@@ -25,5 +28,13 @@ public class PRSortView: UIView {
 //        sortView.topAnchor.constraint(equalTo: parentView.topAnchor).isActive = true
 //        sortView.bottomAnchor.constraint(equalTo: parentView.bottomAnchor).isActive = true
         return sortView
+    }
+    
+    private func configureInitialUI() {
+        backgroundButton.addTarget(self, action: #selector(handleBackgroundButtonTap), for: .touchUpInside)
+    }
+    
+    @objc func handleBackgroundButtonTap() {
+        self.removeFromSuperview()
     }
 }
