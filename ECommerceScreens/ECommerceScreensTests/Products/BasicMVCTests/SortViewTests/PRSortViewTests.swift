@@ -10,11 +10,8 @@ import ECommerceScreens
 
 class PRSortViewTests: XCTestCase {
     func test_present_addsSortViewInParentView() {
-        // Arrange
-        let viewController = UIViewController()
-
-        // Act
-        let sut = PRSortView.present(in: viewController.view)
+        // Arrange & Act
+        let (sut, viewController) = makeSUT()
 
         // Assert
         XCTAssertEqual(sut.superview, viewController.view)
@@ -22,13 +19,26 @@ class PRSortViewTests: XCTestCase {
     
     func test_clickOnBackView_dismisses() {
         // Arrange
-        let viewController = UIViewController()
-        let sut = PRSortView.present(in: viewController.view)
+        let (sut, _) = makeSUT()
         
         // Act
         sut.simulateBackViewClick()
         
         // Assert
         XCTAssertNil(sut.superview)
+    }
+    
+    func test_chossingHighToLowPrice_completesWithHighToLow() {
+       
+    }
+    
+    // MARK: - Helper
+    private func makeSUT(file: StaticString = #filePath,
+                         line: UInt = #line) -> (PRSortView, UIViewController) {
+        let viewController = UIViewController()
+        let sortView = PRSortView.present(in: viewController.view)
+        trackMemory(for: viewController, file: file, line: line)
+        trackMemory(for: sortView, file: file, line: line)
+        return (sortView, viewController)
     }
 }
