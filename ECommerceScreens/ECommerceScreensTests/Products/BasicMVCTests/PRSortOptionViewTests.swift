@@ -26,6 +26,14 @@ class PRSortOptionViewTests: XCTestCase {
         XCTAssertEqual(sut.selectionImage, PRSortOptionState.unSelected.image)
     }
     
+    func test_selectionImage_isConfigured_whenSelected() {
+        // Arrange & Act
+        let sut = makeSUT(isSelected: true)
+        
+        // Assert
+        XCTAssertEqual(sut.selectionImage, PRSortOptionState.selected.image)
+    }
+    
     // MARK: - Helper
     private func makeSUT(type: PRSortOption = .lowToHigh,
                          isSelected: Bool = false,
