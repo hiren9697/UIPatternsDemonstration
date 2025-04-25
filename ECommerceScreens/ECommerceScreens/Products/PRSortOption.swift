@@ -11,7 +11,7 @@ public enum PRSortOption {
     case lowToHigh
     case highToLow
     
-    var title: String {
+    public var title: String {
         switch self {
         case .lowToHigh: "Low to High"
         case .highToLow: "High to Low"
