@@ -48,11 +48,11 @@ class ViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
          */
         ///*
-        let vc = LoginVC(toast: FakeToast(),
-                         onForgotPasswordTap: {},
-                         service: FakeLoginService(),
-                         loginCompletion: {})
-        navigationController?.pushViewController(vc, animated: true)
+//        let vc = LoginVC(toast: FakeToast(),
+//                         onForgotPasswordTap: {},
+//                         service: FakeLoginService(),
+//                         loginCompletion: {})
+//        navigationController?.pushViewController(vc, animated: true)
          //*/
         
     }
