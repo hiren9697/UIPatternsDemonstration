@@ -22,13 +22,18 @@ public enum PRSortOptionState {
 public class PRSortOptionView: UIView {
     private let titleLabel: UILabel = UILabel()
     private let selectionImageView: UIImageView = UIImageView()
+    private let button: UIButton = UIButton()
     
     private let type: PRSortOption
     private let isSelected: Bool
+    private let completion: (PRSortOption) -> Void
     
-    public init(type: PRSortOption, isSelected: Bool) {
+    public init(type: PRSortOption,
+                isSelected: Bool,
+                completion: @escaping (PRSortOption) -> Void) {
         self.type = type
         self.isSelected = isSelected
+        self.completion = completion
         super.init(frame: .zero)
         configureInitialUI()
     }
@@ -40,6 +45,11 @@ public class PRSortOptionView: UIView {
     private func configureInitialUI() {
         titleLabel.text = type.title
         selectionImageView.image = isSelected ? PRSortOptionState.selected.image : PRSortOptionState.unSelected.image
+        button.addTarget(self, action: #selector(handleButtonTap), for: .touchUpInside)
+    }
+    
+    @objc func handleButtonTap() {
+        completion(type)
     }
     
     // Test properties
@@ -48,5 +58,8 @@ public class PRSortOptionView: UIView {
     }
     public var selectionImage: UIImage? {
         selectionImageView.image
+    }
+    public func simulateClick() {
+        button.simulateTap()
     }
 }

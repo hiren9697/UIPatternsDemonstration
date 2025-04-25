@@ -34,13 +34,27 @@ class PRSortOptionViewTests: XCTestCase {
         XCTAssertEqual(sut.selectionImage, PRSortOptionState.selected.image)
     }
     
+    func test_onSelection_callsCompletionWithCorrectType() {
+        // Arrange
+        var completionCalls: [PRSortOption] = []
+        let sut = makeSUT(type: .highToLow, completion: { type in completionCalls.append(type) })
+        
+        // Act
+        sut.simulateClick()
+        
+        // Assert
+        XCTAssertEqual(completionCalls, [.highToLow])
+    }
+    
     // MARK: - Helper
     private func makeSUT(type: PRSortOption = .lowToHigh,
                          isSelected: Bool = false,
+                         completion: @escaping ((PRSortOption) -> Void) = { _ in },
                          file: StaticString = #filePath,
                          line: UInt = #line) -> PRSortOptionView {
         let sut = PRSortOptionView(type: type,
-                                   isSelected: isSelected)
+                                   isSelected: isSelected,
+                                   completion: completion)
         trackMemory(for: sut, file: file, line: line)
         return sut
     }
