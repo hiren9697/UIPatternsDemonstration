@@ -45,6 +45,18 @@ class PRSortViewTests: XCTestCase {
         XCTAssertEqual(sut.selectedOption, option)
     }
     
+    func test_clickOnBackView_doesNotCallCompletion() {
+        // Arrange
+        var completionCalls: [PRSortOption?] = []
+        let (sut, _) = makeSUT(completion: { selectedSortOption in completionCalls.append(selectedSortOption) })
+        
+        // Act
+        sut.simulateBackgroundTap()
+        
+        // Assert
+        XCTAssertEqual(completionCalls, [])
+    }
+    
 //    func test_chossingHighToLowPrice_completesWithHighToLow() {
 //        // Arrange
 //        var completions: [PRSortOption] = []
@@ -59,10 +71,13 @@ class PRSortViewTests: XCTestCase {
     
     // MARK: - Helper
     private func makeSUT(selectedOption: PRSortOption? = nil,
+                         completion: @escaping PRSortView.Completion = { _ in },
                          file: StaticString = #filePath,
                          line: UInt = #line) -> (PRSortView, UIViewController) {
         let viewController = UIViewController()
-        let sortView = PRSortView.present(in: viewController.view, withSelectedOption: selectedOption)
+        let sortView = PRSortView.present(in: viewController.view,
+                                          withSelectedOption: selectedOption,
+                                          completion: completion)
         trackMemory(for: viewController, file: file, line: line)
         trackMemory(for: sortView, file: file, line: line)
         return (sortView, viewController)

@@ -8,11 +8,12 @@
 import UIKit
 
 public class PRSortView: UIView {
+    public typealias Completion = (PRSortOption?) -> Void
     private let backgroundButton: UIButton = UIButton()
     private let hightToLowSortOptionView: PRSortOptionView
     private let lowToHighSortOptionView: PRSortOptionView
     
-    public init(selectedOption: PRSortOption?) {
+    public init(selectedOption: PRSortOption?, completion: @escaping (PRSortOption?) -> Void) {
         self.hightToLowSortOptionView = PRSortOptionView(type: .highToLow,
                                                          isSelected: selectedOption == PRSortOption.highToLow,
                                                          completion: { _ in
@@ -31,8 +32,10 @@ public class PRSortView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public static func present(in parentView: UIView, withSelectedOption option: PRSortOption?) -> PRSortView {
-        let sortView = PRSortView(selectedOption: option)
+    public static func present(in parentView: UIView,
+                               withSelectedOption option: PRSortOption?,
+                               completion: @escaping Completion) -> PRSortView {
+        let sortView = PRSortView(selectedOption: option, completion: completion)
         sortView.translatesAutoresizingMaskIntoConstraints = false
         parentView.addSubview(sortView)
 //        sortView.leadingAnchor.constraint(equalTo: parentView.leadingAnchor).isActive = true
