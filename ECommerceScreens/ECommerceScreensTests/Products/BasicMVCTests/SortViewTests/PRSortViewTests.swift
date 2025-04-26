@@ -85,7 +85,8 @@ class PRSortViewTests: XCTestCase {
     
 //    func test_choosingLowToHighPrice_dismisses() {
 //        // Arrange
-//        let (sut, viewController) = makeSUT(completion: { _ in })
+//        let parentView = UIView()
+//        let sut = makeSUT(parentView: parentView)
 //        XCTAssertNotNil(sut.superview)
 //        
 //        // Act
@@ -101,9 +102,9 @@ class PRSortViewTests: XCTestCase {
                          completion: @escaping PRSortView.Completion = { _ in },
                          file: StaticString = #filePath,
                          line: UInt = #line) -> PRSortView {
-        let sortView = PRSortView.present(in: parentView,
-                                          withSelectedOption: selectedOption,
-                                          completion: completion)
+        let sortView = PRSortViewComposer.compose(selectedSortOption: selectedOption,
+                                                  parentView: parentView,
+                                                  completion: completion)
         trackMemory(for: parentView, file: file, line: line)
         trackMemory(for: sortView, file: file, line: line)
         return sortView
