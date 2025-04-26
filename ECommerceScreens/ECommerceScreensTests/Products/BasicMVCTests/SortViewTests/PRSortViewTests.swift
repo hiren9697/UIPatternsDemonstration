@@ -22,6 +22,7 @@ class PRSortViewTests: XCTestCase {
         // Arrange
         let parentView = UIView()
         let sut = makeSUT(parentView: parentView)
+        XCTAssertNotNil(sut.superview, "Precondition: PRSortView must be added to a parent view")
         
         // Act
         sut.simulateBackgroundTap()
@@ -87,7 +88,7 @@ class PRSortViewTests: XCTestCase {
         // Arrange
         let parentView = UIView()
         let sut = makeSUT(parentView: parentView)
-        XCTAssertNotNil(sut.superview)
+        XCTAssertNotNil(sut.superview, "Precondition: PRSortView must be added to a parent view")
         
         // Act
         sut.simulateLowToHighPriceTap()
@@ -100,7 +101,7 @@ class PRSortViewTests: XCTestCase {
         // Arrange
         let parentView = UIView()
         let sut = makeSUT(parentView: parentView)
-        XCTAssertNotNil(sut.superview)
+        XCTAssertNotNil(sut.superview, "Precondition: PRSortView must be added to a parent view")
         
         // Act
         sut.simulateHighToLowPriceTap()
