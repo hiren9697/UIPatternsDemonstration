@@ -10,8 +10,9 @@ import UIKit
 public struct PRSortViewComposer {
     public static func compose(selectedSortOption: PRSortOption?,
                                parentView: UIView,
+                               shouldAnimate: Bool = true,
                                completion: @escaping PRSortView.Completion) -> PRSortView {
-        let view = PRSortView()
+        let view = PRSortView(shouldAnimate: shouldAnimate)
         let lowToHighSortOptionView = PRSortOptionView(type: .lowToHigh,
                                                        isSelected: selectedSortOption == .lowToHigh,
                                                        completion: {[weak view] _ in
@@ -30,6 +31,14 @@ public struct PRSortViewComposer {
         view.translatesAutoresizingMaskIntoConstraints = false
         parentView.addSubview(view)
         
+        view.leadingAnchor.constraint(equalTo: parentView.leadingAnchor).isActive = true
+        view.trailingAnchor.constraint(equalTo: parentView.trailingAnchor).isActive = true
+        view.topAnchor.constraint(equalTo: parentView.topAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo: parentView.bottomAnchor).isActive = true
+        
+        view.setupConstraints()
+        view.animateIn()
+
         return view
     }
 }

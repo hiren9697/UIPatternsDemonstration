@@ -118,6 +118,7 @@ class PRSortViewTests: XCTestCase {
                          line: UInt = #line) -> PRSortView {
         let sortView = PRSortViewComposer.compose(selectedSortOption: selectedOption,
                                                   parentView: parentView,
+                                                  shouldAnimate: false,
                                                   completion: completion)
         trackMemory(for: parentView, file: file, line: line)
         trackMemory(for: sortView, file: file, line: line)

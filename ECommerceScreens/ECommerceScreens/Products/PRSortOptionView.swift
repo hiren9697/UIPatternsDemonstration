@@ -82,6 +82,13 @@ public class PRSortOptionView: UIView {
         stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 20).isActive = true
         stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 15).isActive = true
         stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -15).isActive = true
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(button)
+        button.leadingAnchor.constraint(equalTo: containerView.leadingAnchor).isActive = true
+        button.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
+        button.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        button.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
     }
     
     // Test properties
