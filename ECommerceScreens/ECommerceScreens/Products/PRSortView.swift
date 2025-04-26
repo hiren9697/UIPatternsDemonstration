@@ -9,8 +9,20 @@ import UIKit
 
 public class PRSortView: UIView {
     private let backgroundButton: UIButton = UIButton()
+    private let hightToLowSortOptionView: PRSortOptionView
+    private let lowToHighSortOptionView: PRSortOptionView
     
-    public init() {
+    public init(selectedOption: PRSortOption?) {
+        self.hightToLowSortOptionView = PRSortOptionView(type: .highToLow,
+                                                         isSelected: selectedOption == PRSortOption.highToLow,
+                                                         completion: { _ in
+            
+        })
+        self.lowToHighSortOptionView = PRSortOptionView(type: .lowToHigh,
+                                                        isSelected: selectedOption == PRSortOption.lowToHigh,
+                                                        completion: { _ in
+            
+        })
         super.init(frame: .zero)
         configureInitialUI()
     }
@@ -19,8 +31,8 @@ public class PRSortView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public static func present(in parentView: UIView) -> PRSortView {
-        let sortView = PRSortView()
+    public static func present(in parentView: UIView, withSelectedOption option: PRSortOption?) -> PRSortView {
+        let sortView = PRSortView(selectedOption: option)
         sortView.translatesAutoresizingMaskIntoConstraints = false
         parentView.addSubview(sortView)
 //        sortView.leadingAnchor.constraint(equalTo: parentView.leadingAnchor).isActive = true
@@ -38,7 +50,18 @@ public class PRSortView: UIView {
         self.removeFromSuperview()
     }
     
-    // Test methods
+    // MARK: - Test Properties
+    public var selectedOption: PRSortOption? {
+        if hightToLowSortOptionView.isSelected && lowToHighSortOptionView.isSelected {
+            fatalError("Both options are selected, only one option should be selected")
+        }
+        if hightToLowSortOptionView.isSelected {
+            return .highToLow
+        } else if lowToHighSortOptionView.isSelected {
+            return .lowToHigh
+        }
+        return nil
+    }
     public func simulateBackgroundTap() {
         backgroundButton.simulateTap()
     }

@@ -28,6 +28,15 @@ class PRSortViewTests: XCTestCase {
         XCTAssertNil(sut.superview)
     }
     
+    func test_selectedOption_isConfigured() {
+        // Arrange & Act
+        let option: PRSortOption = PRSortOption.highToLow
+        let (sut, _) = makeSUT(selectedOption: option)
+        
+        // Assert
+        XCTAssertEqual(sut.selectedOption, option)
+    }
+    
 //    func test_chossingHighToLowPrice_completesWithHighToLow() {
 //        // Arrange
 //        var completions: [PRSortOption] = []
@@ -41,10 +50,11 @@ class PRSortViewTests: XCTestCase {
 //    }
     
     // MARK: - Helper
-    private func makeSUT(file: StaticString = #filePath,
+    private func makeSUT(selectedOption: PRSortOption? = nil,
+                         file: StaticString = #filePath,
                          line: UInt = #line) -> (PRSortView, UIViewController) {
         let viewController = UIViewController()
-        let sortView = PRSortView.present(in: viewController.view)
+        let sortView = PRSortView.present(in: viewController.view, withSelectedOption: selectedOption)
         trackMemory(for: viewController, file: file, line: line)
         trackMemory(for: sortView, file: file, line: line)
         return (sortView, viewController)

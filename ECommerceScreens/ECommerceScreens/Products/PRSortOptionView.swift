@@ -25,7 +25,7 @@ public class PRSortOptionView: UIView {
     private let button: UIButton = UIButton()
     
     private let type: PRSortOption
-    private let isSelected: Bool
+    public let isSelected: Bool
     private let completion: (PRSortOption) -> Void
     
     public init(type: PRSortOption,
