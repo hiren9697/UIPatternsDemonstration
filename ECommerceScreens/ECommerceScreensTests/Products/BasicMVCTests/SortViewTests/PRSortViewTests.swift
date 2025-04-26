@@ -57,17 +57,17 @@ class PRSortViewTests: XCTestCase {
         XCTAssertEqual(completionCalls, [])
     }
     
-//    func test_chossingHighToLowPrice_completesWithHighToLow() {
-//        // Arrange
-//        var completions: [PRSortOption] = []
-//        let (sut, _) = makeSUT(completion: { completions.append($0) })
-//        
-//        // Act
-//        sut.simulateHighToLowPricesTap()
-//        
-//        // Assert
-//        XCTAssertEqual(completions, [PRSortOption.highToLow])
-//    }
+    func test_choosingHighToLowPrice_completesWithHighToLow() {
+        // Arrange
+        var completions: [PRSortOption?] = []
+        let (sut, _) = makeSUT(completion: { completions.append($0) })
+        
+        // Act
+        sut.simulateHighToLowPriceTap()
+        
+        // Assert
+        XCTAssertEqual(completions, [PRSortOption.highToLow])
+    }
     
     // MARK: - Helper
     private func makeSUT(selectedOption: PRSortOption? = nil,
