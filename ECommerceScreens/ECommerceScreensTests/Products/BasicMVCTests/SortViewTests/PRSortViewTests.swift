@@ -83,18 +83,18 @@ class PRSortViewTests: XCTestCase {
         XCTAssertEqual(completions, [PRSortOption.lowToHigh])
     }
     
-//    func test_choosingLowToHighPrice_dismisses() {
-//        // Arrange
-//        let parentView = UIView()
-//        let sut = makeSUT(parentView: parentView)
-//        XCTAssertNotNil(sut.superview)
-//        
-//        // Act
-//        sut.simulateLowToHighPriceTap()
-//        
-//        // Assert
-//        XCTAssertNil(sut.superview)
-//    }
+    func test_choosingLowToHighPriceOption_dismisses() {
+        // Arrange
+        let parentView = UIView()
+        let sut = makeSUT(parentView: parentView)
+        XCTAssertNotNil(sut.superview)
+        
+        // Act
+        sut.simulateLowToHighPriceTap()
+        
+        // Assert
+        XCTAssertNil(sut.superview)
+    }
     
     // MARK: - Helper
     private func makeSUT(parentView: UIView = UIView(),
