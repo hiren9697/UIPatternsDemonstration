@@ -22,7 +22,7 @@ public class PRSortView: UIView {
         self.lowToHighSortOptionView = PRSortOptionView(type: .lowToHigh,
                                                         isSelected: selectedOption == PRSortOption.lowToHigh,
                                                         completion: { _ in
-            
+            completion(.lowToHigh)
         })
         super.init(frame: .zero)
         configureInitialUI()
@@ -70,5 +70,8 @@ public class PRSortView: UIView {
     }
     public func simulateHighToLowPriceTap() {
         hightToLowSortOptionView.simulateClick()
+    }
+    public func simulateLowToHighPriceTap() {
+        lowToHighSortOptionView.simulateClick()
     }
 }
