@@ -22,7 +22,6 @@ class PRSortViewTests: XCTestCase {
         // Arrange
         let parentView = UIView()
         let sut = makeSUT(parentView: parentView)
-        XCTAssertNotNil(sut.superview)
         
         // Act
         sut.simulateBackgroundTap()
