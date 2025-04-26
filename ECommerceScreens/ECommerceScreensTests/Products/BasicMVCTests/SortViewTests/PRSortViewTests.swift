@@ -28,7 +28,15 @@ class PRSortViewTests: XCTestCase {
         XCTAssertNil(sut.superview)
     }
     
-    func test_selectedOption_isConfigured() {
+    func test_selectedOption_isNotConfigured_whenGivenNilValue() {
+        // Arrange & Act
+        let (sut, _) = makeSUT()
+        
+        // Assert
+        XCTAssertNil(sut.selectedOption)
+    }
+    
+    func test_selectedOption_isConfigured_whenGivenNonNilValue() {
         // Arrange & Act
         let option: PRSortOption = PRSortOption.highToLow
         let (sut, _) = makeSUT(selectedOption: option)
