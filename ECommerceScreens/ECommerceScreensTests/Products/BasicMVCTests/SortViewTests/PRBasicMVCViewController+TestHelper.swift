@@ -9,9 +9,9 @@ import UIKit
 @testable import ECommerceScreens
 
 extension PRBasicMVCViewController {
-//    var isShowingProductLoadingIndicator: Bool {
-//        loadingView.isHidden =
-//    }
+    var isShowingProductLoadingIndicator: Bool {
+        loadingView.isAnimating
+    }
     
     func simulateViewIsAppearing() {
         beginAppearanceTransition(true, animated: false)

@@ -8,12 +8,15 @@
 import UIKit
 
 public class PRBasicMVCViewController: UIViewController {
-    let productLoader: ProductStore
+    let loadingView = Loader()
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return refreshControl
     }()
+    
+    let productLoader: ProductStore
+    // var onViewIsAppearing: (() -> Void)?
     
     public init(productLoader: ProductStore) {
         self.productLoader = productLoader
@@ -26,10 +29,19 @@ public class PRBasicMVCViewController: UIViewController {
     
     public override func viewIsAppearing(_ animated: Bool) {
         super.viewIsAppearing(animated)
-        productLoader.loadProducts(completion: { _ in })
+        loadProducts(shouldShowLoadingIndicator: true)
     }
     
     @objc func refresh() {
-        productLoader.loadProducts(completion: { _ in })
+        loadProducts(shouldShowLoadingIndicator: false)
+    }
+    
+    private func loadProducts(shouldShowLoadingIndicator: Bool) {
+        if shouldShowLoadingIndicator {
+            loadingView.show()
+        }
+        productLoader.loadProducts(completion: {[weak self] _ in
+            self?.loadingView.hide()
+        })
     }
 }

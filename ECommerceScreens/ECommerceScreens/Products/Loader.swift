@@ -84,6 +84,9 @@ public class Loader: UIView {
     public var isBackViewVisible: Bool {
         !backView.isHidden
     }
+    public var isAnimating: Bool {
+        activityIndicator.isAnimating && !isHidden
+    }
 }
 
 

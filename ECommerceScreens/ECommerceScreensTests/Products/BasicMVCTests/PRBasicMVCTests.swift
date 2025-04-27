@@ -43,17 +43,31 @@ class PRBasicMVCTests: XCTestCase {
                        "Expected another request after user initiated another refresh")
     }
     
-//    func test_loadingProductIndicator_isVisible_whenLoadingProductAfterViewIsAppearing() {
-//        // Arrange
-//        let (sut, _) = makeSUT()
-//        
-//        // Assert
-//        XCTAssertFalse(sut.isShowingProductLoadingIndicator, "Expected no loading indicator before viewIsAppearing called")
-//        
-//        // Act
-//        
-//        // Assert
-//    }
+    func test_ProductLoadingIndicator_isVisible_whenLoadingProductAfterViewIsAppearing() {
+        // Arrange
+        let (sut, loader) = makeSUT()
+        
+        // Assert
+        XCTAssertFalse(sut.isShowingProductLoadingIndicator, "Expected loading indicator not visible before viewIsAppearing called")
+        
+        // Act
+        sut.simulateViewIsAppearing()
+        
+        // Assert
+        XCTAssertTrue(sut.isShowingProductLoadingIndicator, "Expected loading indicator visible after viewIsAppearing called")
+        
+        // Act
+        loader.completeRequest(products: [])
+        
+        // Assert
+        XCTAssertFalse(sut.isShowingProductLoadingIndicator, "Expected loading indicator not visible after request completed")
+        
+        // Act
+        sut.simulateUserInitiatedRefresh()
+        
+        // Assert
+        XCTAssertFalse(sut.isShowingProductLoadingIndicator, "Expected loading indicator not visible on user initiated refresh")
+    }
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (PRBasicMVCViewController, ProductStoreSpy) {
         let productLoader = ProductStoreSpy()
@@ -69,10 +83,17 @@ class PRBasicMVCTests: XCTestCase {
     
     // MARK: - Helper Class
     private class ProductStoreSpy: ProductStore {
-        var requestCount: Int = 0
+        var completions: [ProductStore.Completion] = []
+        var requestCount: Int {
+            completions.count
+        }
+        
+        func completeRequest(at index: Int = 0, products: [Product]) {
+            completions[index](products)
+        }
         
         func loadProducts(completion: @escaping Completion) {
-            requestCount += 1
+            completions.append(completion)
         }
     }
 }
