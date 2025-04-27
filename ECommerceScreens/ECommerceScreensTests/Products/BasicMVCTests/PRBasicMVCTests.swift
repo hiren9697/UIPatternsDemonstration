@@ -11,10 +11,10 @@ import ECommerceScreens
 class PRBasicMVCTests: XCTestCase {
     func test_loadProductActions_requestsProductFromLoad() {
         // Arrange
-        let (sut, loader) = makeSUT()
+        let (sut, productLoader) = makeSUT()
         
         // Assert
-        XCTAssertEqual(loader.requestCount,
+        XCTAssertEqual(productLoader.requestCount,
                        0,
                        "Expected no requests before viewIsAppearing")
         
@@ -22,7 +22,7 @@ class PRBasicMVCTests: XCTestCase {
         sut.simulateViewIsAppearing()
         
         // Assert
-        XCTAssertEqual(loader.requestCount,
+        XCTAssertEqual(productLoader.requestCount,
                        1,
                        "Expected one request after viewIsAppearing")
         
@@ -30,7 +30,7 @@ class PRBasicMVCTests: XCTestCase {
         sut.simulateUserInitiatedRefresh()
         
         // Assert
-        XCTAssertEqual(loader.requestCount,
+        XCTAssertEqual(productLoader.requestCount,
                        2,
                        "Expected another request after user initiated refresh")
         
@@ -38,7 +38,7 @@ class PRBasicMVCTests: XCTestCase {
         sut.simulateUserInitiatedRefresh()
         
         // Assert
-        XCTAssertEqual(loader.requestCount,
+        XCTAssertEqual(productLoader.requestCount,
                        3,
                        "Expected another request after user initiated another refresh")
     }
@@ -56,15 +56,15 @@ class PRBasicMVCTests: XCTestCase {
 //    }
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (PRBasicMVCViewController, ProductStoreSpy) {
-        let loader = ProductStoreSpy()
-        let sut = PRBasicMVCViewController(loader: loader)
-        trackMemory(for: loader,
+        let productLoader = ProductStoreSpy()
+        let sut = PRBasicMVCViewController(productLoader: productLoader)
+        trackMemory(for: productLoader,
                     file: file,
                     line: line)
         trackMemory(for: sut,
                     file: file,
                     line: line)
-        return (sut, loader)
+        return (sut, productLoader)
     }
     
     // MARK: - Helper Class
