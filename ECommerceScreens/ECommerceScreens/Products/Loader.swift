@@ -44,26 +44,34 @@ public class Loader: UIView {
     private func configureInitialUI() {
         activityIndicator.style = .medium
         activityIndicator.hidesWhenStopped = true
+        
+        backView.backgroundColor = AppColors.cF3F3F3.withAlphaComponent(0.5)
+        
         containerView.backgroundColor = AppColors.cC4C4C4
         containerView.layer.cornerRadius = 8
         containerView.layer.masksToBounds = true
+        
         isHidden = true
         backView.isHidden = true
     }
     
     private func setupConstraints() {
+        backView.translatesAutoresizingMaskIntoConstraints = false
         containerView.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         
-        widthAnchor.constraint(equalToConstant: 50).isActive = true
-        heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
+        addSubview(backView)
+        backView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        backView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        backView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        backView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+
         addSubview(containerView)
-        containerView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        containerView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        containerView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        containerView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        
+        containerView.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        containerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        containerView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        containerView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+
         containerView.addSubview(activityIndicator)
         activityIndicator.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
         activityIndicator.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true

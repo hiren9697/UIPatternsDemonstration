@@ -19,12 +19,14 @@ class ViewController: UIViewController {
         loader.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(loader)
-        loader.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        loader.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        loader.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        loader.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        loader.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        loader.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
     @IBAction func btnTap() {
-        loader.show()
+        loader.show(withOverlay: true)
         DispatchQueue.main.asyncAfter(deadline: .now() + 3,
                                       execute: {
             self.loader.hide()
