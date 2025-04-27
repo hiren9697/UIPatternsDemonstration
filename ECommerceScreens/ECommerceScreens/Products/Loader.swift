@@ -37,7 +37,7 @@ public class Loader: UIView {
     private func configureInitialUI() {
         activityIndicator.style = .medium
         activityIndicator.hidesWhenStopped = true
-        containerView.backgroundColor = AppColors.cF3F3F3
+        containerView.backgroundColor = AppColors.cC4C4C4
         containerView.layer.cornerRadius = 8
         containerView.layer.masksToBounds = true
         isHidden = true
