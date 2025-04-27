@@ -17,7 +17,7 @@ class LoaderTests: XCTestCase {
 //        XCTAssertEqual(sut.activityIndicator.superview, sut.containerView)
 //    }
     
-    func test_activityIndcatorAnimates_onShow_andHides_onHide() {
+    func test_activityIndicator_onShowAndHide() {
         // Arrange
         let sut = Loader()
         
