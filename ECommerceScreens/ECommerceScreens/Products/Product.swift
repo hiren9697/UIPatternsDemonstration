@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Product {
-    let name: String
-    let description: String
-    let price: Double
-    let imagePath: String
+public struct Product {
+    public let name: String
+    public let description: String
+    public let price: Double
+    public let imagePath: String
 }
