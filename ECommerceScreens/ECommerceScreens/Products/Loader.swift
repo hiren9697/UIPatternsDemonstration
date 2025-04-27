@@ -8,6 +8,7 @@
 import UIKit
 
 public class Loader: UIView {
+    private let backView: UIView = UIView()
     private let containerView: UIView = UIView()
     private let activityIndicator: UIActivityIndicatorView
     
@@ -23,14 +24,20 @@ public class Loader: UIView {
     }
     
     // MARK: - Public Interface
-    public func show() {
+    public func show(withOverlay: Bool = false) {
         activityIndicator.startAnimating()
         isHidden = false
+        if withOverlay {
+            backView.isHidden = false
+        } else {
+            backView.isHidden = true
+        }
     }
     
     public func hide() {
         activityIndicator.stopAnimating()
         isHidden = true
+        backView.isHidden = true
     }
     
     // MARK: - UI Helper
@@ -41,6 +48,7 @@ public class Loader: UIView {
         containerView.layer.cornerRadius = 8
         containerView.layer.masksToBounds = true
         isHidden = true
+        backView.isHidden = true
     }
     
     private func setupConstraints() {
@@ -49,7 +57,7 @@ public class Loader: UIView {
         
         widthAnchor.constraint(equalToConstant: 50).isActive = true
         heightAnchor.constraint(equalToConstant: 50).isActive = true
-
+        
         addSubview(containerView)
         containerView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         containerView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
@@ -64,6 +72,9 @@ public class Loader: UIView {
     // MARK: - Test Properties
     public var isActivityIndicatorAnimating: Bool {
         return activityIndicator.isAnimating
+    }
+    public var isBackViewVisible: Bool {
+        !backView.isHidden
     }
 }
 

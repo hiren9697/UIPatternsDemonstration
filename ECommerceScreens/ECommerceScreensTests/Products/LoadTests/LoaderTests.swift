@@ -44,4 +44,36 @@ class LoaderTests: XCTestCase {
         sut.hide()
         XCTAssertTrue(sut.isHidden, "Expected loader not visible after `hide()`")
     }
+    
+    func test_backViewVisibility() {
+        // Arrange
+        let sut = Loader()
+        
+        // Assert
+        XCTAssertFalse(sut.isBackViewVisible, "Expected backView not visible initially")
+
+        // Act
+        sut.show(withOverlay: false)
+        
+        // Assert
+        XCTAssertFalse(sut.isBackViewVisible, "Expected backView not visible without overlay")
+        
+        // Act
+        sut.hide()
+        
+        // Assert
+        XCTAssertFalse(sut.isBackViewVisible, "Expected backView not visible on `hide()`")
+
+        // Act
+        sut.show(withOverlay: true)
+        
+        // Assert
+        XCTAssertTrue(sut.isBackViewVisible, "Expected backView visible with overlay")
+        
+        // Act
+        sut.hide()
+        
+        // Assert
+        XCTAssertFalse(sut.isBackViewVisible, "Expected backView not visible on `hide()`")
+    }
 }
