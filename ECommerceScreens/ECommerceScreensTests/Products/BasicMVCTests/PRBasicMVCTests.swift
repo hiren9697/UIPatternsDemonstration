@@ -11,8 +11,7 @@ import ECommerceScreens
 class PRBasicMVCTests: XCTestCase {
     func test_loadProductActions_requestsProductFromLoad() {
         // Arrange
-        let loader = ProductStoreSpy()
-        let sut = PRBasicMVCViewController(loader: loader)
+        let (sut, loader) = makeSUT()
         
         // Assert
         XCTAssertEqual(loader.requestCount,
@@ -42,6 +41,20 @@ class PRBasicMVCTests: XCTestCase {
         XCTAssertEqual(loader.requestCount,
                        3,
                        "Expected another request after user initiated another refresh")
+    }
+    
+    func test_loadingProductIndicator_isVisible_whenLoadingProductAfterViewIsAppearing() {
+        // Arrange
+        
+        // Act
+        
+        // Assert
+    }
+    
+    private func makeSUT() -> (PRBasicMVCViewController, ProductStoreSpy) {
+        let loader = ProductStoreSpy()
+        let sut = PRBasicMVCViewController(loader: loader)
+        return (sut, loader)
     }
     
     // MARK: - Helper Class
