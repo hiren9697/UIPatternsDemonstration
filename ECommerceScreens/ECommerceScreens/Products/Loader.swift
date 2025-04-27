@@ -14,7 +14,8 @@ public class Loader: UIView {
     public init() {
         self.activityIndicator = UIActivityIndicatorView()
         super.init(frame: .zero)
-        configureUI()
+        configureInitialUI()
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -33,13 +34,31 @@ public class Loader: UIView {
     }
     
     // MARK: - UI Helper
-    private func configureUI() {
+    private func configureInitialUI() {
+        activityIndicator.style = .medium
         activityIndicator.hidesWhenStopped = true
+        containerView.backgroundColor = AppColors.cF3F3F3
+        containerView.layer.cornerRadius = 8
+        containerView.layer.masksToBounds = true
         isHidden = true
+    }
+    
+    private func setupConstraints() {
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         
+        widthAnchor.constraint(equalToConstant: 50).isActive = true
+        heightAnchor.constraint(equalToConstant: 50).isActive = true
+
         addSubview(containerView)
+        containerView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        containerView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        containerView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
         containerView.addSubview(activityIndicator)
+        activityIndicator.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
     }
     
     // MARK: - Test Properties
