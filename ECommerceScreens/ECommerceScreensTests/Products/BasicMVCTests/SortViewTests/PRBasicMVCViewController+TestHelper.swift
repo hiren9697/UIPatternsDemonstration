@@ -6,11 +6,25 @@
 //
 
 import UIKit
-import ECommerceScreens
+@testable import ECommerceScreens
 
 extension PRBasicMVCViewController {
     func simulateViewIsAppearing() {
         beginAppearanceTransition(true, animated: false)
         endAppearanceTransition()
+    }
+    
+    func simulateUserInitiatedRefresh() {
+        refreshControl.simulatePullToRefresh()
+    }
+}
+
+extension UIRefreshControl {
+    func simulatePullToRefresh() {
+        allTargets.forEach { target in
+            actions(forTarget: target, forControlEvent: .valueChanged)?.forEach { action in
+                (target as NSObject).perform(Selector(action))
+            }
+        }
     }
 }

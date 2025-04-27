@@ -26,7 +26,23 @@ class PRBasicMVCTests: XCTestCase {
         XCTAssertEqual(loader.requestCount,
                        1,
                        "Expected one request after viewIsAppearing")
-        }
+        
+        // Act
+        sut.simulateUserInitiatedRefresh()
+        
+        // Assert
+        XCTAssertEqual(loader.requestCount,
+                       2,
+                       "Expected another request after user initiated refresh")
+        
+        // Act
+        sut.simulateUserInitiatedRefresh()
+        
+        // Assert
+        XCTAssertEqual(loader.requestCount,
+                       3,
+                       "Expected another request after user initiated another refresh")
+    }
     
     // MARK: - Helper Class
     private class ProductStoreSpy: ProductStore {

@@ -9,6 +9,11 @@ import UIKit
 
 public class PRBasicMVCViewController: UIViewController {
     let loader: ProductStore
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        return refreshControl
+    }()
     
     public init(loader: ProductStore) {
         self.loader = loader
@@ -21,6 +26,10 @@ public class PRBasicMVCViewController: UIViewController {
     
     public override func viewIsAppearing(_ animated: Bool) {
         super.viewIsAppearing(animated)
+        loader.loadProducts(completion: { _ in })
+    }
+    
+    @objc func refresh() {
         loader.loadProducts(completion: { _ in })
     }
 }
