@@ -10,7 +10,7 @@ import UIKit
 
 extension PRBasicMVCViewController {
     var isShowingProductLoadingIndicator: Bool {
-        loadingView.isAnimating
+        loadingView.isVisible
     }
     
     func simulateViewIsAppearing() {
