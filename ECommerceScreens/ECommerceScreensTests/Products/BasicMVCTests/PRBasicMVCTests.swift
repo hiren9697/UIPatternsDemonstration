@@ -43,30 +43,42 @@ class PRBasicMVCTests: XCTestCase {
                        "Expected another request after user initiated another refresh")
     }
     
-    func test_ProductLoadingIndicator_isVisible_whenLoadingProductAfterViewIsAppearing() {
+    func test_correctLoadingIndicator_isVisible_whenLoadingProduct() {
         // Arrange
         let (sut, loader) = makeSUT()
+        sut.replaceRefreshControlWithFake()
         
         // Assert
         XCTAssertFalse(sut.isShowingProductLoadingIndicator, "Expected loading indicator not visible before viewIsAppearing called")
+        XCTAssertFalse(sut.isRefreshControlRefreshing, "Expected refresh control not refreshing before viewIsAppearing called")
         
         // Act
         sut.simulateViewIsAppearing()
         
         // Assert
         XCTAssertTrue(sut.isShowingProductLoadingIndicator, "Expected loading indicator visible after viewIsAppearing called")
+        XCTAssertFalse(sut.isRefreshControlRefreshing, "Expected refresh control not refreshing after viewIsAppearing called")
+
+        // Act
+        loader.completeRequest(products: [])
+        
+        // Assert
+        XCTAssertFalse(sut.isShowingProductLoadingIndicator, "Expected loading indicator not visible after request completed")
+        XCTAssertFalse(sut.isRefreshControlRefreshing, "Expected refresh control not refreshing after request ocmpleted")
+
+        // Act
+        sut.simulateUserInitiatedRefresh()
+        
+        // Assert
+        XCTAssertFalse(sut.isShowingProductLoadingIndicator, "Expected loading indicator not visible on user initiated refresh")
+        XCTAssertTrue(sut.isRefreshControlRefreshing, "Expected refresh control refreshing on user initiated refresh")
         
         // Act
         loader.completeRequest(products: [])
         
         // Assert
         XCTAssertFalse(sut.isShowingProductLoadingIndicator, "Expected loading indicator not visible after request completed")
-        
-        // Act
-        sut.simulateUserInitiatedRefresh()
-        
-        // Assert
-        XCTAssertFalse(sut.isShowingProductLoadingIndicator, "Expected loading indicator not visible on user initiated refresh")
+        XCTAssertFalse(sut.isRefreshControlRefreshing, "Expected refresh control not refreshing after request ocmpleted")
     }
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (PRBasicMVCViewController, ProductStoreSpy) {

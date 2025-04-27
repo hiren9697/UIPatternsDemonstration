@@ -42,6 +42,7 @@ public class PRBasicMVCViewController: UIViewController {
         }
         productLoader.loadProducts(completion: {[weak self] _ in
             self?.loadingView.hide()
+            self?.refreshControl.endRefreshing()
         })
     }
 }
