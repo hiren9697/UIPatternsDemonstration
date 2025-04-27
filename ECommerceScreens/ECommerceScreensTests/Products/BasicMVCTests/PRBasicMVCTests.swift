@@ -51,9 +51,15 @@ class PRBasicMVCTests: XCTestCase {
         // Assert
     }
     
-    private func makeSUT() -> (PRBasicMVCViewController, ProductStoreSpy) {
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (PRBasicMVCViewController, ProductStoreSpy) {
         let loader = ProductStoreSpy()
         let sut = PRBasicMVCViewController(loader: loader)
+        trackMemory(for: loader,
+                    file: file,
+                    line: line)
+        trackMemory(for: sut,
+                    file: file,
+                    line: line)
         return (sut, loader)
     }
     
