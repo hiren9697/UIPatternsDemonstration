@@ -12,45 +12,27 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var button: UIButton!
     
-    lazy var progressButton: ProgressButton = {
-        let button = ProgressButton(title: "TEst",
-                                    titleColor: .white,
-                                    backgroundColor: .systemPink,
-                                    onClick: {
-            print("Hello there")
-        })
-        return button
-    }()
-    
+    let loader = Loader()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        loader.translatesAutoresizingMaskIntoConstraints = false
         
-        progressButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(progressButton)
-        progressButton.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        progressButton.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        progressButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        progressButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        view.addSubview(loader)
+        loader.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        loader.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        loader.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        loader.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
     @IBAction func btnTap() {
-        _ = PRSortViewComposer.compose(selectedSortOption: nil,
-                                       parentView: self.view,
-                                       completion: { selectedOption in
-            
+        loader.show(withOverlay: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3,
+                                      execute: {
+            self.loader.hide()
         })
     }
 }
 
-class FakeToast: Toast {
-    func present(message: ToastMessage) {
-        // Do nothing
-    }
-}
 
-class FakeLoginService: LoginService {
-    func login(with data: LoginServiceInputData, completion: @escaping Completion) {
-        // Do nothing
-    }
-}
 
