@@ -24,15 +24,18 @@ public class Loader: UIView {
     // MARK: - Public Interface
     public func show() {
         activityIndicator.startAnimating()
+        isHidden = false
     }
     
     public func hide() {
         activityIndicator.stopAnimating()
+        isHidden = true
     }
     
     // MARK: - UI Helper
     private func configureUI() {
         activityIndicator.hidesWhenStopped = true
+        isHidden = true
         
         addSubview(containerView)
         
