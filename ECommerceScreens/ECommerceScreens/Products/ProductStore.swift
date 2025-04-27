@@ -10,5 +10,5 @@ import Foundation
 public protocol ProductStore {
     typealias Completion = ([Product]) -> Void
     
-    func getProducts(completion: @escaping Completion)
+    func loadProducts(completion: @escaping Completion)
 }
