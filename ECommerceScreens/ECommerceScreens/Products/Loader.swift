@@ -8,8 +8,8 @@
 import UIKit
 
 public class Loader: UIView {
-    public let containerView: UIView = UIView()
-    public let activityIndicator: UIActivityIndicatorView
+    private let containerView: UIView = UIView()
+    private let activityIndicator: UIActivityIndicatorView
     
     public init() {
         self.activityIndicator = UIActivityIndicatorView()
@@ -21,11 +21,27 @@ public class Loader: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Public Interface
+    public func show() {
+        activityIndicator.startAnimating()
+    }
+    
+    public func hide() {
+        activityIndicator.stopAnimating()
+    }
+    
     // MARK: - UI Helper
     private func configureUI() {
-        self.addSubview(containerView)
+        activityIndicator.hidesWhenStopped = true
+        
+        addSubview(containerView)
         
         containerView.addSubview(activityIndicator)
+    }
+    
+    // MARK: - Test Properties
+    public var isActivityIndicatorAnimating: Bool {
+        return activityIndicator.isAnimating
     }
 }
 
