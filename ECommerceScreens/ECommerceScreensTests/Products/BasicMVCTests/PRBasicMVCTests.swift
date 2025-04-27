@@ -43,13 +43,17 @@ class PRBasicMVCTests: XCTestCase {
                        "Expected another request after user initiated another refresh")
     }
     
-    func test_loadingProductIndicator_isVisible_whenLoadingProductAfterViewIsAppearing() {
-        // Arrange
-        
-        // Act
-        
-        // Assert
-    }
+//    func test_loadingProductIndicator_isVisible_whenLoadingProductAfterViewIsAppearing() {
+//        // Arrange
+//        let (sut, _) = makeSUT()
+//        
+//        // Assert
+//        XCTAssertFalse(sut.isShowingProductLoadingIndicator, "Expected no loading indicator before viewIsAppearing called")
+//        
+//        // Act
+//        
+//        // Assert
+//    }
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (PRBasicMVCViewController, ProductStoreSpy) {
         let loader = ProductStoreSpy()
